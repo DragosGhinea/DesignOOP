@@ -1,0 +1,2 @@
+# DesignPatternsVisualizer
+ Bachelor degree thesis
