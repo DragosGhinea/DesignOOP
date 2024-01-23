@@ -1,10 +1,7 @@
 "use client";
-import { curves, curves2 } from "@/modules/main/constants/curves";
-import {
-  bezierSkin,
-  cubicBezierInterpolation,
-} from "@/modules/main/utils/bezierUtils";
-import generatePerlinNoise from "@/modules/main/utils/noise";
+import { curves, curves2 } from "@main/constants/curves";
+import { bezierSkin, cubicBezierInterpolation } from "@main/utils/bezierUtils";
+import generatePerlinNoise from "@main/utils/noise";
 import React, { useEffect, useState } from "react";
 
 function draw(
@@ -13,15 +10,15 @@ function draw(
   time: number,
   randoms: number[],
   color: string,
-  leftStartY: number,
+  leftStartY: number
 ) {
   const canvas = context.canvas;
 
   // context.clearRect(0, 0, canvas.width, canvas.height);
   const anchors = [0, canvas.height * leftStartY];
 
-  var j = 0;
-  for (var i = 0; i < curves.length; i++) {
+  let j = 0;
+  for (let i = 0; i < curves.length; i++) {
     const curve = curves[i];
     for (let t = 1 / 3; t <= 1; t += 1 / 3) {
       const x = cubicBezierInterpolation(
@@ -50,7 +47,7 @@ function draw(
       anchors.push(x + offset, y + offset);
     }
   }
-  anchors.push(canvas.width+20, 0);
+  anchors.push(canvas.width + 20, 0);
 
   context.save();
   context.fillStyle = color;
@@ -58,7 +55,18 @@ function draw(
   context.moveTo(0, 0);
   bezierSkin(context, anchors, false);
   context.lineTo(0, 0);
+
+  context.shadowColor = "rgba(0, 0, 0, 0.23)";
+  context.shadowBlur = 10;
+  context.shadowOffsetX = 3;
+  context.shadowOffsetY = 3;
+
   context.fill();
+
+  context.shadowColor = "transparent";
+  context.shadowBlur = 0;
+  context.shadowOffsetX = 0;
+  context.shadowOffsetY = 0;
   context.restore();
 }
 
@@ -95,6 +103,7 @@ const HeaderCanvas = () => {
 
   useEffect(() => {
     let time = 0;
+    let time2 = 0;
     let animationFrameId: number;
     const randoms: number[] = generatePerlinNoise(curves2.length * 3, 0.7, 0.5);
     const randoms2: number[] = generatePerlinNoise(curves.length * 3, 0.7, 0.5);
@@ -102,8 +111,9 @@ const HeaderCanvas = () => {
     if (context) {
       const render = () => {
         time += 0.001;
+        time2 += 0.0005;
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        draw(curves2, context, time, randoms2, "#0AC3FD", 0.9);
+        draw(curves2, context, time2, randoms2, "#0AC3FD", 0.9);
         draw(curves, context, time, randoms, "#0AA6FD", 0.85);
         animationFrameId = window.requestAnimationFrame(render);
       };
@@ -112,9 +122,11 @@ const HeaderCanvas = () => {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [draw, context]);
+  }, [context]);
 
-  return <canvas ref={canvasRef}></canvas>;
+  return (
+    <canvas className="absolute left-0 top-0 z-0" ref={canvasRef}></canvas>
+  );
 };
 
 export default HeaderCanvas;

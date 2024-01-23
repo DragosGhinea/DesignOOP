@@ -52,7 +52,7 @@ function calcAvgs(p: number[]): number[] {
     prev = i - 2;
     avg.push((p[prev] + p[i]) / 2);
   }
-  
+
   // close
   avg.push((p[0] + p[leng - 2]) / 2, (p[1] + p[leng - 1]) / 2);
   return avg;
