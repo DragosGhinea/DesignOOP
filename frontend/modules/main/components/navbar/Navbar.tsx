@@ -1,14 +1,45 @@
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import Link from "next/link";
 import React from "react";
 
-// absolute top-0 z-50 flex w-[100px] items-center gap-5 bg-light-900 p-6 shadow-light-300 dark:bg-dark-200 dark:shadow-none sm:px-12"
 const Navbar = () => {
   return (
-    <div className="absolute top-0 z-[150] inline-block h-[500px] bg-red-500">
-      <Link href="/" className="base-bold inline-block">
+    <div className="fixed top-0 z-50 flex w-full items-center justify-between gap-5 px-6 sm:px-12">
+      <Link
+        href="/"
+        className="h2-bold leading-[4.5rem] text-light-700 transition-colors hover:text-dark-500"
+      >
         DesignOOP
       </Link>
-      {/* <ul></ul> */}
+      <ul className="flex min-w-[40%] items-center justify-around">
+        <li>
+          <Link
+            href="/courses"
+            className="base-semibold p-6 leading-[3.5rem] text-light-700 transition-colors hover:text-dark-500"
+          >
+            Courses
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/quizzes"
+            className="base-semibold p-6 leading-[3.5rem] text-light-700 transition-colors hover:text-dark-500"
+          >
+            Quizzes
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/profile"
+            className="base-semibold p-6 leading-[3.5rem] text-light-700 transition-colors hover:text-dark-500"
+          >
+            Profile
+          </Link>
+        </li>
+        <li>
+          <ThemeToggle />
+        </li>
+      </ul>
     </div>
   );
 };

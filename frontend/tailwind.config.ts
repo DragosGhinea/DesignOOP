@@ -3,10 +3,11 @@ import type { Config } from "tailwindcss";
 const config = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{ts,tsx}",
+    "./modules/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   prefix: "",
   theme: {
@@ -24,7 +25,7 @@ const config = {
           200: "#0F1117",
           300: "#151821",
           400: "#212734",
-          500: "#101012",
+          500: "#3F4354",
         },
         light: {
           900: "#FFFFFF",
@@ -68,10 +69,10 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      // fontFamily: {
-      //   inter: ["var(--font-inter)"],
-      //   spaceGrotesk: ["var(--font-spaceGrotesk)"],
-      // },
+      fontFamily: {
+        inter: ["var(--font-inter)"],
+        spaceGrotesk: ["var(--font-spaceGrotesk)"],
+      },
       boxShadow: {
         "light-100":
           "0px 12px 20px 0px rgba(184, 184, 184, 0.03), 0px 6px 12px 0px rgba(184, 184, 184, 0.02), 0px 2px 4px 0px rgba(184, 184, 184, 0.03)",

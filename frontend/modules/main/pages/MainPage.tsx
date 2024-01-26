@@ -1,10 +1,8 @@
-import React from 'react'
-import HeaderCanvas from '@/modules/main/components/header/canvas/HeaderCanvas'
+import React from "react";
+import Header from "@main/components/header/Header";
 
 const MainPage = () => {
-  return (
-    <HeaderCanvas />
-  )
-}
+  return <Header />;
+};
 
-export default MainPage
+export default MainPage;

@@ -2,6 +2,7 @@
 import { curves, curves2 } from "@main/constants/curves";
 import { bezierSkin, cubicBezierInterpolation } from "@main/utils/bezierUtils";
 import generatePerlinNoise from "@main/utils/noise";
+import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 
 function draw(
@@ -10,7 +11,8 @@ function draw(
   time: number,
   randoms: number[],
   color: string,
-  leftStartY: number
+  leftStartY: number,
+  isDark = false
 ) {
   const canvas = context.canvas;
 
@@ -56,23 +58,31 @@ function draw(
   bezierSkin(context, anchors, false);
   context.lineTo(0, 0);
 
-  context.shadowColor = "rgba(0, 0, 0, 0.23)";
-  context.shadowBlur = 10;
-  context.shadowOffsetX = 3;
-  context.shadowOffsetY = 3;
+  if (isDark) context.fill();
+  else {
+    context.shadowColor = "rgba(0, 0, 0, 0.23)";
+    context.shadowBlur = 10;
+    context.shadowOffsetX = 3;
+    context.shadowOffsetY = 3;
 
-  context.fill();
+    context.fill();
 
-  context.shadowColor = "transparent";
-  context.shadowBlur = 0;
-  context.shadowOffsetX = 0;
-  context.shadowOffsetY = 0;
+    context.shadowColor = "transparent";
+    context.shadowBlur = 0;
+    context.shadowOffsetX = 0;
+    context.shadowOffsetY = 0;
+  }
   context.restore();
 }
 
 const HeaderCanvas = () => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D>();
+  const { resolvedTheme } = useTheme();
+
+  const isDark = resolvedTheme === "dark";
+  const wave1Color = isDark ? "#004074" : "#0AA6FD";
+  const wave2Color = isDark ? "#113555" : "#0AC3FD";
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -113,8 +123,8 @@ const HeaderCanvas = () => {
         time += 0.001;
         time2 += 0.0005;
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        draw(curves2, context, time2, randoms2, "#0AC3FD", 0.9);
-        draw(curves, context, time, randoms, "#0AA6FD", 0.85);
+        draw(curves2, context, time2, randoms2, wave2Color, 0.9, isDark);
+        draw(curves, context, time, randoms, wave1Color, 0.85, isDark);
         animationFrameId = window.requestAnimationFrame(render);
       };
       render();
@@ -122,7 +132,7 @@ const HeaderCanvas = () => {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [context]);
+  }, [context, isDark, wave1Color, wave2Color]);
 
   return (
     <canvas className="absolute left-0 top-0 z-0" ref={canvasRef}></canvas>

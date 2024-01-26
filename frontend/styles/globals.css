@@ -10,7 +10,8 @@ body {
   margin: 0;
 }
 
-/* @import url("../styles/typography.css"); */
+@import url("./typography.css");
+@import url("./scrollbar.css");
 
 @layer base {
   :root {
