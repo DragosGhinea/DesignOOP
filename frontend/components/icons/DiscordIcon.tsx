@@ -1,6 +1,6 @@
-import * as React from "react";
+import { SVGProps } from "react";
 
-function DiscordIcon(props: any) {
+function DiscordIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="currentColor"

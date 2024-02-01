@@ -35,6 +35,12 @@ const config = {
           500: "#7B8EC8",
           400: "#858EAD",
         },
+        blue: {
+          light: "#0AA6FD",
+          light2: "#0AC3FD",
+          dark: "#113555",
+          dark2: "#004074",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
