@@ -1,3 +1,4 @@
+import { User, loginWithOAuth } from "@/prisma/dbServerActions";
 import { NextAuthOptions } from "next-auth";
 import Discord from "next-auth/providers/discord";
 import Github from "next-auth/providers/github";
@@ -10,31 +11,44 @@ export const options: NextAuthOptions = {
     Discord({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
-      profile(profile) {
-        console.log(profile);
+      async profile(profile) {
+        const user = await loginWithOAuth(
+          "discord",
+          profile.id,
+          profile.email,
+          profile.username,
+          profile.avatar
+        );
 
-        return { ...profile, role: "USER" };
+        return { ...user, role: "USER" };
       },
     }),
     Github({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-      profile(profile) {
-        console.log(profile);
+      async profile(profile) {
+        console.log("Github profile", profile)
+        const user = await loginWithOAuth(
+          "github",
+          profile.id,
+          profile.email,
+          profile.username,
+          profile.avatar
+        );
 
-        return { ...profile, role: "USER" };
+        return { ...user, role: "USER" };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role;
+        token.user = user as User;
       }
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) session.user.role = token.role;
+      if (session?.user) session.user = token.user;
 
       return session;
     },

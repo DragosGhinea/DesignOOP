@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id      String    @id
+  email   String    @unique
+  username String
+  avatarUrl String?
+  linkedProviders LinkedProviders[]
+}
+
+
+model LinkedProviders {
+  id               String    @id
+  user             User      @relation(fields: [userId], references: [id])
+  userId           String
+  providerUserId   String
+  provider         String
+  linkingDatetime  DateTime
+
+  @@index([userId], name: "idx_linked_providers_user_id")
+}

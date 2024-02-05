@@ -51,7 +51,7 @@ const LogoutButton = () => {
 };
 
 const ProfileLink = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   if (status === "loading") return null;
 
