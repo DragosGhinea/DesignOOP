@@ -2,7 +2,7 @@ import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import Link from "next/link";
 import Image from "next/image";
 import React, { ReactNode } from "react";
-import ProfileLink from "@/modules/main/components/navbar/ProfileLink";
+import ProfileLink from "@/modules/courses/components/navbar/ProfileLink";
 
 const UnderlineAnimated = ({ children }: { children: ReactNode }) => {
   return <span className="underline-animated relative">{children}</span>;
@@ -10,10 +10,10 @@ const UnderlineAnimated = ({ children }: { children: ReactNode }) => {
 
 const Navbar = () => {
   return (
-    <div className="fixed top-0 z-50 flex w-full items-center justify-between gap-5 px-6 text-light-700 sm:px-12">
+    <div className="z-50 flex w-full items-center justify-between gap-5 px-6 text-dark-500 shadow-md dark:border-b-2 dark:text-light-700 dark:shadow-none sm:px-12">
       <Link
         href="/"
-        className="h2-bold flex items-center gap-1 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+        className="h2-bold relative flex items-center gap-1 [&_span]:before:hover:scale-x-100"
       >
         <Image
           src="/assets/images/logo.png"
@@ -27,7 +27,7 @@ const Navbar = () => {
         <li>
           <Link
             href="/courses"
-            className="base-semibold p-6 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+            className="base-semibold p-6 [&_span]:before:hover:scale-x-100"
           >
             <UnderlineAnimated>Courses</UnderlineAnimated>
           </Link>
@@ -35,7 +35,7 @@ const Navbar = () => {
         <li>
           <Link
             href="/quizzes"
-            className="base-semibold p-6 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+            className="base-semibold p-6 [&_span]:before:hover:scale-x-100"
           >
             <UnderlineAnimated>Quizzes</UnderlineAnimated>
           </Link>
@@ -43,7 +43,7 @@ const Navbar = () => {
         <li>
           <ProfileLink />
         </li>
-        <li className="flex items-center pl-6 text-black dark:text-white">
+        <li className="flex items-center pl-6">
           <ThemeToggle />
         </li>
       </ul>

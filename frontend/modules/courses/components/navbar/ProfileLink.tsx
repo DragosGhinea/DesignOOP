@@ -18,7 +18,7 @@ const NotificationsButton = () => {
     <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger>
-          <div className="cursor-pointer p-2">
+          <div className="cursor-pointer p-2 transition-colors">
             <BellIcon className="size-6" fill="currentColor" />
           </div>
         </TooltipTrigger>
@@ -35,7 +35,10 @@ const LogoutButton = () => {
     <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger>
-          <div className="cursor-pointer p-2" onClick={() => signOut()}>
+          <div
+            className="cursor-pointer p-2 transition-colors"
+            onClick={() => signOut()}
+          >
             <LogOutIcon className="size-6" />
           </div>
         </TooltipTrigger>
@@ -56,21 +59,21 @@ const ProfileLink = () => {
     return (
       <Link
         href="/login"
-        className="base-semibold p-6 text-light-700 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+        className="base-semibold p-6  transition-colors [&_span]:before:hover:scale-x-100"
       >
         <span className="underline-animated relative">Login</span>
       </Link>
     );
 
   return (
-    <div className="base-semibold flex items-center gap-5 text-light-700">
+    <div className="base-semibold flex items-center gap-5">
       <Link
         href="/profile"
-        className="base-semibold p-6 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+        className="base-semibold p-6 transition-colors [&_span]:before:hover:scale-x-100"
       >
         <span className="underline-animated relative">Profile</span>
       </Link>
-      <Separator orientation="vertical" className="h-7 w-[2px] bg-current" />
+      <Separator orientation="vertical" className="h-7 w-[2px]" />
       <NotificationsButton />
       <LogoutButton />
     </div>
