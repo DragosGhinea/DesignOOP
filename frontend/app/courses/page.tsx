@@ -1,9 +1,3 @@
-import React from 'react'
+import CourseSearchAndFilter from '@/modules/courses/components/middle/course-search-and-filter'
 
-const Courses = () => {
-  return (
-    <div>Courses</div>
-  )
-}
-
-export default Courses
+export default CourseSearchAndFilter;

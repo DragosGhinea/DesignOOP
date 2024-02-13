@@ -7,6 +7,14 @@
     @apply text-[30px] font-bold leading-[42px] tracking-tighter;
   }
 
+  .h1-semibold {
+    @apply text-[30px] font-semibold leading-[42px] tracking-tighter;
+  }
+
+  .h1-regular {
+    @apply text-[30px] font-normal leading-[42px] tracking-tighter;
+  }
+
   .h2-bold {
     @apply text-[24px] font-bold leading-[31.2px];
   }
