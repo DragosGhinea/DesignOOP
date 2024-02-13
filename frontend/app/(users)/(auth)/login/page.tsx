@@ -1,3 +1,3 @@
-import LoginPage from "@/modules/users/pages/LoginPage";
+import LoginPage from "@/modules/users/pages/login-page";
 
 export default LoginPage;

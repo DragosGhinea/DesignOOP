@@ -6,8 +6,8 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable";
 import React, { ReactNode } from "react";
-import LeftSidebar from "@/modules/courses/components/sidebar/LeftSidebar";
-import Navbar from "@/modules/courses/components/navbar/Navbar";
+import LeftSidebar from "@/modules/courses/components/sidebar/left-sidebar";
+import Navbar from "@/modules/courses/components/navbar/navbar";
 
 const CoursesLayoutClient = ({
   children,

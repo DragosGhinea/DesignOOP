@@ -1,6 +1,6 @@
 import React from "react";
-import HeaderCanvas from "./canvas/HeaderCanvas";
-import SuggestionsCard from "../suggestion/SuggestionsCard";
+import HeaderCanvas from "./canvas/header-canvas";
+import SuggestionsCard from "../suggestion/suggestions-card";
 
 const Header = () => {
   return (

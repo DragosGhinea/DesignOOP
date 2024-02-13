@@ -1,3 +1,3 @@
-import CoursesLayout from "@/modules/courses/pages/CoursesLayout";
+import CoursesLayout from "@/modules/courses/pages/courses-layout";
 
 export default CoursesLayout;

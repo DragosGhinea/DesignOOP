@@ -6,13 +6,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React from "react";
-import LeftDownBlob from "../components/blobs/LeftDownBlob";
-import RightUpBlob from "../components/blobs/RightUpBlob";
+import LeftDownBlob from "../components/blobs/left-down-blob";
+import RightUpBlob from "../components/blobs/right-up-blob";
 import { ShieldIcon, Undo2Icon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import LoginForm from "../components/forms/LoginForm";
+import LoginForm from "../components/forms/login-form";
 
 const LoginPage = ({
   searchParams,

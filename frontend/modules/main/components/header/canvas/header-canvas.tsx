@@ -1,6 +1,6 @@
 "use client";
 import { curves, curves2 } from "@main/constants/curves";
-import { bezierSkin, cubicBezierInterpolation } from "@main/utils/bezierUtils";
+import { bezierSkin, cubicBezierInterpolation } from "@main/utils/bezier-utils";
 import generatePerlinNoise from "@main/utils/noise";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";

@@ -27,7 +27,7 @@ export function bezierSkin(
   if (closed) {
     ctx.moveTo(avg[0], avg[1]);
     for (let i: number = 2; i < leng; i += 2) {
-      let n: number = i + 1;
+      const n: number = i + 1;
       ctx.quadraticCurveTo(bez[i], bez[n], avg[i], avg[n]);
     }
     ctx.quadraticCurveTo(bez[0], bez[1], avg[0], avg[1]);
@@ -35,7 +35,7 @@ export function bezierSkin(
     ctx.moveTo(bez[0], bez[1]);
     ctx.lineTo(avg[0], avg[1]);
     for (let i: number = 2; i < leng - 2; i += 2) {
-      let n: number = i + 1;
+      const n: number = i + 1;
       ctx.quadraticCurveTo(bez[i], bez[n], avg[i], avg[n]);
     }
     ctx.lineTo(bez[leng - 2], bez[leng - 1]);

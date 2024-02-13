@@ -1,3 +1,3 @@
-import ProfilePage from '@/modules/users/pages/ProfilePage'
+import ProfilePage from '@/modules/users/pages/profile-page'
 
 export default ProfilePage;

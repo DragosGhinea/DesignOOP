@@ -1,8 +1,8 @@
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import Link from "next/link";
 import Image from "next/image";
 import React, { ReactNode } from "react";
-import ProfileLink from "@/modules/main/components/navbar/ProfileLink";
+import ProfileLink from "@main/components/navbar/profile-link";
 
 const UnderlineAnimated = ({ children }: { children: ReactNode }) => {
   return <span className="underline-animated relative">{children}</span>;

@@ -1,4 +1,4 @@
-import LoginNavbar from "@/modules/users/components/navbar/LoginNavbar";
+import LoginNavbar from "@/modules/users/components/navbar/login-navbar";
 import { ReactNode } from "react";
 
 const Layout = ({ children }: { children: ReactNode }) => {

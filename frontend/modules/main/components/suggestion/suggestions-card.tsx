@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { KeyRoundIcon, Layers3Icon, LinkIcon } from "lucide-react";
-import DiscordIcon from "@/components/icons/DiscordIcon";
+import DiscordIcon from "@/components/icons/discord-icon";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const SuggestionEntry = ({

@@ -1,7 +1,7 @@
 "use client";
 
-import DiscordIcon from "@/components/icons/DiscordIcon";
-import GithubIcon from "@/components/icons/GithubIcon";
+import DiscordIcon from "@/components/icons/discord-icon";
+import GithubIcon from "@/components/icons/github-icon";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
