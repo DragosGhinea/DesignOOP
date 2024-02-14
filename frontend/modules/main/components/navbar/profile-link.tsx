@@ -56,17 +56,17 @@ const ProfileLink = () => {
     return (
       <Link
         href="/login"
-        className="base-semibold p-6 text-light-700 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+        className="p-typography p-6 font-semibold text-light-700 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
       >
         <span className="underline-animated relative">Login</span>
       </Link>
     );
 
   return (
-    <div className="base-semibold flex items-center gap-5 text-light-700">
+    <div className="p-typography flex items-center gap-5 font-semibold text-light-700">
       <Link
         href="/profile"
-        className="base-semibold p-6 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+        className="p-typography p-6 font-semibold transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
       >
         <span className="underline-animated relative">Profile</span>
       </Link>

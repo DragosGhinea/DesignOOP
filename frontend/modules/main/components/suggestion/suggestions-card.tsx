@@ -35,10 +35,10 @@ const SuggestionEntry = ({
         className
       )}
     >
-      <p className="base-medium col-span-6 self-center overflow-hidden text-ellipsis text-muted-foreground">
+      <p className="p-typography col-span-6 self-center overflow-hidden text-ellipsis text-muted-foreground">
         {description}
       </p>
-      <h3 className="base-bold col-span-6 self-center overflow-hidden text-ellipsis">
+      <h3 className="p-typography col-span-6 self-center overflow-hidden text-ellipsis font-bold">
         {name}
       </h3>
       <div className="col-span-2 col-start-7 row-span-2 row-start-1 flex items-center justify-center self-center justify-self-end rounded-xl bg-light-700 p-2 dark:bg-dark-100">

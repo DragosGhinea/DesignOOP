@@ -18,14 +18,14 @@ const LoginForm = () => {
   return (
     <div className="flex flex-col gap-5 p-5">
       <Button
-        className="flex w-full items-center gap-3 bg-[#7289da] text-lg hover:bg-[#677bc4] dark:bg-[#5865f2] dark:text-white dark:hover:bg-[#4e5dc4]"
+        className="h6-typography flex w-full items-center gap-3 bg-[#7289da] hover:bg-[#677bc4] dark:bg-[#5865f2] dark:text-white dark:hover:bg-[#4e5dc4]"
         size="lg"
         onClick={() => signInClick("discord")}
       >
         <DiscordIcon className="size-8" /> Discord
       </Button>
       <Button
-        className="flex w-full items-center gap-3 text-lg"
+        className="h6-typography flex w-full items-center gap-3"
         size="lg"
         onClick={() => signInClick("github")}
       >

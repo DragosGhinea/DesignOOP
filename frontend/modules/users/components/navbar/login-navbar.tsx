@@ -8,7 +8,7 @@ const LoginNavbar = () => {
     <div className="fixed top-0 z-50 flex w-full items-center justify-between gap-5 px-6 sm:px-12">
       <Link
         href="/"
-        className="h2-bold flex items-center gap-1 transition-colors hover:text-dark-500 dark:text-light-700"
+        className="h5-typography flex items-center gap-1 font-bold transition-colors hover:text-dark-500 dark:text-light-700"
       >
         <Image
           src="/assets/images/logo.png"

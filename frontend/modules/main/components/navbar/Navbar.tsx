@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className="fixed top-0 z-50 flex w-full items-center justify-between gap-5 px-6 text-light-700 sm:px-12">
       <Link
         href="/"
-        className="h2-bold flex items-center gap-1 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+        className="h5-typography flex items-center gap-1 font-bold transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
       >
         <Image
           src="/assets/images/logo.png"
@@ -27,7 +27,7 @@ const Navbar = () => {
         <li>
           <Link
             href="/courses"
-            className="base-semibold p-6 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+            className="p-typography p-6 font-semibold transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
           >
             <UnderlineAnimated>Courses</UnderlineAnimated>
           </Link>
@@ -35,7 +35,7 @@ const Navbar = () => {
         <li>
           <Link
             href="/quizzes"
-            className="base-semibold p-6 transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
+            className="p-typography p-6 font-semibold transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"
           >
             <UnderlineAnimated>Quizzes</UnderlineAnimated>
           </Link>

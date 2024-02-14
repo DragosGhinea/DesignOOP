@@ -17,7 +17,7 @@ const LeftSidebarItem = ({ name, icon }: { name: string; icon: ReactNode }) => {
           className="inline-flex min-h-16 min-w-16 max-w-16 items-center rounded-lg border-4 border-dark-300 transition-[max-width] duration-300 @[16rem]:max-w-[100%] @[16rem]:gap-4"
         >
           <div>{icon}</div>
-          <span className="base-semibold overflow-hidden text-nowrap ">
+          <span className="p-typography overflow-hidden text-nowrap font-semibold ">
             {name}
           </span>
         </Button>
@@ -28,7 +28,7 @@ const LeftSidebarItem = ({ name, icon }: { name: string; icon: ReactNode }) => {
         sideOffset={5}
         className="@[16rem]:hidden"
       >
-        <p className="base-semibold">{name}</p>
+        <p className="p-typography font-semibold">{name}</p>
       </TooltipContent>
     </Tooltip>
   );
@@ -37,7 +37,7 @@ const LeftSidebarItem = ({ name, icon }: { name: string; icon: ReactNode }) => {
 const LeftSidebar = () => {
   return (
     <div className="flex size-full flex-col items-center @container">
-      <div className="base-semibold flex h-full max-w-16 flex-col justify-between gap-5 py-10 transition-[max-width] duration-300 @[16rem]:max-w-[100%]">
+      <div className="flex h-full max-w-16 flex-col justify-between gap-5 py-10 transition-[max-width] duration-300 @[16rem]:max-w-[100%]">
         <TooltipProvider>
           <LeftSidebarItem name="Search Course" icon={<SearchIcon />} />
           <LeftSidebarItem name="Recently Visited" icon={<EyeIcon />} />

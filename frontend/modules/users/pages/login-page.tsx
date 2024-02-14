@@ -29,7 +29,7 @@ const LoginPage = ({
         <Card className="relative flex w-full flex-col items-center shadow-dark-100 dark:shadow-none md:w-[30%]">
           <CardHeader className="flex flex-row items-center justify-stretch gap-5">
             <CardTitle className="grow">Login</CardTitle>
-            <CardDescription className="border-l-[1px] pl-3">
+            <CardDescription className="border-l-[1px] pl-3 font-semibold">
               If you want to access your progress stats and activity, you need
               to be authenticated.
             </CardDescription>
