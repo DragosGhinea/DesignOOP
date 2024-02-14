@@ -3,9 +3,9 @@
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { TypeAnimation } from "react-type-animation";
-import { useLocalStorage } from "usehooks-ts";
+import { useDebounceCallback, useLocalStorage } from "usehooks-ts";
 
 const SearchInput = ({ className }: { className?: string }) => {
   const searchInput = useRef<HTMLInputElement>(null);
@@ -14,9 +14,14 @@ const SearchInput = ({ className }: { className?: string }) => {
   const searchParams = useSearchParams();
   const [searches, setSearches] = useLocalStorage<string[]>(
     "course-searches",
-    [],
-    { initializeWithValue: false }
+    []
   );
+
+  const debouncedSearch = useDebounceCallback((e) => {
+    router.replace(
+      pathname + "?" + createQueryString("search", e.target.value.trim())
+    );
+  }, 500);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -31,28 +36,30 @@ const SearchInput = ({ className }: { className?: string }) => {
 
   const search = searchParams.get("search") ?? "";
 
+  useEffect(() => {
+    if (searchInput.current && search) {
+      const str = searchInput.current.value;
+      const searchesCopy = [...searches];
+      const index = searchesCopy.indexOf(str);
+      if (index > -1) {
+        searchesCopy.splice(index, 1);
+      }
+      searchesCopy.push(str);
+      if (searchesCopy.length > 10) {
+        searchesCopy.shift();
+      }
+
+      setSearches(searchesCopy);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchInput, search]);
+
   return (
     <div className={cn("relative flex items-center", className)}>
       <input
         defaultValue={search}
         onChange={(e) => {
-          if (e.target.value) {
-            const str = e.target.value;
-            const searchesCopy = [...searches];
-            const index = searchesCopy.indexOf(str);
-            if (index > -1) {
-              searchesCopy.splice(index, 1);
-            }
-            searchesCopy.push(str);
-            if (searchesCopy.length > 10) {
-              searchesCopy.shift();
-            }
-
-            setSearches(searchesCopy);
-          }
-          router.replace(
-            pathname + "?" + createQueryString("search", e.target.value)
-          );
+          debouncedSearch(e);
         }}
         ref={searchInput}
         placeholder="Search"
