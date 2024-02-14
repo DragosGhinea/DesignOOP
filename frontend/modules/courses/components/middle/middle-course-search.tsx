@@ -1,7 +1,7 @@
 import React from "react";
 import SearchInput from "../search/search-input";
 
-const CourseSearchAndFilter = () => {
+const CourseSearch = () => {
   return (
     <div className="flex size-full flex-col items-center p-10">
       <h1 className="h1-typography">Courses</h1>
@@ -14,4 +14,4 @@ const CourseSearchAndFilter = () => {
   );
 };
 
-export default CourseSearchAndFilter;
+export default CourseSearch;

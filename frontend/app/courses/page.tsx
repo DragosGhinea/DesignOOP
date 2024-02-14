@@ -1,3 +1,3 @@
-import CourseSearchAndFilter from '@/modules/courses/components/middle/course-search-and-filter'
+import CourseSearch from "@/modules/courses/components/middle/middle-course-search";
 
-export default CourseSearchAndFilter;
+export default CourseSearch;

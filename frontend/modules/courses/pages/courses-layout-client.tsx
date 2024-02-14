@@ -8,6 +8,7 @@ import {
 import React, { ReactNode } from "react";
 import LeftSidebar from "@/modules/courses/components/sidebar/left-sidebar";
 import Navbar from "@/modules/courses/components/navbar/navbar";
+import RightSidebarCourseSearch from "../components/sidebar/right/right-sidebar-course-search";
 
 const CoursesLayoutClient = ({
   children,
@@ -38,7 +39,9 @@ const CoursesLayoutClient = ({
           {children}
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel defaultSize={defaultLayout[2]}>Three</ResizablePanel>
+        <ResizablePanel defaultSize={defaultLayout[2]}>
+          <RightSidebarCourseSearch />
+        </ResizablePanel>
       </ResizablePanelGroup>
     </main>
   );
