@@ -38,6 +38,7 @@ const SearchInput = ({ className }: { className?: string }) => {
 
   useEffect(() => {
     if (searchInput.current && search) {
+      searchInput.current.value = search;
       const str = searchInput.current.value;
       const searchesCopy = [...searches];
       const index = searchesCopy.indexOf(str);
@@ -57,7 +58,6 @@ const SearchInput = ({ className }: { className?: string }) => {
   return (
     <div className={cn("relative flex items-center", className)}>
       <input
-        defaultValue={search}
         onChange={(e) => {
           debouncedSearch(e);
         }}
