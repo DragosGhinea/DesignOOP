@@ -39,7 +39,7 @@ const CoursesLayoutClient = ({
           {children}
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel defaultSize={defaultLayout[2]}>
+        <ResizablePanel defaultSize={defaultLayout[2]} minSize={7} maxSize={50}>
           <RightSidebarCourseSearch />
         </ResizablePanel>
       </ResizablePanelGroup>

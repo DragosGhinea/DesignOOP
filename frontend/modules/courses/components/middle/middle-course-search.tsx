@@ -1,7 +1,8 @@
 import React from "react";
 import SearchInput from "../search/search-input";
+import SearchResultsList from "../search/search-results-list";
 
-const CourseSearch = () => {
+const CourseSearch = ({searchParams} : {searchParams: {search?: string}}) => {
   return (
     <div className="flex size-full flex-col items-center p-10">
       <h1 className="h1-typography">Courses</h1>
@@ -10,6 +11,7 @@ const CourseSearch = () => {
         content.
       </p>
       <SearchInput className="w-[60%] min-w-80" />
+      <SearchResultsList search={searchParams.search}/>
     </div>
   );
 };
