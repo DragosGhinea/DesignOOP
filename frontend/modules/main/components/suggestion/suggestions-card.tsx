@@ -31,7 +31,7 @@ const SuggestionEntry = ({
     <Link
       href={link}
       className={cn(
-        "w-full shadow-[rgba(0,0,0,0.1)_0px_4px_12px] dark:shadow-none dark:bg-dark-300 bg-light-850 p-5 rounded-md grid grid-cols-8 grid-rows-2 whitespace-nowrap hover:whitespace-normal",
+        "w-full shadow-[rgba(0,0,0,0.1)_0px_4px_12px] dark:shadow-none dark:bg-dark-300 bg-light-850 p-5 rounded-md grid grid-cols-8 grid-rows-2 whitespace-nowrap hover:whitespace-normal max-h-[100px] hover:max-h-[500px] transition-all [&_div]:hover:border-blue-300 [&_div]:dark:hover:border-blue-800 duration-500",
         className
       )}
     >
@@ -41,7 +41,7 @@ const SuggestionEntry = ({
       <h3 className="p-typography col-span-6 self-center overflow-hidden text-ellipsis font-bold">
         {name}
       </h3>
-      <div className="col-span-2 col-start-7 row-span-2 row-start-1 flex items-center justify-center self-center justify-self-end rounded-xl bg-light-700 p-2 dark:bg-dark-100">
+      <div className="col-span-2 col-start-7 row-span-2 row-start-1 flex items-center justify-center self-center justify-self-end rounded-xl border-2 bg-light-700 p-2 transition-[border] duration-700 dark:bg-dark-100">
         {icon}
       </div>
     </Link>
@@ -50,7 +50,7 @@ const SuggestionEntry = ({
 
 const SuggestionsCard = ({ className }: { className?: string }) => {
   return (
-    <Card className={cn("relative overflow-auto custom-scrollbar", className)}>
+    <Card className={cn("relative overflow-auto", className)}>
       <CardHeader>
         <CardTitle>Suggestions</CardTitle>
         <CardDescription>Some actions suggested for you</CardDescription>
