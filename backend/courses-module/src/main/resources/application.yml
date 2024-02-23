@@ -1,0 +1,10 @@
+server.port: 8081
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: ${mongodb_username}
+      password: ${mongodb_password}
+      database: ${mongodb_database}
+      host: ${mongodb_host}
+      port: ${mongodb_port}

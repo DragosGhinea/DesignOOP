@@ -7,17 +7,21 @@
     <groupId>ro.dragosghinea</groupId>
     <artifactId>designoop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>courses-module</module>
+    </modules>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
+        <version>3.2.3</version>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
+        <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
     </properties>
 
     <dependencies>
@@ -27,9 +31,29 @@
         </dependency>
     </dependencies>
 
-    <modules>
-        <module>core-module</module>
-    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${org.mapstruct.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.26</version>
+                <optional>true</optional>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -42,5 +66,51 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.0</version>
+                        <configuration>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.mapstruct</groupId>
+                                    <artifactId>mapstruct-processor</artifactId>
+                                    <version>${org.mapstruct.version}</version>
+                                </path>
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                    <version>${lombok.version}</version>
+                                </path>
+                                <dependency>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok-mapstruct-binding</artifactId>
+                                    <version>0.2.0</version>
+                                </dependency>
+                            </annotationProcessorPaths>
+                            <compilerArgs>
+                                <compilerArg>
+                                    -Amapstruct.defaultComponentModel=spring
+                                </compilerArg>
+                            </compilerArgs>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+        </pluginManagement>
     </build>
 </project>
