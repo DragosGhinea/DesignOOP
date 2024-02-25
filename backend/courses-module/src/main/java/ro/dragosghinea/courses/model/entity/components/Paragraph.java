@@ -1,6 +1,7 @@
 package ro.dragosghinea.courses.model.entity.components;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,9 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
+@JsonTypeName("paragraph")
 public class Paragraph implements CourseComponent {
+    @JsonIgnore // this field is handled by Jackson, we need to specify it here so MongoDB can save it
     private final String componentType = "paragraph";
 
     @JsonIgnore
