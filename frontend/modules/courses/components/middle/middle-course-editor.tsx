@@ -19,7 +19,7 @@ const CourseEditor = () => {
         </h6>
       </div>
       <Tabs
-        defaultValue="yaml"
+        defaultValue="json"
         className="relative flex grow-[1] flex-col overflow-y-auto"
       >
         <div className="mb-2 flex justify-center">
