@@ -1,10 +1,14 @@
 import React, { createContext, useState, ReactNode } from "react";
+import { useBoolean } from "usehooks-ts";
 
-type CourseJSONType = JSON;
+type CourseJSONType = JSON | null;
 
 export interface CourseJSONContextType {
   courseJSON: CourseJSONType;
   setCourseJSON: React.Dispatch<React.SetStateAction<CourseJSONType>>;
+  isEditorValid: boolean;
+  markEditorValid: () => void;
+  markEditorInvalid: () => void;
 }
 
 export const CourseJSONContext = createContext<
@@ -13,17 +17,26 @@ export const CourseJSONContext = createContext<
 
 interface CourseJSONProviderProps {
   children: ReactNode;
-  courseJson: CourseJSONType;
 }
 
-const CourseJSONProvider = ({
-  children,
-  courseJson,
-}: CourseJSONProviderProps) => {
-  const [courseJSON, setCourseJSON] = useState<CourseJSONType>(courseJson);
+const CourseJSONProvider = ({ children }: CourseJSONProviderProps) => {
+  const [courseJSON, setCourseJSON] = useState<CourseJSONType>(null);
+  const {
+    value: isEditorValid,
+    setTrue: markEditorValid,
+    setFalse: markEditorInvalid,
+  } = useBoolean(true);
 
   return (
-    <CourseJSONContext.Provider value={{ courseJSON, setCourseJSON }}>
+    <CourseJSONContext.Provider
+      value={{
+        courseJSON,
+        setCourseJSON,
+        isEditorValid,
+        markEditorValid,
+        markEditorInvalid,
+      }}
+    >
       {children}
     </CourseJSONContext.Provider>
   );

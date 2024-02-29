@@ -94,7 +94,7 @@ const Searches = ({
   );
 };
 
-const RightSidebarCourseSearch = () => {
+const CourseSearchHistory = () => {
   const [searches, setSearches] = useLocalStorage<string[]>(
     "course-searches",
     [],
@@ -117,4 +117,4 @@ const RightSidebarCourseSearch = () => {
   );
 };
 
-export default RightSidebarCourseSearch;
+export default CourseSearchHistory;

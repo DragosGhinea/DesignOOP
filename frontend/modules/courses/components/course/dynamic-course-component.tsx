@@ -22,7 +22,10 @@ const DynamicCourseComponent = ({
       return null;
     }
     return jsonDataChildren.map((child: any, index: number) => (
-      <ErrorBoundary key={index} fallback={<h1>There is an error.</h1>}>
+      <ErrorBoundary
+        key={JSON.stringify({ ...child, children: undefined, index })}
+        fallback={<h1>There is an error.</h1>}
+      >
         <DynamicCourseComponent jsonData={child} />
       </ErrorBoundary>
     ));
