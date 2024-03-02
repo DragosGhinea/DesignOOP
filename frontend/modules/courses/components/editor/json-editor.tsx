@@ -17,6 +17,13 @@ import { SyntaxNode } from "@lezer/common";
 import { useDebounceCallback } from "usehooks-ts";
 import { indentationMarkers } from "@replit/codemirror-indentation-markers";
 import { vscodeKeymap } from "@replit/codemirror-vscode-keymap";
+import {
+  autocompletion,
+  CompletionContext,
+  snippetCompletion,
+} from "@codemirror/autocomplete";
+import { componentSnippets } from "../../utils/json-autocomplete-components";
+import { propertyAutocomplete } from "../../utils/json-autocomplete-properties";
 
 const extensions = [
   json(),
@@ -25,8 +32,12 @@ const extensions = [
     delay: 300,
   }),
   // jsonLanguage.data.of({
-  //   autocomplete: jsonCompletion(),
+  //   // autocomplete: [
+  //   //   snippetCompletion("ceva de test\nline1\nline2", { label: "Ceva" }),
+  //   // ],
+  //   autocomplete: [testCompletion],
   // }),
+  autocompletion({ override: [componentSnippets, propertyAutocomplete] }),
   indentationMarkers({
     highlightActiveBlock: true,
     hideFirstIndent: true,
@@ -39,41 +50,8 @@ const extensions = [
       activeDark: "#FFD700",
     },
   }),
-  keymap.of(vscodeKeymap)
+  keymap.of(vscodeKeymap),
 ] as Extension[];
-
-const extractProperty = (text: Text, property: SyntaxNode) => {
-  const propertyName = property.firstChild;
-  const value = property.lastChild;
-
-  if (!propertyName) {
-    return;
-  }
-
-  if (!value) {
-    return;
-  }
-
-  const propertyKey = text.sliceString(propertyName.from, propertyName.to);
-  const propertyValue = text.sliceString(value.from, value.to);
-
-  return { propertyKey, propertyValue };
-};
-
-const getComponentType = (text: Text, objectNode: SyntaxNode) => {
-  if (objectNode.name !== "Object") {
-    return null;
-  }
-
-  for (const node of objectNode.getChildren("Property")) {
-    const property = extractProperty(text, node);
-    if (!property) continue;
-
-    if (property.propertyKey === "componentType") {
-      return property.propertyValue;
-    }
-  }
-};
 
 const JSONEditor = () => {
   const { resolvedTheme } = useTheme();
@@ -100,17 +78,17 @@ const JSONEditor = () => {
       theme={themeCodeMirror}
       value={JSON.stringify(courseJSON, null, 2)}
       onMouseDown={(event) => {
-        console.log("CLICK");
-        const position = codeRef.current!.view!.posAtCoords({
-          x: event.clientX,
-          y: event.clientY,
-        }) as number;
-        const syntaxNode = syntaxTree(codeRef.current!.view!.state).resolve(
-          position
-        );
-        console.log(
-          getComponentType(codeRef.current!.view!.state.doc, syntaxNode.node)
-        );
+        // console.log("CLICK");
+        // const position = codeRef.current!.view!.posAtCoords({
+        //   x: event.clientX,
+        //   y: event.clientY,
+        // }) as number;
+        // const syntaxNode = syntaxTree(codeRef.current!.view!.state).resolve(
+        //   position
+        // );
+        // console.log(
+        //   getComponentType(codeRef.current!.view!.state.doc, syntaxNode.node)
+        // );
       }}
       onChange={debouncedChange}
       // onChange={(value, viewUpdate) => {

@@ -1,14 +1,8 @@
 "use client";
 
 import React, { useMemo } from "react";
-import Paragraph from "./paragraph";
-import Container from "./container";
 import { ErrorBoundary } from "react-error-boundary";
-
-const Components: { [key: string]: React.FC<any> } = {
-  container: Container,
-  paragraph: Paragraph,
-};
+import { Components } from "../../constants/dynamic-course-components";
 
 const DynamicCourseComponent = ({
   jsonData,
@@ -31,7 +25,7 @@ const DynamicCourseComponent = ({
     ));
   }, [jsonDataChildren]);
 
-  const Component = Components[jsonData.componentType];
+  const Component = Components[jsonData.componentType].component;
   if (!Component) {
     throw new Error(`Component "${jsonData.componentType}" not found.`);
   }
