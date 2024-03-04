@@ -2,17 +2,23 @@ import React from "react";
 import Container from "../components/course/container";
 import Paragraph from "../components/course/paragraph";
 
+type LintParams = {
+  required?: boolean;
+  type?: string;
+};
+
 type BaseParam = {
   paramName: string;
+  linting?: LintParams;
   paramAutocomplete?: any;
   description?: string;
 };
 
-type ParamWithType = BaseParam & {
+export type ParamWithType = BaseParam & {
   paramType: string;
 };
 
-type ParamWithLiteralValues = BaseParam & {
+export type ParamWithLiteralValues = BaseParam & {
   literalValues: string[];
 };
 
@@ -37,3 +43,19 @@ export const Components: { [key: string]: ComponentConfig } = {
     hasChildren: false,
   },
 };
+
+export const CourseParameters: ParamWithType[] = [
+  {
+    paramName: "title",
+    paramType: "string",
+    linting: { required: true, type: "String" },
+  },
+  { paramName: "subtitle", paramType: "string" },
+  { paramName: "description", paramType: "string" },
+  { paramName: "tags", paramType: "string[]", paramAutocomplete: "[]" },
+  {
+    paramName: "components",
+    paramType: "Component[]",
+    paramAutocomplete: "[]",
+  },
+];

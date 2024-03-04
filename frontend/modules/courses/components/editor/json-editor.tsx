@@ -7,23 +7,18 @@ import CodeMirror, {
   hoverTooltip,
 } from "@uiw/react-codemirror";
 import { linter, lintGutter } from "@codemirror/lint";
-import { EditorView, keymap } from "@codemirror/view";
-import { json, jsonParseLinter, jsonLanguage } from "@codemirror/lang-json";
-import { StreamLanguage, syntaxTree } from "@codemirror/language";
+import { keymap } from "@codemirror/view";
+import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { xcodeLight, xcodeDark } from "@uiw/codemirror-theme-xcode";
 import { useTheme } from "next-themes";
 import useCourseJSON from "../../hooks/use-course-json";
-import { SyntaxNode } from "@lezer/common";
 import { useDebounceCallback } from "usehooks-ts";
 import { indentationMarkers } from "@replit/codemirror-indentation-markers";
 import { vscodeKeymap } from "@replit/codemirror-vscode-keymap";
-import {
-  autocompletion,
-  CompletionContext,
-  snippetCompletion,
-} from "@codemirror/autocomplete";
+import { autocompletion } from "@codemirror/autocomplete";
 import { componentSnippets } from "../../utils/json-autocomplete-components";
 import { propertyAutocomplete } from "../../utils/json-autocomplete-properties";
+import { componentAndPropertiesLinter } from "../../utils/json-lint";
 
 const extensions = [
   json(),
@@ -31,17 +26,13 @@ const extensions = [
     // default is 750ms
     delay: 300,
   }),
-  // jsonLanguage.data.of({
-  //   // autocomplete: [
-  //   //   snippetCompletion("ceva de test\nline1\nline2", { label: "Ceva" }),
-  //   // ],
-  //   autocomplete: [testCompletion],
-  // }),
+  linter(componentAndPropertiesLinter, {
+    delay: 300,
+  }),
   autocompletion({ override: [componentSnippets, propertyAutocomplete] }),
   indentationMarkers({
     highlightActiveBlock: true,
     hideFirstIndent: true,
-    // markerType: "codeOnly",
     thickness: 1.5,
     colors: {
       light: "#AAAAAA",
