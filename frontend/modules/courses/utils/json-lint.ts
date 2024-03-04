@@ -78,7 +78,7 @@ const iterateComponentTree = (
         from: node.from,
         to: node.to,
         message: `Property "${property.propertyKey}" does not exist in component "${componentType}"`,
-        severity: "error",
+        severity: "warning",
       });
     } else {
       const param = componentParams[paramIndex];
@@ -87,7 +87,7 @@ const iterateComponentTree = (
           diagnostics.push({
             from: node.from,
             to: node.to,
-            message: `Property "${property.propertyKey}" must be of type "${param.linting.type}, not "${node.lastChild!.name}"`,
+            message: `Property "${property.propertyKey}" must be of type "${param.linting.type}", not "${node.lastChild!.name}"`,
             severity: "error",
           });
         }
@@ -167,7 +167,7 @@ const iterateCourseObject = (
         from: node.from,
         to: node.to,
         message: `Property "${property.propertyKey}" does not exist in the course object`,
-        severity: "error",
+        severity: "warning",
       });
     } else {
       const param = componentParams[paramIndex];
@@ -176,7 +176,7 @@ const iterateCourseObject = (
           diagnostics.push({
             from: node.from,
             to: node.to,
-            message: `Property "${property.propertyKey}" must be of type "${param.linting.type}, not "${node.lastChild!.name}"`,
+            message: `Property "${property.propertyKey}" must be of type "${param.linting.type}", not "${node.lastChild!.name}"`,
             severity: "error",
           });
         }

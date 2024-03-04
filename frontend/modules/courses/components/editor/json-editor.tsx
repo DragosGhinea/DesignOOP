@@ -2,11 +2,9 @@ import React from "react";
 import CodeMirror, {
   Extension,
   ReactCodeMirrorRef,
-  Text,
   ViewUpdate,
-  hoverTooltip,
 } from "@uiw/react-codemirror";
-import { linter, lintGutter } from "@codemirror/lint";
+import { linter, lintGutter, forEachDiagnostic } from "@codemirror/lint";
 import { keymap } from "@codemirror/view";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { xcodeLight, xcodeDark } from "@uiw/codemirror-theme-xcode";
@@ -22,12 +20,13 @@ import { componentAndPropertiesLinter } from "../../utils/json-lint";
 
 const extensions = [
   json(),
+  lintGutter(),
   linter(jsonParseLinter(), {
     // default is 750ms
-    delay: 300,
+    delay: 600,
   }),
   linter(componentAndPropertiesLinter, {
-    delay: 300,
+    delay: 600,
   }),
   autocompletion({ override: [componentSnippets, propertyAutocomplete] }),
   indentationMarkers({
@@ -54,6 +53,13 @@ const JSONEditor = () => {
 
   const debouncedChange = useDebounceCallback(
     (value: string, viewUpdate: ViewUpdate) => {
+      let errors = 0;
+      forEachDiagnostic(viewUpdate.state, (diagnostic) => {
+        if (diagnostic.severity === "error") errors++;
+      });
+
+      if (errors !== 0) return;
+
       try {
         setCourseJSON(JSON.parse(value));
       } catch (e) {}
