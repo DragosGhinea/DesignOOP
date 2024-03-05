@@ -17,9 +17,11 @@ import { autocompletion } from "@codemirror/autocomplete";
 import { componentSnippets } from "../../utils/json-autocomplete-components";
 import { propertyAutocomplete } from "../../utils/json-autocomplete-properties";
 import { componentAndPropertiesLinter } from "../../utils/json-lint";
+import { jsonCodeFolding } from "../../utils/json-custom-fold";
 
 const extensions = [
   json(),
+  jsonCodeFolding(),
   lintGutter(),
   linter(jsonParseLinter(), {
     // default is 750ms
