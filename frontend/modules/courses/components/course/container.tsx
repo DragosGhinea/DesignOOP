@@ -1,11 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
 
-const Container = ({children} : {children: ReactNode}) => {
-  return (
-    <div>Container
-        {children}
-    </div>
-  )
-}
+const Container = ({ children }: { children: ReactNode }) => {
+  return <div className="flex">{children}</div>;
+};
 
-export default Container
+export default Container;

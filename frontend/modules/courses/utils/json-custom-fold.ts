@@ -2,10 +2,6 @@ import { Extension } from "@uiw/react-codemirror";
 import { codeFolding, syntaxTree } from "@codemirror/language";
 import { getComponentType } from "./json-syntax-tree";
 
-const test = {
-  ceva: "altceva",
-};
-
 export function jsonCodeFolding(): Extension {
   return codeFolding({
     preparePlaceholder: (state, range) => {
