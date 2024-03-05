@@ -16,7 +16,10 @@ const CourseEditor = () => {
       </div>
       <Separator className="mt-3" />
 
-      <ScrollArea className="size-full flex-1">
+      <ScrollArea
+        className="size-full flex-1"
+        scrollbarClassName="dark:bg-dark-300"
+      >
         <JSONEditor />
       </ScrollArea>
     </div>
