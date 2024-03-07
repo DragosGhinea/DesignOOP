@@ -71,14 +71,12 @@ const optionsPerComponent = Object.entries(Components).reduce(
   {} as { [key: string]: Completion[] }
 );
 
-const componentTypePerComponent = Object.keys(Components).map(
-  (componentName) => {
-    return snippetCompletion(`"componentType": "${componentName}"`, {
-      label: "componentType",
-      detail: `"${componentName}"`,
-    });
-  }
-);
+const componentTypes = Object.keys(Components).map((componentName) => {
+  return snippetCompletion(`"componentType": "${componentName}"`, {
+    label: '"componentType"',
+    detail: `"${componentName}"`,
+  });
+});
 
 const optionsCourse = CourseParameters.map((param) => {
   return snippetCompletion(
@@ -91,13 +89,29 @@ const optionsCourse = CourseParameters.map((param) => {
   );
 });
 
+// if the cursor is inside a property, will return the object node that contains it
+const ensureOutsideProperty = (componentNode: SyntaxNode) => {
+  if (!componentNode) return null;
+
+  if (componentNode.name === "Property") {
+    return componentNode.parent;
+  }
+
+  if (componentNode.name === "PropertyName") {
+    return componentNode.parent?.parent;
+  }
+
+  return componentNode;
+};
+
 export const propertyAutocomplete = (ctx: CompletionContext) => {
   const word = ctx.matchBefore(/\b\w*$/);
 
   if (!ctx.explicit && (!word || word.from === word.to)) return null;
 
-  const componentNode = syntaxTree(ctx.state).resolve(ctx.pos);
-  if (componentNode == null) return null;
+  const initialNode = syntaxTree(ctx.state).resolve(ctx.pos); // might be a property
+  const componentNode = ensureOutsideProperty(initialNode);
+  if (!componentNode) return null;
 
   let componentType = null;
   if (componentNode.name === "Component") {
@@ -121,7 +135,7 @@ export const propertyAutocomplete = (ctx: CompletionContext) => {
       if (mightBeComponent(ctx, componentNode)) {
         return {
           from: word?.from ?? ctx.pos,
-          options: componentTypePerComponent,
+          options: componentTypes,
           filter: true,
         };
       } else return null;
@@ -138,8 +152,20 @@ export const propertyAutocomplete = (ctx: CompletionContext) => {
     );
   }
 
+  let from = word?.from ?? ctx.pos;
+
+  if (initialNode !== componentNode) {
+    from = initialNode.from;
+    options = options.map((option) => {
+      return {
+        ...option,
+        label: `"${option.label}"`,
+      };
+    });
+  }
+
   return {
-    from: word?.from ?? ctx.pos,
+    from,
     options,
     filter: true,
   };

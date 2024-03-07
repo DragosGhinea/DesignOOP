@@ -23,7 +23,7 @@ export const extractProperty = (text: Text, property: SyntaxNode) => {
 };
 
 export const getPresentPropertyNames = (text: Text, objectNode: SyntaxNode) => {
-  if (objectNode.name !== "Object") {
+  if (objectNode.name !== "Object" && objectNode.name !== "Component") {
     return [];
   }
 
