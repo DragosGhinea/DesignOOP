@@ -1,0 +1,53 @@
+@top JsonText { value }
+
+value { True | False | Null | Number | String | Component | Object | Array }
+
+String { string }
+Component { "{" componentProperty "}" }
+Object { "{" properties "}" }
+Array  { "[" list<value>? "]" }
+
+properties { list<Property>? }
+
+componentProperty { properties (componentTypeOrChildren | childrenOrComponentType | ComponentTypeProperty) properties }
+
+componentTypeOrChildren { ComponentTypeProperty properties ChildrenProperty }
+childrenOrComponentType { ChildrenProperty properties ComponentTypeProperty }
+
+ComponentTypeProperty { ComponentTypePropertyName ":" value }
+ComponentTypePropertyName { componentTypeString }
+ChildrenProperty { ChildrenPropertyName ":" value }
+ChildrenPropertyName { childrenString }
+Property { PropertyName ":" value }
+PropertyName { string }
+
+@tokens {
+  True  { "true" }
+  False { "false" }
+  Null  { "null" }
+
+  Number { '-'? int frac? exp?  }
+  int  { '0' | $[1-9] @digit* }
+  frac { '.' @digit+ }
+  exp  { $[eE] $[+\-]? @digit+ }
+
+  componentTypeString { '"componentType"'}
+  childrenString { '"children"' }
+  string { '"' char* '"' }
+  @precedence {componentTypeString, childrenString, string}
+  
+  char { $[\u{20}\u{21}\u{23}-\u{5b}\u{5d}-\u{10ffff}] | "\\" esc }
+  esc  { $["\\\/bfnrt] | "u" hex hex hex hex }
+  hex  { $[0-9a-fA-F] }
+
+  whitespace { $[ \n\r\t] }
+
+  "{" "}" "[" "]"
+}
+
+@skip { whitespace }
+list<item> { item ("," item)* }
+
+@external propSource jsonHighlighting from "./highlight"
+
+@detectDelim

@@ -2,7 +2,7 @@ import { SyntaxNode } from "@lezer/common";
 import { Diagnostic } from "@codemirror/lint";
 import { EditorView, Text } from "@uiw/react-codemirror";
 import { syntaxTree } from "@codemirror/language";
-import { extractProperty } from "./json-syntax-tree";
+import { extractProperty } from "./json-syntax-tree-helper";
 import {
   Components,
   CourseParameters,
@@ -15,53 +15,52 @@ const iterateComponentTree = (
   objectNode: SyntaxNode,
   diagnostics: Diagnostic[]
 ) => {
-  if (objectNode.name !== "Object") {
+  if (objectNode.name !== "Component") {
     diagnostics.push({
       from: objectNode.from,
       to: objectNode.to,
-      message: "Component must be of type Object",
+      message:
+        "Component must be an object containing a componentType property",
       severity: "error",
     });
     return;
   }
 
-  let componentType;
+  const componentTypeValueNode = objectNode.getChild(
+    "ComponentTypeProperty"
+  )!.lastChild!; // we know it exists since that's how the grammar is defined
+
+  if (componentTypeValueNode.name !== "String") {
+    diagnostics.push({
+      from: componentTypeValueNode.from,
+      to: componentTypeValueNode.to,
+      message: "componentType must be of type String",
+      severity: "error",
+    });
+    return;
+  }
+
+  const componentType = text.sliceString(
+    componentTypeValueNode.from + 1,
+    componentTypeValueNode.to - 1
+  );
+
+  if (!Components[componentType]) {
+    diagnostics.push({
+      from: objectNode.from,
+      to: objectNode.to,
+      message: `Component type "${componentType}" does not exist`,
+      severity: "error",
+    });
+    return;
+  }
+
   const properties = [];
-  let children;
   for (const node of objectNode.getChildren("Property")) {
     const property = extractProperty(text, node);
     if (!property) continue;
 
-    if (property.propertyKey === "componentType") {
-      componentType = property.propertyValue.substring(
-        1,
-        property.propertyValue.length - 1
-      );
-
-      if (!Components[componentType]) {
-        diagnostics.push({
-          from: objectNode.from,
-          to: objectNode.to,
-          message: `Component type "${componentType}" does not exist`,
-          severity: "error",
-        });
-        return;
-      }
-    } else if (property.propertyKey === "children") {
-      children = node.lastChild;
-    } else {
-      properties.push({ node, property });
-    }
-  }
-
-  if (!componentType) {
-    diagnostics.push({
-      from: objectNode.from,
-      to: objectNode.to,
-      message: "Component must have a componentType property",
-      severity: "error",
-    });
-    return;
+    properties.push({ node, property });
   }
 
   const componentParams: ((ParamWithType | ParamWithLiteralValues) & {
@@ -108,18 +107,30 @@ const iterateComponentTree = (
     }
   }
 
-  if (children) {
-    if (children.name !== "Array") {
+  const childrenNode = objectNode.getChild("ChildrenProperty");
+  const childrenValueNode = childrenNode?.lastChild;
+  if (childrenValueNode) {
+    if (!Components[componentType].hasChildren) {
       diagnostics.push({
-        from: children.from,
-        to: children.to,
+        from: childrenNode.from,
+        to: childrenNode.to,
+        message: `Component "${componentType}" does not accept children`,
+        severity: "error",
+      });
+      return;
+    }
+
+    if (childrenValueNode.name !== "Array") {
+      diagnostics.push({
+        from: childrenValueNode.from,
+        to: childrenValueNode.to,
         message: "Children must be of type Array",
         severity: "error",
       });
       return;
     }
 
-    for (const child of children.getChildren("Object")) {
+    for (const child of childrenValueNode.getChildren("Component")) {
       iterateComponentTree(text, child, diagnostics);
     }
   }
@@ -217,8 +228,16 @@ const iterateCourseObject = (
     return;
   }
 
-  for (const component of components.getChildren("Object")) {
+  for (const component of components.getChildren("Component")) {
     iterateComponentTree(text, component, diagnostics);
+  }
+  for (const child of components.getChildren("Object")) {
+    diagnostics.push({
+      from: child.from,
+      to: child.to,
+      message: "Component does not have a componentType property",
+      severity: "error",
+    });
   }
 };
 

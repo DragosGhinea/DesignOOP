@@ -18,9 +18,10 @@ import { componentSnippets } from "../../utils/json-autocomplete-components";
 import { propertyAutocomplete } from "../../utils/json-autocomplete-properties";
 import { componentAndPropertiesLinter } from "../../utils/json-lint";
 import { jsonCodeFolding } from "../../utils/json-custom-fold";
+import { courseJson } from "../../utils/json-course-language";
 
 const extensions = [
-  json(),
+  courseJson(),
   jsonCodeFolding(),
   lintGutter(),
   linter(jsonParseLinter(), {

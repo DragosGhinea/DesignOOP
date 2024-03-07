@@ -1,0 +1,2 @@
+To generate lezer-parser the following command is used, inside this folder:
+# npx lezer-generator json.grammar -o lezer-parser.ts

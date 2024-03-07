@@ -1,4 +1,4 @@
-import { getComponentType, getPresentPropertyNames } from "./json-syntax-tree";
+import { getPresentPropertyNames } from "./json-syntax-tree-helper";
 import {
   Completion,
   CompletionContext,
@@ -99,7 +99,18 @@ export const propertyAutocomplete = (ctx: CompletionContext) => {
   const componentNode = syntaxTree(ctx.state).resolve(ctx.pos);
   if (componentNode == null) return null;
 
-  const componentType = getComponentType(ctx.state.doc, componentNode);
+  let componentType = null;
+  if (componentNode.name === "Component") {
+    const componentTypeValueNode = componentNode.getChild(
+      "ComponentTypeProperty"
+    )!.lastChild!;
+
+    if (componentTypeValueNode.name === "String")
+      componentType = ctx.state.sliceDoc(
+        componentTypeValueNode.from + 1,
+        componentTypeValueNode.to - 1
+      );
+  }
 
   let options: Completion[];
 

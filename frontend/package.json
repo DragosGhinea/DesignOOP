@@ -47,6 +47,7 @@
     "usehooks-ts": "^2.14.0"
   },
   "devDependencies": {
+    "@lezer/generator": "^1.6.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^18",

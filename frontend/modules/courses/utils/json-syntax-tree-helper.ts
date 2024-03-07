@@ -22,24 +22,6 @@ export const extractProperty = (text: Text, property: SyntaxNode) => {
   return { propertyKey, propertyValue };
 };
 
-export const getComponentType = (text: Text, objectNode: SyntaxNode) => {
-  if (objectNode.name !== "Object") {
-    return null;
-  }
-
-  for (const node of objectNode.getChildren("Property")) {
-    const property = extractProperty(text, node);
-    if (!property) continue;
-
-    if (property.propertyKey === "componentType") {
-      return property.propertyValue.substring(
-        1,
-        property.propertyValue.length - 1
-      );
-    }
-  }
-};
-
 export const getPresentPropertyNames = (text: Text, objectNode: SyntaxNode) => {
   if (objectNode.name !== "Object") {
     return [];
