@@ -7,8 +7,8 @@ import useCourseJSON from "@/modules/courses/hooks/use-course-json";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const CourseEditorPreview = () => {
-  const { courseJSON } = useCourseJSON();
-  const jsonData = courseJSON ?? {};
+  const { inEditCourseJSON } = useCourseJSON();
+  const jsonData = inEditCourseJSON ?? {};
 
   return (
     <div className="relative flex size-full flex-col pt-5">

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import CodeMirror, {
   Extension,
@@ -6,7 +8,7 @@ import CodeMirror, {
 } from "@uiw/react-codemirror";
 import { linter, lintGutter, forEachDiagnostic } from "@codemirror/lint";
 import { keymap } from "@codemirror/view";
-import { json, jsonParseLinter } from "@codemirror/lang-json";
+import { jsonParseLinter } from "@codemirror/lang-json";
 import { xcodeLight, xcodeDark } from "@uiw/codemirror-theme-xcode";
 import { useTheme } from "next-themes";
 import useCourseJSON from "../../hooks/use-course-json";
@@ -19,6 +21,15 @@ import { propertyAutocomplete } from "../../utils/json-autocomplete-properties";
 import { componentAndPropertiesLinter } from "../../utils/json-lint";
 import { jsonCodeFolding } from "../../utils/json-custom-fold";
 import { courseJson } from "../../utils/json-course-language";
+import CollapseAllButton from "./collapse-fold-button";
+import CopyContentButton from "./copy-content-button";
+import DownloadButton from "./download-button";
+import {
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+  Tooltip,
+} from "@/components/ui/tooltip";
 
 const extensions = [
   courseJson(),
@@ -48,7 +59,7 @@ const extensions = [
 
 const JSONEditor = () => {
   const { resolvedTheme } = useTheme();
-  const { courseJSON, setCourseJSON } = useCourseJSON();
+  const { initialCourseJSON, setInEditCourseJSON } = useCourseJSON();
 
   const codeRef = React.useRef<ReactCodeMirrorRef>(null);
 
@@ -64,40 +75,60 @@ const JSONEditor = () => {
       if (errors !== 0) return;
 
       try {
-        setCourseJSON(JSON.parse(value));
+        setInEditCourseJSON(JSON.parse(value));
       } catch (e) {}
     },
     500
   );
 
   return (
-    <CodeMirror
-      ref={codeRef}
-      lang="json"
-      extensions={extensions}
-      theme={themeCodeMirror}
-      value={JSON.stringify(courseJSON, null, 2)}
-      onMouseDown={(event) => {
-        // console.log("CLICK");
-        // const position = codeRef.current!.view!.posAtCoords({
-        //   x: event.clientX,
-        //   y: event.clientY,
-        // }) as number;
-        // const syntaxNode = syntaxTree(codeRef.current!.view!.state).resolve(
-        //   position
-        // );
-        // console.log(
-        //   getComponentType(codeRef.current!.view!.state.doc, syntaxNode.node)
-        // );
-      }}
-      onChange={debouncedChange}
-      // onChange={(value, viewUpdate) => {
-      //   console.log(value);
-      //   syntaxTree(viewUpdate.state).cursor().iterate(node => {
-      //     console.log(node.name, node.from, node.to, node);
-      //   });
-      // }}
-    />
+    <>
+      <div className="pointer-events-none absolute z-50 flex w-full items-center justify-end gap-3 p-3">
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <CollapseAllButton codeRef={codeRef} />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="font-bold">Folding toggle</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <CopyContentButton codeRef={codeRef} />
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DownloadButton codeRef={codeRef} />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="font-bold">Download JSON</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+
+      <CodeMirror
+        ref={codeRef}
+        lang="json"
+        extensions={extensions}
+        theme={themeCodeMirror}
+        value={JSON.stringify(initialCourseJSON, null, 2)}
+        onMouseDown={(event) => {
+          // console.log("CLICK");
+          // const position = codeRef.current!.view!.posAtCoords({
+          //   x: event.clientX,
+          //   y: event.clientY,
+          // }) as number;
+          // const syntaxNode = syntaxTree(codeRef.current!.view!.state).resolve(
+          //   position
+          // );
+          // console.log(
+          //   getComponentType(codeRef.current!.view!.state.doc, syntaxNode.node)
+          // );
+        }}
+        onChange={debouncedChange}
+      />
+    </>
   );
 };
 
