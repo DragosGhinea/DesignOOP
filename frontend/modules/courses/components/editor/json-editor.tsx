@@ -6,8 +6,13 @@ import CodeMirror, {
   ReactCodeMirrorRef,
   ViewUpdate,
 } from "@uiw/react-codemirror";
-import { linter, lintGutter, forEachDiagnostic } from "@codemirror/lint";
-import { keymap } from "@codemirror/view";
+import {
+  linter,
+  lintGutter,
+  forEachDiagnostic,
+  setDiagnosticsEffect,
+} from "@codemirror/lint";
+import { keymap, EditorView } from "@codemirror/view";
 import { jsonParseLinter } from "@codemirror/lang-json";
 import { xcodeLight, xcodeDark } from "@uiw/codemirror-theme-xcode";
 import { useTheme } from "next-themes";
@@ -30,6 +35,7 @@ import {
   TooltipTrigger,
   Tooltip,
 } from "@/components/ui/tooltip";
+import { wrappedLineIndent } from "codemirror-wrapped-line-indent";
 
 const extensions = [
   courseJson(),
@@ -55,7 +61,21 @@ const extensions = [
     },
   }),
   keymap.of(vscodeKeymap),
+  EditorView.lineWrapping,
+  wrappedLineIndent,
 ] as Extension[];
+
+const isLinterDoneEffect = (transactions: ViewUpdate["transactions"]) => {
+  for (const tr of transactions) {
+    for (const effect of tr.effects) {
+      if (effect.is(setDiagnosticsEffect)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+};
 
 const JSONEditor = () => {
   const { resolvedTheme } = useTheme();
@@ -65,21 +85,18 @@ const JSONEditor = () => {
 
   const themeCodeMirror = resolvedTheme === "dark" ? xcodeDark : xcodeLight;
 
-  const debouncedChange = useDebounceCallback(
-    (value: string, viewUpdate: ViewUpdate) => {
-      let errors = 0;
-      forEachDiagnostic(viewUpdate.state, (diagnostic) => {
-        if (diagnostic.severity === "error") errors++;
-      });
+  const debouncedUpdate = useDebounceCallback((viewUpdate: ViewUpdate) => {
+    let errors = 0;
+    forEachDiagnostic(viewUpdate.state, (diagnostic) => {
+      if (diagnostic.severity === "error") errors++;
+    });
 
-      if (errors !== 0) return;
+    if (errors !== 0) return;
 
-      try {
-        setInEditCourseJSON(JSON.parse(value));
-      } catch (e) {}
-    },
-    500
-  );
+    try {
+      setInEditCourseJSON(JSON.parse(viewUpdate.state.doc.toString()));
+    } catch (e) {}
+  }, 500);
 
   return (
     <>
@@ -113,20 +130,10 @@ const JSONEditor = () => {
         extensions={extensions}
         theme={themeCodeMirror}
         value={JSON.stringify(initialCourseJSON, null, 2)}
-        onMouseDown={(event) => {
-          // console.log("CLICK");
-          // const position = codeRef.current!.view!.posAtCoords({
-          //   x: event.clientX,
-          //   y: event.clientY,
-          // }) as number;
-          // const syntaxNode = syntaxTree(codeRef.current!.view!.state).resolve(
-          //   position
-          // );
-          // console.log(
-          //   getComponentType(codeRef.current!.view!.state.doc, syntaxNode.node)
-          // );
+        onUpdate={(viewUpdate) => {
+          if (!isLinterDoneEffect(viewUpdate.transactions)) return;
+          debouncedUpdate(viewUpdate);
         }}
-        onChange={debouncedChange}
       />
     </>
   );
