@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import { ReactNode } from "react";
 import { ThemeProvider } from "@/context/theme-provider";
 import { AuthProvider } from "@/context/auth-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         >
           <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
+        <Toaster closeButton richColors/>
       </body>
     </html>
   );

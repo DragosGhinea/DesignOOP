@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import CodeMirror, {
   Extension,
   ReactCodeMirrorRef,
@@ -13,7 +13,7 @@ import {
   setDiagnosticsEffect,
 } from "@codemirror/lint";
 import { keymap, EditorView } from "@codemirror/view";
-import { jsonParseLinter } from "@codemirror/lang-json";
+// import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { xcodeLight, xcodeDark } from "@uiw/codemirror-theme-xcode";
 import { useTheme } from "next-themes";
 import useCourseJSON from "../../hooks/use-course-json";
@@ -36,15 +36,16 @@ import {
   Tooltip,
 } from "@/components/ui/tooltip";
 import { wrappedLineIndent } from "codemirror-wrapped-line-indent";
+import { jsonrepair } from "jsonrepair";
+import { AlertCircleIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { jsonParseLinter } from "../../utils/json-auto-repair-lint";
+import { toast } from "sonner";
 
 const extensions = [
   courseJson(),
   jsonCodeFolding(),
   lintGutter(),
-  linter(jsonParseLinter(), {
-    // default is 750ms
-    delay: 600,
-  }),
   linter(componentAndPropertiesLinter, {
     delay: 600,
   }),
@@ -80,10 +81,42 @@ const isLinterDoneEffect = (transactions: ViewUpdate["transactions"]) => {
 const JSONEditor = () => {
   const { resolvedTheme } = useTheme();
   const { initialCourseJSON, setInEditCourseJSON } = useCourseJSON();
+  const [jsonToRepair, setJsonToRepair] = useState<string>("");
 
   const codeRef = React.useRef<ReactCodeMirrorRef>(null);
 
   const themeCodeMirror = resolvedTheme === "dark" ? xcodeDark : xcodeLight;
+
+  const jsonParseLint = useMemo(
+    () => linter(jsonParseLinter(setJsonToRepair), { delay: 600 }),
+    [setJsonToRepair]
+  );
+
+  const autoRepairAttempt = useCallback(
+    (jsonToRepair: string) => {
+      const promise = new Promise<void>((resolve) => {
+        const repaired = jsonrepair(jsonToRepair);
+        if (repaired) {
+          codeRef.current?.view?.dispatch({
+            changes: {
+              from: 0,
+              to: codeRef.current.view.state.doc.length,
+              insert: repaired,
+            },
+          });
+          setJsonToRepair("ignored");
+          resolve();
+        }
+      });
+      toast.promise(promise, {
+        loading: "Auto-repairing JSON...",
+        success: "JSON auto-repaired successfully",
+        error: "Failed to auto-repair JSON, please fix it manually",
+        duration: 3000,
+      });
+    },
+    [setJsonToRepair]
+  );
 
   const debouncedUpdate = useDebounceCallback((viewUpdate: ViewUpdate) => {
     let errors = 0;
@@ -95,7 +128,9 @@ const JSONEditor = () => {
 
     try {
       setInEditCourseJSON(JSON.parse(viewUpdate.state.doc.toString()));
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   }, 500);
 
   return (
@@ -127,7 +162,7 @@ const JSONEditor = () => {
       <CodeMirror
         ref={codeRef}
         lang="json"
-        extensions={extensions}
+        extensions={[...extensions, jsonParseLint]}
         theme={themeCodeMirror}
         value={JSON.stringify(initialCourseJSON, null, 2)}
         onUpdate={(viewUpdate) => {
@@ -135,6 +170,27 @@ const JSONEditor = () => {
           debouncedUpdate(viewUpdate);
         }}
       />
+
+      {jsonToRepair && jsonToRepair !== "ignored" && (
+        <div className="absolute bottom-0 z-[49] w-full bg-destructive p-3 text-destructive-foreground @container">
+          <div className="flex flex-col items-center gap-3 @md:flex-row">
+            <AlertCircleIcon className="size-10 min-w-[20px]" />
+            <div className="flex flex-col">
+              <h6 className="h6-typography font-bold">Invalid JSON</h6>
+              <p>
+                The current JSON is not parsable. Would you like to try
+                auto-repairing it?
+              </p>
+            </div>
+            <div className="flex flex-1 justify-end gap-5">
+              <Button onClick={() => setJsonToRepair("ignored")}>Ignore</Button>
+              <Button onClick={() => autoRepairAttempt(jsonToRepair)}>
+                Try Auto-Repair
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

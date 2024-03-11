@@ -26,9 +26,10 @@ const iterateComponentTree = (
     return;
   }
 
-  const componentTypeValueNode = objectNode.getChild(
-    "ComponentTypeProperty"
-  )!.lastChild!; // we know it exists since that's how the grammar is defined
+  const componentTypeNode = objectNode.getChild("ComponentTypeProperty");
+  if (!componentTypeNode) return;
+
+  const componentTypeValueNode = componentTypeNode.lastChild!; // we know it exists since that's how the grammar is defined
 
   if (componentTypeValueNode.name !== "String") {
     diagnostics.push({
