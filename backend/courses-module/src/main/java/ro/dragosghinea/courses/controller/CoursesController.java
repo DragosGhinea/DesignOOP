@@ -8,6 +8,7 @@ import ro.dragosghinea.courses.model.entity.Course;
 import ro.dragosghinea.courses.service.CoursesService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("v1/courses")
@@ -25,6 +26,21 @@ public class CoursesController {
 
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+        if (1==1)
+            throw new RuntimeException("This is a test exception");
+
+        Course returnedCourse = coursesService.createCourse(course);
+
+        return ResponseEntity.ok(returnedCourse);
+    }
+
+    @PutMapping("/{courseId}")
+    public ResponseEntity<Course> updateCourse(@PathVariable UUID courseId, @RequestBody Course course) {
         return ResponseEntity.ok(course);
+    }
+
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable UUID courseId) {
+        return ResponseEntity.noContent().build();
     }
 }

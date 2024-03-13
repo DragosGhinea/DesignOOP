@@ -20,6 +20,9 @@ import java.util.Map;
 public interface CourseComponent {
     String getComponentType();
 
+    // MongoDB throws an error if we don't specify this method
+    default void setComponentType(String componentType) {}
+
     @JsonIgnore
     default Map<String, CourseComponentProperty<?>> getParams() {
         return Collections.emptyMap();

@@ -8,3 +8,7 @@ spring:
       database: ${mongodb_database}
       host: ${mongodb_host}
       port: ${mongodb_port}
+
+server:
+  error:
+    include-message: always
