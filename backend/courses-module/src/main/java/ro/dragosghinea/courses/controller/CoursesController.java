@@ -1,6 +1,5 @@
 package ro.dragosghinea.courses.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,31 +15,26 @@ import java.util.UUID;
 public class CoursesController {
 
     private final CoursesService coursesService;
-    private final ObjectMapper objectMapper;
 
     @GetMapping
     public ResponseEntity<List<Course>> getCourses(@RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "10") int limit) {
-        //courseRepository.save(new Course( "Course 1", "Description 1"));
         return ResponseEntity.ok(coursesService.getCourses(offset, limit));
     }
 
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
-        if (1==1)
-            throw new RuntimeException("This is a test exception");
-
-        Course returnedCourse = coursesService.createCourse(course);
-
-        return ResponseEntity.ok(returnedCourse);
+        return ResponseEntity.ok(coursesService.createCourse(course));
     }
 
     @PutMapping("/{courseId}")
     public ResponseEntity<Course> updateCourse(@PathVariable UUID courseId, @RequestBody Course course) {
-        return ResponseEntity.ok(course);
+        course.setId(courseId);
+        return ResponseEntity.ok(coursesService.updateCourse(course));
     }
 
     @DeleteMapping("/{courseId}")
     public ResponseEntity<Void> deleteCourse(@PathVariable UUID courseId) {
-        return ResponseEntity.noContent().build();
+        coursesService.deleteCourse(courseId);
+        return ResponseEntity.ok().build();
     }
 }

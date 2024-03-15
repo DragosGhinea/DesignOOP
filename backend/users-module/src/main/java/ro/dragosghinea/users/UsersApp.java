@@ -1,11 +1,11 @@
-package ro.dragosghinea.courses;
+package ro.dragosghinea.users;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Main {
+public class UsersApp {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(UsersApp.class, args);
     }
 }

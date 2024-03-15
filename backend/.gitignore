@@ -38,3 +38,4 @@ src/main/resources/application.properties
 .vscode/
 nbproject/
 /courses-module/.env
+/users-module/.env

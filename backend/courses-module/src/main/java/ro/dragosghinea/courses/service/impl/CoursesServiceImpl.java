@@ -52,23 +52,33 @@ public class CoursesServiceImpl implements CoursesService {
 
     @Override
     public Course createCourse(Course course) throws CourseAlreadyExists {
-        courseRepository.findById(course.getId()).ifPresent(c -> {
-            throw new CourseAlreadyExists();
-        });
+        if (course.getId() == null) {
+            course.setId(UUID.randomUUID());
+        }
 
-        Course course1 =  courseRepository.save(course);
-        course1.setTitle(course1.getTitle()+"[modified]");
-        return course1;
+        if (courseRepository.existsById(course.getId())) {
+            throw new CourseAlreadyExists();
+        }
+
+        return courseRepository.save(course);
     }
 
     @Override
     public Course updateCourse(Course course) throws CourseNotFound {
-        return null;
+        if (!courseRepository.existsById(course.getId())) {
+            throw new CourseNotFound();
+        }
+
+        return courseRepository.save(course);
     }
 
     @Override
     public void deleteCourse(UUID courseId) throws CourseNotFound {
+        if (!courseRepository.existsById(courseId)) {
+            throw new CourseNotFound();
+        }
 
+        courseRepository.deleteById(courseId);
     }
 
 

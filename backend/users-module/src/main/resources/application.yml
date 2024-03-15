@@ -1,0 +1,30 @@
+server.port: 8081
+
+spring:
+  profiles:
+    active: @activatedProperties@
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 50000
+      idle-timeout: 300000
+      max-lifetime: 900000
+      minimum-idle: 10
+      maximum-pool-size: 50
+      pool-name: DesignOOP-UsersPool
+  jpa:
+      hibernate:
+          ddl-auto: update
+      show-sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+         github:
+          client-id: ${GITHUB_CLIENT_ID}
+          client-secret: ${GITHUB_CLIENT_SECRET}
+          redirect-uri: "{baseUrl}/auth/callback/{registrationId}"
+
+server:
+  error:
+    include-message: always
