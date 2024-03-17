@@ -46,9 +46,7 @@ public class SecurityConfig {
                         oauth2 -> oauth2.authorizationEndpoint(
                                 authorization -> authorization.baseUri("/oauth2/authorization")
                         )
-                                .redirectionEndpoint(redirect -> redirect.baseUri("/auth/callback/*"))
-                                .userInfoEndpoint(userInfo -> userInfo.userService(oauth2UserService()))
-                                .successHandler(myAuthenticationSuccessHandler())
+                                .redirectionEndpoint(redirect -> redirect.baseUri("api/oauth2/callback/*"))
                 )
                 ;
 
@@ -59,27 +57,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
-        return new CustomAuthenticationSuccessHandler();
-    }
-
-    @Bean
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService() {
-        DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
-        return request -> {
-            System.out.println(request.getAdditionalParameters().toString());
-            OAuth2User user = delegate.loadUser(request);
-            System.out.println("USER: "+user);
-            if (!"github".equals(request.getClientRegistration().getRegistrationId())) {
-                return user;
-            }
-
-            OAuth2AuthorizedClient client = new OAuth2AuthorizedClient
-                    (request.getClientRegistration(), user.getName(), request.getAccessToken());
-            String url = user.getAttribute("organizations_url");
-
-//            throw new OAuth2AuthenticationException(new OAuth2Error("invalid_token", "Not in Spring Team", ""));
-            return user;
-        };
+    public OAuth2Fetcher oAuth2Fetcher() {
+        return new OAuth2Fetcher();
     }
 }

@@ -1,0 +1,20 @@
+package ro.dragosghinea.users.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import ro.dragosghinea.users.model.LinkedProvider;
+import ro.dragosghinea.users.model.ids.LinkedProviderId;
+
+import java.util.List;
+import java.util.UUID;
+
+@Repository
+public interface LinkedProviderRepository extends JpaRepository<LinkedProvider, LinkedProviderId> {
+
+    @Query("SELECT lp FROM LinkedProvider lp JOIN lp.user u WHERE u.email = :email AND lp.provider = :provider")
+    LinkedProvider findByEmailAndProvider(String email, String provider);
+
+    List<LinkedProvider> findByUserId(UUID userId);
+
+}

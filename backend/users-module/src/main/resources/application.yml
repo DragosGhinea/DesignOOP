@@ -23,7 +23,7 @@ spring:
          github:
           client-id: ${GITHUB_CLIENT_ID}
           client-secret: ${GITHUB_CLIENT_SECRET}
-          redirect-uri: "{baseUrl}/auth/callback/{registrationId}"
+          redirect-uri: "{baseUrl}/api/oauth2/callback/{registrationId}"
 
 server:
   error:
