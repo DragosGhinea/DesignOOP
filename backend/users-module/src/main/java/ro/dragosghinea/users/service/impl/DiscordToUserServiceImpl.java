@@ -69,7 +69,6 @@ public class DiscordToUserServiceImpl implements OAuth2ToUserService {
                     .build();
 
             user.getLinkedProviders().add(linkedProvider);
-            linkedProviderService.saveLinkedProvider(linkedProvider);
         }
 
 
