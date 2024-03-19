@@ -16,6 +16,11 @@ import java.util.UUID;
 @IdClass(LinkedProviderId.class)
 
 @Entity
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name="OneProviderPerUser", columnNames = {"user_id", "provider"})
+        }
+)
 public class LinkedProvider {
 
     @Id

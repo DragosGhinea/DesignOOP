@@ -1,6 +1,7 @@
 package ro.dragosghinea.users.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.dragosghinea.users.exceptions.LinkedProviderNotFound;
@@ -9,6 +10,8 @@ import ro.dragosghinea.users.model.LinkedProvider;
 import ro.dragosghinea.users.model.ProviderType;
 import ro.dragosghinea.users.model.User;
 import ro.dragosghinea.users.model.UserRole;
+import ro.dragosghinea.users.repository.LinkedProviderRepository;
+import ro.dragosghinea.users.repository.UserRepository;
 import ro.dragosghinea.users.security.LiteClientRegistration;
 import ro.dragosghinea.users.security.OAuth2Fetcher;
 import ro.dragosghinea.users.service.LinkedProviderService;
@@ -22,10 +25,11 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Log
 public class DiscordToUserServiceImpl implements OAuth2ToUserService {
     private final OAuth2Fetcher oAuth2Fetcher;
-    private final LinkedProviderService linkedProviderService;
-    private final UserService userService;
+    private final UserRepository userRepository;
+    private final LinkedProviderRepository linkedProviderRepository;
 
     @Transactional
     @Override
@@ -41,9 +45,32 @@ public class DiscordToUserServiceImpl implements OAuth2ToUserService {
 
         User user = null;
         try {
-            user = userService.getUserByEmail(email);
-            user.getLinkedProviders().stream().filter(linkedProvider -> linkedProvider.getProvider().equals(ProviderType.DISCORD)).findFirst().orElseThrow(LinkedProviderNotFound::new);
+            user = userRepository.findByEmail(email).orElseThrow(UserNotFound::new);
+
+            LinkedProvider foundLinkedProvider = user.getLinkedProviders().stream().filter(linkedProvider -> linkedProvider.getProvider().equals(ProviderType.DISCORD)).findFirst().orElseThrow(LinkedProviderNotFound::new);
+            if (!foundLinkedProvider.getProviderUserId().equals(providerUserId)) {
+                log.warning("Very rare case: OAuth2 Provider ID changed for the same email. Will update the linked provider.");
+                // for some reason the oauth2 id changed but the email is the same
+                // should only happen in edge cases when the previous linked provider
+                // changed email and another oauth2 account was created with the same email
+                user.getLinkedProviders().remove(foundLinkedProvider);
+                linkedProviderRepository.delete(foundLinkedProvider);
+                linkedProviderRepository.flush();
+                LinkedProvider linkedProvider = LinkedProvider.builder()
+                        .providerUserId(providerUserId)
+                        .userId(user.getId())
+                        .provider(ProviderType.DISCORD)
+                        .linkedAtDateInSeconds(Instant.now().getEpochSecond())
+                        .build();
+                linkedProviderRepository.saveAndFlush(linkedProvider);
+                user.getLinkedProviders().add(linkedProvider);
+            }
         }catch(UserNotFound e) {
+            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD.name());
+            if(linkedProvider != null) {
+                log.warning("LinkedProvider already exists, but assigned to another user ("+linkedProvider.getUserId()+"). Will create a new user due to email change on the OAuth2 Provider.");
+            }
+
             user = new User();
             user.setEmail(email);
             user.setAvatarUrl(ProviderType.DISCORD.name()+":"+userAttributes.get("avatar").toString());
@@ -59,9 +86,15 @@ public class DiscordToUserServiceImpl implements OAuth2ToUserService {
                             .linkedAtDateInSeconds(Instant.now().getEpochSecond())
                             .build()
             );
-            userService.saveUser(user);
+
+            userRepository.save(user);
         }catch(LinkedProviderNotFound e) {
-            LinkedProvider linkedProvider = LinkedProvider.builder()
+            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD.name());
+            if(linkedProvider != null) {
+                log.warning("LinkedProvider already exists, but assigned to another user ("+linkedProvider.getUserId()+"). Will move it to this user due to email change on the OAuth2 Provider.");
+            }
+
+            linkedProvider = LinkedProvider.builder()
                     .providerUserId(providerUserId)
                     .userId(user.getId())
                     .provider(ProviderType.DISCORD)
@@ -70,7 +103,6 @@ public class DiscordToUserServiceImpl implements OAuth2ToUserService {
 
             user.getLinkedProviders().add(linkedProvider);
         }
-
 
         return user;
     }

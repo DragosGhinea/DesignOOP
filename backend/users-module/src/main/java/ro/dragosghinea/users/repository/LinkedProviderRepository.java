@@ -17,4 +17,6 @@ public interface LinkedProviderRepository extends JpaRepository<LinkedProvider, 
 
     List<LinkedProvider> findByUserId(UUID userId);
 
+    LinkedProvider findByProviderUserIdAndProvider(String providerUserId, String provider);
+
 }

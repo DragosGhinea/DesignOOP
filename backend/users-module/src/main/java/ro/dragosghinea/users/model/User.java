@@ -20,11 +20,13 @@ import java.util.UUID;
 public class User {
 
     @Id
+    @NonNull
     private UUID id;
 
     private String username;
 
     @Column(unique = true)
+    @NonNull
     private String email;
 
     private String avatarUrl;
