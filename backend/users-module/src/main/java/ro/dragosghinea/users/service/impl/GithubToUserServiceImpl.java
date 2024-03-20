@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.dragosghinea.users.exceptions.LinkedProviderNotFound;
 import ro.dragosghinea.users.exceptions.UserNotFound;
+import ro.dragosghinea.users.mapper.UserMapper;
 import ro.dragosghinea.users.model.LinkedProvider;
 import ro.dragosghinea.users.model.ProviderType;
 import ro.dragosghinea.users.model.User;
 import ro.dragosghinea.users.model.UserRole;
+import ro.dragosghinea.users.model.dto.UserDto;
 import ro.dragosghinea.users.repository.LinkedProviderRepository;
 import ro.dragosghinea.users.repository.UserRepository;
 import ro.dragosghinea.users.security.LiteClientRegistration;
@@ -29,9 +31,11 @@ public class GithubToUserServiceImpl implements OAuth2ToUserService {
     private final UserRepository userRepository;
     private final LinkedProviderRepository linkedProviderRepository;
 
+    private final UserMapper userMapper;
+
     @Transactional
     @Override
-    public User getUserFromOAuth2(String accessToken) {
+    public UserDto getUserFromOAuth2(String accessToken) {
         Map<String, Object> userAttributes = oAuth2Fetcher.getUserAttributes(LiteClientRegistration.GITHUB, accessToken);
         String providerUserId = userAttributes.get("id").toString();
         String email = userAttributes.get("email").toString();
@@ -101,6 +105,6 @@ public class GithubToUserServiceImpl implements OAuth2ToUserService {
         }
 
 
-        return user;
+        return userMapper.toDto(user);
     }
 }

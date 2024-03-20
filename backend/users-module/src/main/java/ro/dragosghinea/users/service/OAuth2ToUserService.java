@@ -1,9 +1,10 @@
 package ro.dragosghinea.users.service;
 
 import ro.dragosghinea.users.model.User;
+import ro.dragosghinea.users.model.dto.UserDto;
 
 public interface OAuth2ToUserService {
 
-    User getUserFromOAuth2(String accessToken);
+    UserDto getUserFromOAuth2(String accessToken);
 
 }

@@ -1,14 +1,19 @@
 package ro.dragosghinea.users.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ro.dragosghinea.users.exceptions.UserNotFound;
+import ro.dragosghinea.users.mapper.UserMapper;
 import ro.dragosghinea.users.model.LinkedProvider;
 import ro.dragosghinea.users.model.ProviderType;
 import ro.dragosghinea.users.model.User;
+import ro.dragosghinea.users.model.dto.LinkedProviderDto;
+import ro.dragosghinea.users.model.dto.UserDto;
 import ro.dragosghinea.users.repository.LinkedProviderRepository;
 import ro.dragosghinea.users.repository.UserRepository;
 import ro.dragosghinea.users.security.OAuth2Fetcher;
@@ -26,16 +31,26 @@ import static org.mockito.Mockito.when;
 public class DiscordToUserServiceTests {
 
     @Mock
-    protected OAuth2Fetcher oAuth2Fetcher;
+    private OAuth2Fetcher oAuth2Fetcher;
 
     @Mock
-    protected UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Mock
-    protected LinkedProviderRepository linkedProviderRepository;
+    private LinkedProviderRepository linkedProviderRepository;
+    
+    @Autowired
+    private UserMapper userMapper;
 
-    @InjectMocks
     protected DiscordToUserServiceImpl oauth2ToUserService;
+
+    @BeforeEach
+    public void setUp() {
+        if (oauth2ToUserService != null)
+            return;
+
+        oauth2ToUserService = new DiscordToUserServiceImpl(oAuth2Fetcher, userRepository, linkedProviderRepository, userMapper);
+    }
 
     @Test
     @DisplayName("No user in database")
@@ -48,7 +63,7 @@ public class DiscordToUserServiceTests {
         ));
         when(userRepository.findByEmail(any())).thenThrow(new UserNotFound());
 
-        User user = oauth2ToUserService.getUserFromOAuth2("testToken");
+        UserDto user = oauth2ToUserService.getUserFromOAuth2("testToken");
         assertEquals(1, user.getLinkedProviders().size(), "User should have one linked provider");
         assertEquals("testId", user.getLinkedProviders().get(0).getProviderUserId(), "User should have the linked provider with the correct providerUserId");
     }
@@ -72,7 +87,7 @@ public class DiscordToUserServiceTests {
                 )
         );
 
-        User user = oauth2ToUserService.getUserFromOAuth2("testToken");
+        UserDto user = oauth2ToUserService.getUserFromOAuth2("testToken");
         assertEquals(1, user.getLinkedProviders().size(), "User should have one linked provider");
         assertEquals("testId", user.getLinkedProviders().get(0).getProviderUserId(), "User should have the linked provider with the correct providerUserId");
     }
@@ -105,9 +120,9 @@ public class DiscordToUserServiceTests {
                 )
         );
 
-        User user = oauth2ToUserService.getUserFromOAuth2("testToken");
+        UserDto user = oauth2ToUserService.getUserFromOAuth2("testToken");
         assertEquals(2, user.getLinkedProviders().size(), "User should have one linked provider");
-        LinkedProvider discordLinkedProvider = user.getLinkedProviders().stream()
+        LinkedProviderDto discordLinkedProvider = user.getLinkedProviders().stream()
                 .filter(linkedProvider -> linkedProvider.getProvider().equals(ProviderType.DISCORD))
                 .findFirst().orElse(null);
         assertNotNull(discordLinkedProvider, "User should have a linked provider with the correct provider type");
@@ -142,7 +157,7 @@ public class DiscordToUserServiceTests {
                 )
         );
 
-        User user = oauth2ToUserService.getUserFromOAuth2("testToken");
+        UserDto user = oauth2ToUserService.getUserFromOAuth2("testToken");
         assertEquals(1, user.getLinkedProviders().size(), "User should have one linked provider");
         assertEquals("testId", user.getLinkedProviders().get(0).getProviderUserId(), "User should have the linked provider with the correct providerUserId");
     }
@@ -175,7 +190,7 @@ public class DiscordToUserServiceTests {
                 )
         );
 
-        User user = oauth2ToUserService.getUserFromOAuth2("testToken");
+        UserDto user = oauth2ToUserService.getUserFromOAuth2("testToken");
         assertEquals(1, user.getLinkedProviders().size(), "User should have one linked provider");
         assertEquals("testId", user.getLinkedProviders().get(0).getProviderUserId(), "User should have the linked provider with the correct providerUserId");
     }
@@ -207,7 +222,7 @@ public class DiscordToUserServiceTests {
                         .build()
         );
 
-        User user = oauth2ToUserService.getUserFromOAuth2("testToken");
+        UserDto user = oauth2ToUserService.getUserFromOAuth2("testToken");
         assertEquals(1, user.getLinkedProviders().size(), "User should have one linked provider");
         assertEquals("testId", user.getLinkedProviders().get(0).getProviderUserId(), "User should have the linked provider with the correct providerUserId");
     }
@@ -231,7 +246,7 @@ public class DiscordToUserServiceTests {
                         .build()
         );
 
-        User user = oauth2ToUserService.getUserFromOAuth2("testToken");
+        UserDto user = oauth2ToUserService.getUserFromOAuth2("testToken");
         assertEquals(1, user.getLinkedProviders().size(), "User should have one linked provider");
         assertEquals("testId", user.getLinkedProviders().get(0).getProviderUserId(), "User should have the linked provider with the correct providerUserId");
     }

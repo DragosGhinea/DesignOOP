@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import ro.dragosghinea.users.exceptions.ClientRegistrationNotFound;
 import ro.dragosghinea.users.model.User;
 import ro.dragosghinea.users.model.dto.OAuth2UserRequestDTO;
+import ro.dragosghinea.users.model.dto.UserDto;
 import ro.dragosghinea.users.security.LiteClientRegistration;
 import ro.dragosghinea.users.security.OAuth2Fetcher;
 import ro.dragosghinea.users.service.AuthenticationService;
@@ -31,7 +32,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public void login(@RequestBody OAuth2UserRequestDTO oAuth2UserRequestDTO) {
-         User user = authenticationService.authenticate(oAuth2UserRequestDTO);
+         UserDto user = authenticationService.authenticate(oAuth2UserRequestDTO);
             System.out.println(user);
 
 //        Map<String, Object> userAttrs = oAuth2Fetcher.getUserAttributes(liteClientRegistration, oAuth2UserRequestDTO.getAccessToken());

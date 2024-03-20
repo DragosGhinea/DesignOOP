@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ro.dragosghinea.users.exceptions.ClientRegistrationNotFound;
 import ro.dragosghinea.users.model.User;
 import ro.dragosghinea.users.model.dto.OAuth2UserRequestDTO;
+import ro.dragosghinea.users.model.dto.UserDto;
 import ro.dragosghinea.users.service.AuthenticationService;
 
 @RequiredArgsConstructor
@@ -14,7 +15,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final DiscordToUserServiceImpl discordToUserServiceImpl;
 
     @Override
-    public User authenticate(OAuth2UserRequestDTO oAuth2UserRequestDTO) {
+    public UserDto authenticate(OAuth2UserRequestDTO oAuth2UserRequestDTO) {
         switch (oAuth2UserRequestDTO.getClientRegistrationId()) {
             case "github" -> {
                 return githubToUserServiceImpl.getUserFromOAuth2(oAuth2UserRequestDTO.getAccessToken());
