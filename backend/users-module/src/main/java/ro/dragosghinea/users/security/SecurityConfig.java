@@ -1,5 +1,6 @@
 package ro.dragosghinea.users.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,7 +12,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final TokenAuthenticationProvider tokenAuthenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -26,22 +29,12 @@ public class SecurityConfig {
                                 .requestMatchers("h2-console/**").permitAll()
                                 .anyRequest().permitAll()
                 )
-                .oauth2Login(
-                        oauth2 -> oauth2.authorizationEndpoint(
-                                authorization -> authorization.baseUri("/oauth2/authorization")
-                        )
-                                .redirectionEndpoint(redirect -> redirect.baseUri("api/oauth2/callback/*"))
-                )
+                .authenticationProvider(tokenAuthenticationProvider)
                 ;
 
         // Fix H2 database console: Refused to display ' in a frame because it set 'X-Frame-Options' to 'deny'
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();
-    }
-
-    @Bean
-    public OAuth2Fetcher oAuth2Fetcher() {
-        return new OAuth2Fetcher();
     }
 }

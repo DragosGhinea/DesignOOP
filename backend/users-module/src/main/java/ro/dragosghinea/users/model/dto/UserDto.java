@@ -1,9 +1,13 @@
 package ro.dragosghinea.users.model.dto;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import ro.dragosghinea.users.model.UserRole;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +18,7 @@ import java.util.UUID;
 @Builder
 @ToString
 @EqualsAndHashCode
-public class UserDto {
+public class UserDto implements UserDetails {
     private UUID id;
     private String username;
     private String email;
@@ -25,4 +29,38 @@ public class UserDto {
 
     @Builder.Default
     private List<LinkedProviderDto> linkedProviders = new ArrayList<>();
+
+
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role.name())).toList();
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

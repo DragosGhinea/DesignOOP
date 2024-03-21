@@ -1,10 +1,11 @@
 package ro.dragosghinea.users.service;
 
-import ro.dragosghinea.users.model.User;
-import ro.dragosghinea.users.model.dto.OAuth2UserRequestDTO;
-import ro.dragosghinea.users.model.dto.UserDto;
+import ro.dragosghinea.users.model.dto.OAuth2UserRequestDto;
+import ro.dragosghinea.users.model.dto.RefreshAccessTokenPairDto;
 
 public interface AuthenticationService {
 
-    UserDto authenticate(OAuth2UserRequestDTO oAuth2UserRequestDTO);
+    RefreshAccessTokenPairDto authenticate(OAuth2UserRequestDto oAuth2UserRequestDTO);
+
+    String refreshAccessToken(String refreshToken);
 }

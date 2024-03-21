@@ -1,13 +1,13 @@
 package ro.dragosghinea.users.model.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @Setter
 @Getter
-public class OAuth2UserRequestDTO {
+@Builder
+@AllArgsConstructor
+public class OAuth2UserRequestDto {
     private String clientRegistrationId;
     private String accessToken;
 }

@@ -1,42 +1,43 @@
 package ro.dragosghinea.users.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.*;
-import ro.dragosghinea.users.exceptions.ClientRegistrationNotFound;
-import ro.dragosghinea.users.model.User;
-import ro.dragosghinea.users.model.dto.OAuth2UserRequestDTO;
-import ro.dragosghinea.users.model.dto.UserDto;
-import ro.dragosghinea.users.security.LiteClientRegistration;
-import ro.dragosghinea.users.security.OAuth2Fetcher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import ro.dragosghinea.users.model.dto.OAuth2UserRequestDto;
+import ro.dragosghinea.users.model.dto.RefreshAccessTokenPairDto;
 import ro.dragosghinea.users.service.AuthenticationService;
 
-import java.time.Duration;
-import java.time.Instant;
+import java.util.AbstractMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final OAuth2Fetcher oAuth2Fetcher;
-    private final DefaultOAuth2UserService oauth2UserService = new DefaultOAuth2UserService();
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public void login(@RequestBody OAuth2UserRequestDTO oAuth2UserRequestDTO) {
-         UserDto user = authenticationService.authenticate(oAuth2UserRequestDTO);
-            System.out.println(user);
+    public ResponseEntity<RefreshAccessTokenPairDto> login(@RequestBody OAuth2UserRequestDto oAuth2UserRequestDTO) {
+         return ResponseEntity.ok(authenticationService.authenticate(oAuth2UserRequestDTO));
+    }
 
-//        Map<String, Object> userAttrs = oAuth2Fetcher.getUserAttributes(liteClientRegistration, oAuth2UserRequestDTO.getAccessToken());
-//        System.out.println(userAttrs.toString());
-        System.out.println("TEST");
+    @PostMapping("/refresh")
+    public ResponseEntity<Map.Entry<String, String>> refresh(@RequestBody Map<String, String> bodyParams) {
+        String refreshToken = bodyParams.getOrDefault("refreshToken", null);
+        if (refreshToken == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Refresh token not found");
+
+        return ResponseEntity.ok(
+                new AbstractMap.SimpleEntry<>(
+                        "accessToken",
+                        authenticationService.refreshAccessToken(refreshToken)
+                )
+        );
     }
 }
