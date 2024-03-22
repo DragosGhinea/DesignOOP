@@ -16,9 +16,7 @@ import ro.dragosghinea.users.repository.LinkedProviderRepository;
 import ro.dragosghinea.users.repository.UserRepository;
 import ro.dragosghinea.users.security.LiteClientRegistration;
 import ro.dragosghinea.users.security.OAuth2Fetcher;
-import ro.dragosghinea.users.service.LinkedProviderService;
 import ro.dragosghinea.users.service.OAuth2ToUserService;
-import ro.dragosghinea.users.service.UserService;
 
 import java.time.Instant;
 import java.util.List;
@@ -70,7 +68,7 @@ public class DiscordToUserServiceImpl implements OAuth2ToUserService {
                 user.getLinkedProviders().add(linkedProvider);
             }
         }catch(UserNotFound e) {
-            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD.name());
+            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD);
             if(linkedProvider != null) {
                 log.warning("LinkedProvider already exists, but assigned to another user ("+linkedProvider.getUserId()+"). Will create a new user due to email change on the OAuth2 Provider.");
             }
@@ -93,7 +91,7 @@ public class DiscordToUserServiceImpl implements OAuth2ToUserService {
 
             userRepository.save(user);
         }catch(LinkedProviderNotFound e) {
-            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD.name());
+            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD);
             if(linkedProvider != null) {
                 log.warning("LinkedProvider already exists, but assigned to another user ("+linkedProvider.getUserId()+"). Will move it to this user due to email change on the OAuth2 Provider.");
             }

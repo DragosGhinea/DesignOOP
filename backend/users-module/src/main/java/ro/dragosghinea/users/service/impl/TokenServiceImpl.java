@@ -39,6 +39,11 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
+    public boolean isRefreshTokenValid(String refreshToken) {
+        return !jwtService.isTokenExpired(refreshToken);
+    }
+
+    @Override
     public RefreshTokenDto getRefreshToken(UUID userId, boolean includeUser) throws RefreshTokenNotFound {
         RefreshToken refreshToken = (includeUser?
                 refreshTokenRepository.findByUserIdWithUser(userId) : refreshTokenRepository.findByUserId(userId))
@@ -72,9 +77,16 @@ public class TokenServiceImpl implements TokenService {
         return refreshTokenMapper.toDto(newRefreshToken);
     }
 
+    @Transactional
     @Override
     public boolean deleteRefreshToken(UUID userId) {
-        return refreshTokenRepository.deleteByUserId(userId);
+        return refreshTokenRepository.deleteByUserId(userId) != 0;
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteRefreshToken(String refreshToken) {
+        return refreshTokenRepository.deleteByRefreshToken(refreshToken) != 0;
     }
 
     @Transactional

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ro.dragosghinea.users.exceptions.LinkedProviderNotFound;
 import ro.dragosghinea.users.mapper.LinkedProviderMapper;
 import ro.dragosghinea.users.model.LinkedProvider;
+import ro.dragosghinea.users.model.ProviderType;
 import ro.dragosghinea.users.model.dto.LinkedProviderDto;
 import ro.dragosghinea.users.repository.LinkedProviderRepository;
 import ro.dragosghinea.users.service.LinkedProviderService;
@@ -20,10 +21,10 @@ public class LinkedProviderServiceImpl implements LinkedProviderService {
     private final LinkedProviderMapper linkedProviderMapper;
 
     @Override
-    public LinkedProviderDto getLinkedProviderByEmailAndProvider(String email, String provider) throws LinkedProviderNotFound {
+    public LinkedProviderDto getLinkedProviderByEmailAndProvider(String email, ProviderType provider) throws LinkedProviderNotFound {
         LinkedProvider linkedProvider = linkedProviderRepository.findByEmailAndProvider(email, provider);
         if (linkedProvider == null)
-            throw new LinkedProviderNotFound("LinkedProvider with email " + email + " and provider " + provider + " not found.");
+            throw new LinkedProviderNotFound("LinkedProvider with email " + email + " and provider " + provider.name() + " not found.");
 
         return linkedProviderMapper.toDto(linkedProvider);
     }

@@ -9,6 +9,8 @@ public interface TokenService {
 
     boolean isAccessTokenValid(RefreshTokenDto refreshTokenDto, String accessToken);
 
+    boolean isRefreshTokenValid(String refreshToken);
+
     RefreshTokenDto getRefreshToken(UUID userId, boolean includeUser) throws RefreshTokenNotFound;
 
     RefreshTokenDto getRefreshToken(String refreshToken, boolean includeUser) throws RefreshTokenNotFound;
@@ -16,6 +18,8 @@ public interface TokenService {
     RefreshTokenDto createRefreshToken(UUID userId);
 
     boolean deleteRefreshToken(UUID userId);
+
+    boolean deleteRefreshToken(String refreshToken);
 
     String generateAccessToken(RefreshTokenDto refreshTokenDto);
 }

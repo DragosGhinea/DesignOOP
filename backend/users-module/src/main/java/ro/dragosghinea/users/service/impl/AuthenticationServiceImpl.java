@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import ro.dragosghinea.users.exceptions.RefreshTokenExpired;
 import ro.dragosghinea.users.model.dto.OAuth2UserRequestDto;
 import ro.dragosghinea.users.model.dto.RefreshAccessTokenPairDto;
 import ro.dragosghinea.users.model.dto.RefreshTokenDto;
@@ -43,7 +44,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public String refreshAccessToken(String refreshToken) {
+    public String refreshAccessToken(String refreshToken) throws RefreshTokenExpired {
+        if (!tokenService.isRefreshTokenValid(refreshToken)) {
+            tokenService.deleteRefreshToken(refreshToken);
+            throw new RefreshTokenExpired();
+        }
+
         return tokenService.generateAccessToken(tokenService.getRefreshToken(refreshToken, true));
     }
 }

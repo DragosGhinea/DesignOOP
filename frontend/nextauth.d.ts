@@ -7,11 +7,23 @@ declare module "next-auth" {
     user: UserModel;
   }
 
-  interface User extends UserModel {};
+  interface User extends UserModel {
+    backend: {
+      accessTokenExpiration: number;
+      accessToken: string;
+      refreshToken: string;
+    };
+  }
 }
 
 declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
-    user: UserModel;
+    user: UserModel & {
+      backend: {
+        accessTokenExpiration: number;
+        accessToken: string;
+        refreshToken: string;
+      };
+    };
   }
 }

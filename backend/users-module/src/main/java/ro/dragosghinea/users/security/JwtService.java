@@ -1,5 +1,6 @@
 package ro.dragosghinea.users.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -77,7 +78,11 @@ public class JwtService {
     }
 
     public boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        try {
+            return extractExpiration(token).before(new Date());
+        }catch(ExpiredJwtException e) {
+            return true;
+        }
     }
 
     private Claims extractAllClaims(String token) {

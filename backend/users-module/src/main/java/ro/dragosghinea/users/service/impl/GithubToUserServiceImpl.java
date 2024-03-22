@@ -59,14 +59,14 @@ public class GithubToUserServiceImpl implements OAuth2ToUserService {
                 LinkedProvider linkedProvider = LinkedProvider.builder()
                         .providerUserId(providerUserId)
                         .userId(user.getId())
-                        .provider(ProviderType.DISCORD)
+                        .provider(ProviderType.GITHUB)
                         .linkedAtDateInSeconds(Instant.now().getEpochSecond())
                         .build();
                 linkedProviderRepository.saveAndFlush(linkedProvider);
                 user.getLinkedProviders().add(linkedProvider);
             }
         }catch(UserNotFound e) {
-            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD.name());
+            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.GITHUB);
             if(linkedProvider != null) {
                 log.warning("LinkedProvider already exists, but assigned to another user ("+linkedProvider.getUserId()+"). Will create a new user due to email change on the OAuth2 Provider.");
             }
@@ -89,7 +89,7 @@ public class GithubToUserServiceImpl implements OAuth2ToUserService {
 
             userRepository.save(user);
         }catch(LinkedProviderNotFound e) {
-            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.DISCORD.name());
+            LinkedProvider linkedProvider = linkedProviderRepository.findByProviderUserIdAndProvider(providerUserId, ProviderType.GITHUB);
             if(linkedProvider != null) {
                 log.warning("LinkedProvider already exists, but assigned to another user ("+linkedProvider.getUserId()+"). Will move it to this user due to email change on the OAuth2 Provider.");
             }
