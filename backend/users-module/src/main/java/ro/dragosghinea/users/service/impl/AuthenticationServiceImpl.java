@@ -13,6 +13,8 @@ import ro.dragosghinea.users.model.dto.UserDto;
 import ro.dragosghinea.users.service.AuthenticationService;
 import ro.dragosghinea.users.service.TokenService;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -51,5 +53,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         return tokenService.generateAccessToken(tokenService.getRefreshToken(refreshToken, true));
+    }
+
+    @Override
+    public void logout(UUID userId) {
+        tokenService.deleteRefreshToken(userId);
     }
 }

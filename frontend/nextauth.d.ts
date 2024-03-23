@@ -5,6 +5,7 @@ import { User as UserModel } from "@/prisma/dbServerActions";
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: UserModel;
+    error?: string;
   }
 
   interface User extends UserModel {

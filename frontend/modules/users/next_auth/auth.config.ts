@@ -49,6 +49,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
 export const options: NextAuthOptions = {
   pages: {
     signIn: "/login",
+    error: "/login",
   },
   providers: [
     Discord({
@@ -58,18 +59,6 @@ export const options: NextAuthOptions = {
     Github({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-      // async profile(profile) {
-      //   console.log("Github profile", profile)
-      //   const user = await loginWithOAuth(
-      //     "github",
-      //     profile.id,
-      //     profile.email,
-      //     profile.username,
-      //     profile.avatar
-      //   );
-
-      //   return { ...user, role: "USER" };
-      // },
     }),
   ],
   callbacks: {
@@ -104,8 +93,9 @@ export const options: NextAuthOptions = {
 
         return true;
       } catch (e) {
-        console.log(e);
-        return false;
+        const date = Date.now();
+        console.log(`SignInError for ${user.email} at ${date}:`, e);
+        return `/login?error=SignInException (Reference ${date})`;
       }
     },
     async jwt({ token, user }): Promise<JWT> {
@@ -118,25 +108,33 @@ export const options: NextAuthOptions = {
       }
 
       // Return previous token if the access token has not expired yet
-      console.log(Date.now(), token.user.backend.accessTokenExpiration * 1000);
       if (Date.now() < token.user.backend.accessTokenExpiration * 1000) {
-        console.log("Access token has not expired yet");
         return token;
       }
-
-      console.log("Access token has expired");
 
       // Access token has expired, try to update it
       return await refreshAccessToken(token);
     },
     async session({ session, token }) {
+      console.log("SESSION", session, token);
       if (session?.user) session.user = token.user;
 
       if ("error" in token) {
-        console.log(token);
+        session.error = token.error as string;
       }
 
       return session;
+    },
+  },
+  events: {
+    signOut: async ({ token }) => {
+      await fetch("http://localhost:8081/v1/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token.user.backend.accessToken}`,
+        },
+      });
     },
   },
 };

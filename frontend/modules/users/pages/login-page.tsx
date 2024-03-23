@@ -8,11 +8,12 @@ import {
 import React from "react";
 import LeftDownBlob from "../components/blobs/left-down-blob";
 import RightUpBlob from "../components/blobs/right-up-blob";
-import { ShieldIcon, Undo2Icon } from "lucide-react";
+import { AlertTriangleIcon, ShieldIcon, Undo2Icon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import LoginForm from "../components/forms/login-form";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const LoginPage = ({
   searchParams,
@@ -20,12 +21,26 @@ const LoginPage = ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const callbackUrl = (searchParams.callbackUrl as string) ?? "/";
+  const error = searchParams.error as string | undefined;
 
   return (
     <>
       <LeftDownBlob className="absolute bottom-0 left-0 size-[50%] fill-blue-light dark:fill-blue-dark2" />
       <RightUpBlob className="absolute right-0 top-0 size-[50%] fill-blue-light dark:fill-blue-dark2" />
-      <div className="flex size-full items-center justify-center">
+      <div className="flex size-full flex-col items-center justify-center gap-5">
+        {error && (
+          <Alert
+            variant="destructive"
+            className="bg-light-900 dark:bg-light-700 md:w-[30%]"
+          >
+            <AlertTriangleIcon className="size-4" />
+            <AlertTitle>Error: {error}</AlertTitle>
+            <AlertDescription>
+              There was an error while trying to authenticate you. Please try
+              again.
+            </AlertDescription>
+          </Alert>
+        )}
         <Card className="relative flex w-full flex-col items-center shadow-dark-100 dark:shadow-none md:w-[30%]">
           <CardHeader className="flex flex-row items-center justify-stretch gap-5">
             <CardTitle className="grow">Login</CardTitle>

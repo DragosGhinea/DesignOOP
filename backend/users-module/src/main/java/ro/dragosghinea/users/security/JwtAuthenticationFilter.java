@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -34,9 +36,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        if (request.getServletPath().contains("/api/v1/auth")) {
-            filterChain.doFilter(request, response);
-            return;
+        if (request.getServletPath().contains("/v1/auth")) {
+            if (!request.getServletPath().contains("/v1/auth/logout")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
         }
 
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
@@ -47,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userId;
-        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             Optional<Cookie> accessTokenCookie = Arrays.stream(request.getCookies()).filter(c -> "accessToken".equals(c.getName())).findFirst();
             if (accessTokenCookie.isEmpty()) {
                 filterChain.doFilter(request, response);

@@ -12,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useRouter } from "next/navigation";
 
 const NotificationsButton = () => {
   return (
@@ -31,11 +32,20 @@ const NotificationsButton = () => {
 };
 
 const LogoutButton = () => {
+  const router = useRouter();
+
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger>
-          <div className="cursor-pointer p-2" onClick={() => signOut()}>
+          <div
+            className="cursor-pointer p-2"
+            onClick={() => {
+              signOut({ redirect: false }).then((data) =>
+                router.push(data.url)
+              );
+            }}
+          >
             <LogOutIcon className="size-6" />
           </div>
         </TooltipTrigger>

@@ -5,6 +5,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ro.dragosghinea.users.model.dto.OAuth2UserRequestDto;
@@ -13,6 +14,7 @@ import ro.dragosghinea.users.service.AuthenticationService;
 
 import java.time.Duration;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("v1/auth")
@@ -57,5 +59,15 @@ public class AuthenticationController {
         return ResponseEntity.ok(
                 Map.of("access_token", generatedAccessToken)
         );
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(Authentication authentication) {
+        System.out.println("Authentication: " + authentication);
+        if (authentication == null)
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+
+        authenticationService.logout(UUID.fromString(authentication.getName()));
+        return ResponseEntity.ok().build();
     }
 }

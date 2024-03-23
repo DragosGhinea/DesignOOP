@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import { ThemeProvider } from "@/context/theme-provider";
 import { AuthProvider } from "@/context/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
+import SessionEnsure from "@/modules/users/components/session/session-ensure";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <SessionEnsure>{children}</SessionEnsure>
+            </AuthProvider>
         </ThemeProvider>
         <Toaster closeButton richColors/>
       </body>
