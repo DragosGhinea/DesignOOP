@@ -2,7 +2,10 @@ import { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import Discord from "next-auth/providers/discord";
 import Github from "next-auth/providers/github";
-import { extractExpirationFromBackendToken } from "../utils/utils";
+import {
+  extractExpirationFromBackendToken,
+  extractSubjectFromBackendToken,
+} from "../utils/utils";
 
 const refreshAccessToken = async (token: JWT): Promise<JWT> => {
   try {
@@ -37,8 +40,6 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
       },
     };
   } catch (error) {
-    console.log(error);
-
     return {
       ...token,
       error: "RefreshAccessTokenError",
@@ -82,6 +83,10 @@ export const options: NextAuthOptions = {
             throw data;
           }
 
+          user.id = extractSubjectFromBackendToken(data.access_token);
+          user.name = undefined;
+          user.email = undefined;
+          user.image = undefined;
           user.backend = {
             accessTokenExpiration: extractExpirationFromBackendToken(
               data.access_token
@@ -116,8 +121,7 @@ export const options: NextAuthOptions = {
       return await refreshAccessToken(token);
     },
     async session({ session, token }) {
-      console.log("SESSION", session, token);
-      if (session?.user) session.user = token.user;
+      if (token.user) session.user = token.user;
 
       if ("error" in token) {
         session.error = token.error as string;

@@ -63,7 +63,6 @@ public class AuthenticationController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(Authentication authentication) {
-        System.out.println("Authentication: " + authentication);
         if (authentication == null)
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
 
