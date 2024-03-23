@@ -3,14 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { ReactNode } from "react";
 import ProfileLink from "@main/components/navbar/profile-link";
+import { cn } from "@/lib/utils";
 
 const UnderlineAnimated = ({ children }: { children: ReactNode }) => {
   return <span className="underline-animated relative">{children}</span>;
 };
 
-const Navbar = () => {
+const Navbar = ({ className }: { className?: string }) => {
   return (
-    <div className="fixed top-0 z-50 flex w-full items-center justify-between gap-5 px-6 text-light-700 sm:px-12">
+    <div
+      className={cn(
+        "fixed top-0 z-50 flex w-full items-center justify-between gap-5 px-6 text-light-700 sm:px-12",
+        className
+      )}
+    >
       <Link
         href="/"
         className="h5-typography flex items-center gap-1 font-bold transition-colors hover:text-dark-500 dark:hover:text-blue-300 [&_span]:before:hover:scale-x-100"

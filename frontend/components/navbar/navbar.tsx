@@ -2,15 +2,21 @@ import { ThemeToggle } from "@/components/shared/theme-toggle";
 import Link from "next/link";
 import Image from "next/image";
 import React, { ReactNode } from "react";
-import ProfileLink from "@/modules/courses/components/navbar/profile-link";
+import ProfileLink from "@/components/navbar/profile-link";
+import { cn } from "@/lib/utils";
 
 const UnderlineAnimated = ({ children }: { children: ReactNode }) => {
   return <span className="underline-animated relative">{children}</span>;
 };
 
-const Navbar = () => {
+const Navbar = ({ className }: { className?: string }) => {
   return (
-    <div className="z-50 flex w-full items-center justify-between gap-5 px-6 text-dark-500 shadow-md dark:border-b-2 dark:text-light-700 dark:shadow-none sm:px-12">
+    <div
+      className={cn(
+        "z-50 flex w-full items-center justify-between gap-5 px-6 text-dark-500 shadow-md dark:border-b-2 dark:text-light-700 dark:shadow-none sm:px-12",
+        className
+      )}
+    >
       <Link
         href="/"
         className="h5-typography relative flex items-center gap-1 font-bold [&_span]:before:hover:scale-x-100"

@@ -5,7 +5,7 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable";
 import React, { ReactNode } from "react";
-import Navbar from "@/modules/courses/components/navbar/navbar";
+import Navbar from "@/components/navbar/navbar";
 import CourseJSONProvider from "../context/course-json-provider";
 
 const CoursesLayout = ({

@@ -132,13 +132,15 @@ export const options: NextAuthOptions = {
   },
   events: {
     signOut: async ({ token }) => {
-      await fetch("http://localhost:8081/v1/auth/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token.user.backend.accessToken}`,
-        },
-      });
+      try {
+        await fetch("http://localhost:8081/v1/auth/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token.user.backend.accessToken}`,
+          },
+        });
+      } catch (e) {}
     },
   },
 };
