@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 const DEFAULT_LOGIN_REDIRECT = "/";
 const apiAuthPrefix = "/api/auth";
 const authRoutes = ["/login"];
-const publicRoutes = ["/", "/courses"];
+const publicRoutes = ["/", "/courses", "/profile"];
 
 export default withAuth(
   (req: NextRequest) => {

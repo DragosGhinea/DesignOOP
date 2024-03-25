@@ -5,7 +5,7 @@ import Github from "next-auth/providers/github";
 import {
   extractExpirationFromBackendToken,
   extractSubjectFromBackendToken,
-} from "../utils/utils";
+} from "../utils/token-utils";
 
 const refreshAccessToken = async (token: JWT): Promise<JWT> => {
   try {
