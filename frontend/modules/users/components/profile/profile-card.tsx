@@ -8,7 +8,8 @@ import { Card } from "@/components/ui/card";
 import LinkedProviders from "./linked-providers";
 import { Separator } from "@/components/ui/separator";
 import EditImageModal from "./edit-image-modal";
-import { profile } from "console";
+import EditUsernameModal from "./edit-username-modal";
+import useUnsavedChangesProfile from "../../hooks/use-unsaved-changes-profile";
 
 const ProfileCard = ({
   profile,
@@ -19,22 +20,39 @@ const ProfileCard = ({
   className?: string;
   canEdit?: boolean;
 }) => {
+  const { changes } = useUnsavedChangesProfile();
   const [isEditImageModalOpen, setIsEditImageModalOpen] = useState(false);
+  const [isEditUsernameModalOpen, setIsEditUsernameModalOpen] = useState(false);
+
   const handleEditImage = () => {
     if (!canEdit) return;
 
     setIsEditImageModalOpen(true);
   };
 
+  const handleEditUsername = () => {
+    if (!canEdit) return;
+
+    setIsEditUsernameModalOpen(true);
+  };
+
   return (
     <>
       {canEdit && (
-        <EditImageModal
-          isOpen={isEditImageModalOpen}
-          close={() => {
-            setIsEditImageModalOpen(false);
-          }}
-        />
+        <>
+          <EditImageModal
+            isOpen={isEditImageModalOpen}
+            close={() => {
+              setIsEditImageModalOpen(false);
+            }}
+          />
+          <EditUsernameModal
+            isOpen={isEditUsernameModalOpen}
+            close={() => {
+              setIsEditUsernameModalOpen(false);
+            }}
+          />
+        </>
       )}
       <Card
         className={cn(
@@ -50,7 +68,7 @@ const ProfileCard = ({
           onClick={handleEditImage}
         >
           <AvatarImage
-            src={profile.avatar}
+            src={changes?.profileImgUrl || profile.avatar}
             alt="ProfileImg"
             draggable={false}
             className="peer"
@@ -66,8 +84,13 @@ const ProfileCard = ({
         </Avatar>
 
         <h3 className="h3-typography flex">
-          {profile.username}{" "}
-          {canEdit && <EditIcon className="m-2 cursor-pointer" />}
+          {changes?.username || profile.username}{" "}
+          {canEdit && (
+            <EditIcon
+              className="m-2 cursor-pointer"
+              onClick={handleEditUsername}
+            />
+          )}
         </h3>
         <div>
           <h6 className="h6-typography">{profile.email}</h6>

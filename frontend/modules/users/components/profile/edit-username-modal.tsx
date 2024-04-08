@@ -7,24 +7,24 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { LinkIcon } from "lucide-react";
+import { UserIcon } from "lucide-react";
 import React, { useState } from "react";
 import useUnsavedChangesProfile from "../../hooks/use-unsaved-changes-profile";
 
-const EditImageModal = ({
+const EditUsernameModal = ({
   isOpen,
   close,
 }: {
   isOpen: boolean;
   close: () => void;
 }) => {
-  const [urlToNewImage, setUrlToNewImage] = useState("");
+  const [newUsername, setNewUsername] = useState("");
   const { setChanges } = useUnsavedChangesProfile();
 
   const handlePreviewChange = () => {
     setChanges((prev) => ({
       ...prev,
-      profileImgUrl: urlToNewImage,
+      username: newUsername,
     }));
     close();
   };
@@ -40,28 +40,25 @@ const EditImageModal = ({
     >
       <DialogContent className="flex flex-col gap-7">
         <div className="flex flex-col gap-3">
-          <DialogTitle>Change Image</DialogTitle>
+          <DialogTitle>Change Username</DialogTitle>
           <DialogDescription>
-            Currently you can only change your profile image by providing a link
-            to one.
+            The username has to be alphanumeric and can contain underscores.
           </DialogDescription>
         </div>
 
         <div className="flex items-center gap-3">
-          <LinkIcon />
+          <UserIcon />
           <Input
-            defaultValue={urlToNewImage}
-            onChange={(e) => setUrlToNewImage(e.target.value)}
-            placeholder="Profile Image URL"
+            defaultValue={newUsername}
+            onChange={(e) => setNewUsername(e.target.value)}
+            placeholder="Username"
             required
           />
         </div>
 
         <DialogFooter>
           <Button
-            disabled={
-              /^(ftp|http|https):\/\/[^ "]+$/.test(urlToNewImage) === false
-            }
+            disabled={/^[a-zA-Z0-9_]{3,}$/.test(newUsername) === false}
             onClick={handlePreviewChange}
           >
             Preview Change
@@ -75,4 +72,4 @@ const EditImageModal = ({
   );
 };
 
-export default EditImageModal;
+export default EditUsernameModal;

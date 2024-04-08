@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import React from "react";
 import ProfileCard from "../components/profile/profile-card";
+import UnsavedChangesProfileProvider from "../context/unsaved-changes-profile";
 
 const ProfilePage = () => {
   // const { data: session, status } = useSession();
@@ -11,6 +12,7 @@ const ProfilePage = () => {
 
   // return <div>{JSON.stringify(session)}</div>;
   return (
+    <UnsavedChangesProfileProvider>
       <div className="flex flex-1 items-center justify-center p-10">
         <ProfileCard
           className=""
@@ -36,7 +38,8 @@ const ProfilePage = () => {
             ],
           }}
         />
-    </div>
+      </div>
+    </UnsavedChangesProfileProvider>
   );
 };
 
