@@ -1,43 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import { ProfileInfo } from "../../types/profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ImageIcon } from "lucide-react";
+import { EditIcon, ImageIcon, ImagePlusIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import LinkedProviders from "./linked-providers";
+import { Separator } from "@/components/ui/separator";
+import EditImageModal from "./edit-image-modal";
+import { profile } from "console";
 
 const ProfileCard = ({
   profile,
   className,
+  canEdit = true,
 }: {
   profile: ProfileInfo;
   className?: string;
+  canEdit?: boolean;
 }) => {
+  const [isEditImageModalOpen, setIsEditImageModalOpen] = useState(false);
+  const handleEditImage = () => {
+    if (!canEdit) return;
+
+    setIsEditImageModalOpen(true);
+  };
+
   return (
-    <Card
-      className={cn(
-        "flex flex-col items-center justify-center gap-5 p-10",
-        className
+    <>
+      {canEdit && (
+        <EditImageModal
+          isOpen={isEditImageModalOpen}
+          close={() => {
+            setIsEditImageModalOpen(false);
+          }}
+        />
       )}
-    >
-      <Avatar className="relative size-[50%]">
-        <AvatarImage src={profile.avatar} alt="ProfileImg" draggable={false} />
-        <AvatarFallback>
-          <ImageIcon className="size-[40%] opacity-20" />
-        </AvatarFallback>
-      </Avatar>
-      <h3 className="h3-typography">{profile.username}</h3>
-      <div>
-        <h6 className="h6-typography">{profile.email}</h6>
-      </div>
-      <div>
-        {profile.roles.map((role) => (
-          <Badge key={role} className="cursor-default">
-            {role}
-          </Badge>
-        ))}
-      </div>
-    </Card>
+      <Card
+        className={cn(
+          "flex flex-col items-center justify-center gap-5 p-10",
+          className
+        )}
+      >
+        <Avatar
+          className={cn(
+            "relative size-[50%]",
+            canEdit && "hover:cursor-pointer"
+          )}
+          onClick={handleEditImage}
+        >
+          <AvatarImage
+            src={profile.avatar}
+            alt="ProfileImg"
+            draggable={false}
+            className="peer"
+          />
+          <AvatarFallback className={cn("peer", canEdit && "hover:opacity-0")}>
+            <ImageIcon className="size-[40%] opacity-20" />
+          </AvatarFallback>
+          {canEdit && (
+            <div className="pointer-events-none absolute flex size-full items-center justify-center rounded-full bg-black opacity-0 transition-[opacity] peer-hover:opacity-60">
+              <ImagePlusIcon className="size-16 text-white" />
+            </div>
+          )}
+        </Avatar>
+
+        <h3 className="h3-typography flex">
+          {profile.username}{" "}
+          {canEdit && <EditIcon className="m-2 cursor-pointer" />}
+        </h3>
+        <div>
+          <h6 className="h6-typography">{profile.email}</h6>
+        </div>
+        <div>
+          {profile.roles.map((role) => (
+            <Badge key={role} className="cursor-default">
+              {role}
+            </Badge>
+          ))}
+        </div>
+        {profile.linkedProviders && (
+          <>
+            <Separator />
+            <LinkedProviders linkedProviders={profile.linkedProviders} />
+          </>
+        )}
+      </Card>
+    </>
   );
 };
 

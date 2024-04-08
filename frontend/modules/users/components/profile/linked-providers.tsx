@@ -28,7 +28,7 @@ const LinkedProviders = ({
 }) => {
   return (
     <div className="flex flex-col items-center gap-2">
-      <h3 className="h3-typography inline-block">Linked Providers</h3>
+      <h3 className="h5-typography inline-block font-bold">Linked Providers</h3>
       <div className="flex flex-wrap justify-center gap-3">
         {linkedProviders.map((linkedProvider) => {
           return (
