@@ -24,7 +24,7 @@ const EditImageModal = ({
   const handlePreviewChange = () => {
     setChanges((prev) => ({
       ...prev,
-      profileImgUrl: urlToNewImage,
+      avatarUrl: `link:${urlToNewImage}`,
     }));
     close();
   };
@@ -59,9 +59,7 @@ const EditImageModal = ({
 
         <DialogFooter>
           <Button
-            disabled={
-              /^(ftp|http|https):\/\/[^ "]+$/.test(urlToNewImage) === false
-            }
+            disabled={/^(http|https):\/\/[^ "]+$/.test(urlToNewImage) === false}
             onClick={handlePreviewChange}
           >
             Preview Change

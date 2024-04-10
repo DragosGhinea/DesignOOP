@@ -48,6 +48,7 @@
     "sharp": "^0.33.2",
     "sonner": "^1.4.3",
     "sqlite3": "^5.1.7",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^2.14.0"

@@ -1,7 +1,9 @@
 package ro.dragosghinea.users.service;
 
+import ro.dragosghinea.users.exceptions.UpdateProfileFailed;
 import ro.dragosghinea.users.exceptions.UserNotFound;
 import ro.dragosghinea.users.model.User;
+import ro.dragosghinea.users.model.dto.UpdateProfileDto;
 import ro.dragosghinea.users.model.dto.UserDto;
 
 import java.util.UUID;
@@ -13,4 +15,6 @@ public interface UserService {
     UserDto getUserByEmail(String email) throws UserNotFound;
 
     void saveUser(UserDto userDto);
+
+    UserDto updateUser(UpdateProfileDto updateProfileDto) throws UserNotFound, UpdateProfileFailed;
 }

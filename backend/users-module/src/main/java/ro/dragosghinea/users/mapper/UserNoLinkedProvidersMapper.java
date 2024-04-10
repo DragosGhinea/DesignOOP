@@ -11,6 +11,7 @@ public interface UserNoLinkedProvidersMapper {
     @Mapping(target = "linkedProviders", ignore = true)
     User toEntity(final UserDto userDto);
 
+    @Mapping(source = "actualUsername", target="username")
     @Mapping(target = "linkedProviders", ignore = true)
     UserDto toDto(final User user);
 }

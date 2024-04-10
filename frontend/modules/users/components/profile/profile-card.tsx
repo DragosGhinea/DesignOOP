@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import EditImageModal from "./edit-image-modal";
 import EditUsernameModal from "./edit-username-modal";
 import useUnsavedChangesProfile from "../../hooks/use-unsaved-changes-profile";
+import { rawAvatarToProfileImgUrl } from "../../utils/profile-utils";
 
 const ProfileCard = ({
   profile,
@@ -68,7 +69,10 @@ const ProfileCard = ({
           onClick={handleEditImage}
         >
           <AvatarImage
-            src={changes?.profileImgUrl || profile.avatar}
+            src={
+              rawAvatarToProfileImgUrl(changes?.profileImgUrl) ||
+              rawAvatarToProfileImgUrl(profile?.avatarUrl)
+            }
             alt="ProfileImg"
             draggable={false}
             className="peer"

@@ -52,6 +52,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userId;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            if (request.getCookies() == null) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             Optional<Cookie> accessTokenCookie = Arrays.stream(request.getCookies()).filter(c -> "accessToken".equals(c.getName())).findFirst();
             if (accessTokenCookie.isEmpty()) {
                 filterChain.doFilter(request, response);

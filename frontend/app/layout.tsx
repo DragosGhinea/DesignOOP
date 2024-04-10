@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/context/theme-provider";
 import { AuthProvider } from "@/context/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
 import SessionEnsure from "@/modules/users/components/session/session-ensure";
+import SessionSWRConfig from "@/modules/users/components/session/session-swr-config";
+import FetchWithAuthorizationProvider from "@/modules/users/context/fetch-with-authorization";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,10 +31,16 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <SessionEnsure>{children}</SessionEnsure>
-            </AuthProvider>
+            <SessionEnsure>
+              <SessionSWRConfig>
+                <FetchWithAuthorizationProvider>
+                  {children}
+                </FetchWithAuthorizationProvider>
+              </SessionSWRConfig>
+            </SessionEnsure>
+          </AuthProvider>
         </ThemeProvider>
-        <Toaster closeButton richColors/>
+        <Toaster closeButton richColors />
       </body>
     </html>
   );

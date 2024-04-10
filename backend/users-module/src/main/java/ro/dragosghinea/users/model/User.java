@@ -52,6 +52,11 @@ public class User implements UserDetails {
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role.name())).toList();
     }
 
+    public String getActualUsername() {
+        return username;
+    }
+
+    // used by spring security UserDetails
     @Override
     public String getUsername() {
         return id.toString();

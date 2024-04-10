@@ -1,10 +1,16 @@
+"use client";
+
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import React, { createContext, useState, ReactNode } from "react";
+import useFetchWithAuthorization from "../hooks/use-fetch-with-authorization";
+import { toast } from "sonner";
+import { useSWRConfig } from "swr";
+import { SWRKey } from "../components/session/session-swr-config";
 
 export interface ProfileChanges {
   username?: string;
-  profileImgUrl?: string;
+  avatarUrl?: string;
 }
 
 export interface UnsavedChangesProfileContextType {
@@ -23,7 +29,50 @@ interface UnsavedChangesProfileProviderProps {
 const UnsavedChangesProfileProvider = ({
   children,
 }: UnsavedChangesProfileProviderProps) => {
+  const { mutate } = useSWRConfig();
   const [changes, setChanges] = useState<ProfileChanges>({});
+  const { fetcherWithAuthorization } = useFetchWithAuthorization();
+
+  const handleSaveChanges = async () => {
+    try {
+      const res = await fetcherWithAuthorization(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/me`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(changes),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) {
+        const error = await res.json();
+        console.error(error);
+        toast.error(
+          `An error occurred while saving changes: ${error.message}`,
+          {
+            duration: 5000,
+          }
+        );
+        return;
+      }
+
+      await mutate((key: SWRKey) => {
+        if (!key) return false;
+
+        if (typeof key === "object" && key.tags.includes("user-profile-data")) {
+          return true;
+        }
+
+        return false;
+      });
+      setChanges({});
+    } catch (e) {
+      toast.error("An error occurred while sending request to save changes.", {
+        duration: 5000,
+      });
+    }
+  };
 
   return (
     <UnsavedChangesProfileContext.Provider
@@ -43,7 +92,9 @@ const UnsavedChangesProfileProvider = ({
               </AlertDescription>
             </div>
             <div className="flex gap-5">
-              <Button variant="success">Save Changes</Button>
+              <Button variant="success" onClick={handleSaveChanges}>
+                Save Changes
+              </Button>
               <Button variant="secondary" onClick={() => setChanges({})}>
                 Discard Changes
               </Button>
