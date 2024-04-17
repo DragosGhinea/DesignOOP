@@ -32,6 +32,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.14.0",
+    "hamburger-react": "^2.5.0",
     "js-yaml": "^4.1.0",
     "jsonrepair": "^3.6.0",
     "jwt-decode": "^4.0.0",
@@ -51,7 +52,7 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "usehooks-ts": "^2.14.0"
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@lezer/generator": "^1.6.0",
