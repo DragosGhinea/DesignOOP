@@ -5,7 +5,6 @@ import Link from "next/link";
 import React from "react";
 
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { ContactIcon, LogOutIcon, UserIcon } from "lucide-react";
 
 const ProfileLinkMobile = ({ variant = "default" }: { variant: string }) => {

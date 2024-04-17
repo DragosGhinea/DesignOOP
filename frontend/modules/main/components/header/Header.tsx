@@ -2,6 +2,7 @@ import React from "react";
 import HeaderCanvas from "./canvas/header-canvas";
 import SuggestionsCard from "../suggestion/suggestions-card";
 import { BadgeCheckIcon } from "lucide-react";
+import HeaderCanvasMobile from "./canvas/header-canvas-mobile";
 
 const HeaderLi = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,7 +10,7 @@ const HeaderLi = ({ children }: { children: React.ReactNode }) => {
       <div>
         <BadgeCheckIcon className="size-10" />
       </div>
-      
+
       {children}
     </li>
   );
@@ -18,22 +19,17 @@ const HeaderLi = ({ children }: { children: React.ReactNode }) => {
 const Header = () => {
   return (
     <header className="grid max-h-screen min-h-screen grid-cols-12 grid-rows-12">
-      <HeaderCanvas />
-      <section className="relative col-span-4 col-start-1 row-span-3 row-start-3 flex flex-col gap-10 px-20 text-light-700">
+      {/* <HeaderCanvas /> */}
+      <HeaderCanvasMobile />
+      <section className="relative hidden flex-col gap-10 px-20 text-light-700 lg:col-span-4 lg:col-start-1 lg:row-span-3 lg:row-start-3 lg:flex">
         <h1 className="h2-typography font-bold">Build with knowledge</h1>
-        {/* <p className="h6-typography">
-          Our mission is to help you learn design patterns, making complex
-          concepts simple and letting you track your progress every step of the
-          way!
-        </p> */}
         <ul className="h6-typography flex flex-col gap-5">
           <HeaderLi>Learn design patterns</HeaderLi>
           <HeaderLi>Simplify complex concepts</HeaderLi>
-          <HeaderLi>Test your knowledge</HeaderLi>
-          <HeaderLi>Track your progress</HeaderLi>
+          <HeaderLi>Verify your knowledge</HeaderLi>
         </ul>
       </section>
-      <SuggestionsCard className="relative col-span-4 col-start-8 row-span-6 row-start-6" />
+      <SuggestionsCard className="relative col-span-10 col-start-2 row-span-6 row-start-3 lg:col-span-4 lg:col-start-8 lg:row-span-6 lg:row-start-6" />
     </header>
   );
 };

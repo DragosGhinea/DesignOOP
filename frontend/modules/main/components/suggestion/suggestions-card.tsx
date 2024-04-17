@@ -50,12 +50,12 @@ const SuggestionEntry = ({
 
 const SuggestionsCard = ({ className }: { className?: string }) => {
   return (
-    <Card className={cn("relative overflow-auto", className)}>
+    <Card className={cn("relative overflow-hidden", className)}>
       <CardHeader>
         <CardTitle>Suggestions</CardTitle>
         <CardDescription>Some actions suggested for you</CardDescription>
       </CardHeader>
-      <ScrollArea className="mx-8 h-[72%] max-h-[72%] border-y-2">
+      <ScrollArea className="mx-8 h-[72%] max-h-[63%] border-y-2 lg:max-h-[72%]">
         <CardContent className="flex flex-col items-center gap-3 p-4">
           <SuggestionEntry
             name="Login"
