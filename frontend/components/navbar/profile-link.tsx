@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const NotificationsButton = () => {
   return (
@@ -57,7 +58,7 @@ const LogoutButton = () => {
   );
 };
 
-const ProfileLink = () => {
+const ProfileLink = ({ variant = "default" }: { variant: string }) => {
   const { status } = useSession();
 
   if (status === "loading") return null;
@@ -66,21 +67,36 @@ const ProfileLink = () => {
     return (
       <Link
         href="/login"
-        className="p-typography p-6 font-semibold  transition-colors [&_span]:before:hover:scale-x-100"
+        className={cn(
+          "p-typography p-6 font-semibold  transition-colors [&_span]:before:hover:scale-x-100",
+          variant === "main" &&
+            "text-light-700 hover:text-dark-500 dark:hover:text-blue-300"
+        )}
       >
         <span className="underline-animated relative">Login</span>
       </Link>
     );
 
   return (
-    <div className="p-typography flex items-center gap-5 font-semibold">
+    <div
+      className={cn(
+        "p-typography flex items-center gap-5 font-semibold",
+        variant === "main" && "text-light-700"
+      )}
+    >
       <Link
         href="/profile"
-        className="p-typography p-6 font-semibold transition-colors [&_span]:before:hover:scale-x-100"
+        className={cn(
+          "p-typography p-6 font-semibold transition-colors [&_span]:before:hover:scale-x-100",
+          variant === "main" && "hover:text-dark-500 dark:hover:text-blue-300"
+        )}
       >
         <span className="underline-animated relative">Profile</span>
       </Link>
-      <Separator orientation="vertical" className="h-7 w-[2px]" />
+      <Separator
+        orientation="vertical"
+        className={cn("h-7 w-[2px]", variant === "main" && "bg-current")}
+      />
       <NotificationsButton />
       <LogoutButton />
     </div>
