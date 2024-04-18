@@ -1,5 +1,10 @@
 "use client";
-import { curvesMobile1, curvesMobile2 } from "@main/constants/curves";
+import {
+  curvesMobile1,
+  curvesMobile2,
+  curvesMobile3,
+  curvesMobile4,
+} from "@main/constants/curves";
 import { bezierSkin, cubicBezierInterpolation } from "@main/utils/bezier-utils";
 import generatePerlinNoise from "@main/utils/noise";
 import { useTheme } from "next-themes";
@@ -12,11 +17,11 @@ function draw(
   randoms: number[],
   color: string,
   leftStartY: number,
-  isDark = false
+  isDark = false,
+  inverted = false
 ) {
   const canvas = context.canvas;
 
-  // context.clearRect(0, 0, canvas.width, canvas.height);
   const anchors = [0, canvas.height * leftStartY];
 
   let j = 0;
@@ -40,30 +45,34 @@ function draw(
 
       const offset = 20 * Math.sin(2 * Math.PI * (time + randoms[j++]));
 
-      // context.beginPath();
-      // context.arc(x + offset, y + offset, 3, 0, 2 * Math.PI);
-
-      // context.fillStyle = "green";
-      // context.fill();
-
       anchors.push(x + offset, y + offset);
     }
   }
-  anchors.push(canvas.width + 100, 0);
 
-  context.save();
-  context.fillStyle = color;
-  context.beginPath();
-  context.moveTo(0, 0);
-  bezierSkin(context, anchors, false);
-  context.lineTo(0, 0);
+  anchors.push(canvas.width + 300, inverted ? canvas.height : 0);
+
+  if (inverted) {
+    context.save();
+    context.fillStyle = color;
+    context.beginPath();
+    context.moveTo(0, canvas.height);
+    bezierSkin(context, anchors, false);
+    context.lineTo(0, canvas.height);
+  } else {
+    context.save();
+    context.fillStyle = color;
+    context.beginPath();
+    context.moveTo(0, 0);
+    bezierSkin(context, anchors, false);
+    context.lineTo(0, 0);
+  }
 
   if (isDark) context.fill();
   else {
     context.shadowColor = "rgba(0, 0, 0, 0.23)";
     context.shadowBlur = 10;
     context.shadowOffsetX = 3;
-    context.shadowOffsetY = 3;
+    context.shadowOffsetY = inverted? -3 : 3;
 
     context.fill();
 
@@ -115,8 +124,16 @@ const HeaderCanvasMobile = () => {
     let time = 0;
     let time2 = 0;
     let animationFrameId: number;
-    const randoms: number[] = generatePerlinNoise(curvesMobile2.length * 3, 0.7, 0.5);
-    const randoms2: number[] = generatePerlinNoise(curvesMobile1.length * 3, 0.7, 0.5);
+    const randoms: number[] = generatePerlinNoise(
+      curvesMobile2.length * 3,
+      0.7,
+      0.5
+    );
+    const randoms2: number[] = generatePerlinNoise(
+      curvesMobile1.length * 3,
+      0.7,
+      0.5
+    );
 
     if (context) {
       const render = () => {
@@ -125,6 +142,28 @@ const HeaderCanvasMobile = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         draw(curvesMobile2, context, time2, randoms2, wave2Color, 0.3, isDark);
         draw(curvesMobile1, context, time, randoms, wave1Color, 0.2, isDark);
+
+        draw(
+          curvesMobile3,
+          context,
+          time2,
+          randoms2,
+          wave2Color,
+          0.75,
+          isDark,
+          true
+        );
+        draw(
+          curvesMobile4,
+          context,
+          time,
+          randoms,
+          wave1Color,
+          0.83,
+          isDark,
+          true
+        );
+
         animationFrameId = window.requestAnimationFrame(render);
       };
       render();

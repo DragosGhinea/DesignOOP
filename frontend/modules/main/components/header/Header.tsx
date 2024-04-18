@@ -3,6 +3,7 @@ import HeaderCanvas from "./canvas/header-canvas";
 import SuggestionsCard from "../suggestion/suggestions-card";
 import { BadgeCheckIcon } from "lucide-react";
 import HeaderCanvasMobile from "./canvas/header-canvas-mobile";
+import ConditionalRenderMediaQuery from "@/context/conditional-render-media-query";
 
 const HeaderLi = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -19,8 +20,11 @@ const HeaderLi = ({ children }: { children: React.ReactNode }) => {
 const Header = () => {
   return (
     <header className="grid max-h-screen min-h-screen grid-cols-12 grid-rows-12">
-      {/* <HeaderCanvas /> */}
-      <HeaderCanvasMobile />
+      <ConditionalRenderMediaQuery
+        mediaQuery="(min-width: 1024px)"
+        trueComponent={<HeaderCanvas />}
+        falseComponent={<HeaderCanvasMobile />}
+      />
       <section className="relative hidden flex-col gap-10 px-20 text-light-700 lg:col-span-4 lg:col-start-1 lg:row-span-3 lg:row-start-3 lg:flex">
         <h1 className="h2-typography font-bold">Build with knowledge</h1>
         <ul className="h6-typography flex flex-col gap-5">

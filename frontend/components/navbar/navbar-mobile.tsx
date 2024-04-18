@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -81,7 +83,7 @@ const NavbarMobile = ({
           />
           <li
             className={cn(
-              "flex items-center pl-6",
+              "flex items-center sm:pl-6",
               variant === "main" && "text-black dark:text-white"
             )}
           >

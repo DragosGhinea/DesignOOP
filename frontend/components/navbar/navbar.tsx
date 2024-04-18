@@ -1,9 +1,7 @@
-"use client";
-
 import React from "react";
-import { useMediaQuery } from "usehooks-ts";
 import NavbarDesktop from "./navbar-desktop";
 import NavbarMobile from "./navbar-mobile";
+import ConditionalRenderMediaQuery from "@/context/conditional-render-media-query";
 
 const Navbar = ({
   className,
@@ -12,14 +10,12 @@ const Navbar = ({
   className?: string;
   variant?: string;
 }) => {
-  const isDesktop = useMediaQuery("(min-width: 768px)", {
-    initializeWithValue: false,
-  });
-
-  return isDesktop ? (
-    <NavbarDesktop className={className} variant={variant} />
-  ) : (
-    <NavbarMobile className={className} variant={variant} />
+  return (
+    <ConditionalRenderMediaQuery
+      mediaQuery="(min-width: 768px)"
+      trueComponent={<NavbarDesktop className={className} variant={variant} />}
+      falseComponent={<NavbarMobile className={className} variant={variant} />}
+    />
   );
 };
 
