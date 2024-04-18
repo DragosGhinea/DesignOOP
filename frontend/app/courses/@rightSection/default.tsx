@@ -8,7 +8,12 @@ const RightSection = () => {
   const defaultLayout = layout ? JSON.parse(layout.value)[2] : 20;
 
   return (
-    <ResizablePanel defaultSize={defaultLayout} minSize={7} maxSize={50}>
+    <ResizablePanel
+      defaultSize={defaultLayout}
+      minSize={7}
+      maxSize={50}
+      className="hidden lg:block"
+    >
       <CourseSearchHistory />
     </ResizablePanel>
   );

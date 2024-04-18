@@ -24,16 +24,16 @@ const CoursesLayout = ({
   return (
     <main className="relative flex size-full flex-col bg-light-850 dark:bg-dark-300">
       <Navbar />
-      <ResizablePanelGroup direction="horizontal" onLayout={onLayout}>
-        <CourseJSONProvider>
+      <CourseJSONProvider>
+        <ResizablePanelGroup direction="horizontal" onLayout={onLayout}>
           {leftSection}
           {/* static is required for tooltip to show above */}
-          <ResizableHandle className="static" />
+          <ResizableHandle className="static hidden lg:block" />
           {middleSection}
-          <ResizableHandle />
+          <ResizableHandle className="hidden lg:block" />
           {rightSection}
-        </CourseJSONProvider>
-      </ResizablePanelGroup>
+        </ResizablePanelGroup>
+      </CourseJSONProvider>
     </main>
   );
 };

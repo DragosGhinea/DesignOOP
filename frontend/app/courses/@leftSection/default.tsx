@@ -13,7 +13,7 @@ const Default = () => {
       minSize={7}
       maxSize={30}
       style={{ overflow: "visible" }}
-      className="z-50"
+      className="z-50 hidden lg:block"
     >
       <LeftSidebar />
     </ResizablePanel>

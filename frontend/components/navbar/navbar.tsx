@@ -12,6 +12,7 @@ const Navbar = ({
 }) => {
   return (
     <ConditionalRenderMediaQuery
+      initializeWithValue={false}
       mediaQuery="(min-width: 768px)"
       trueComponent={<NavbarDesktop className={className} variant={variant} />}
       falseComponent={<NavbarMobile className={className} variant={variant} />}

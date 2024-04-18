@@ -7,13 +7,18 @@ const ConditionalRenderMediaQuery = ({
   mediaQuery,
   trueComponent,
   falseComponent,
+  initializeWithValue = true,
+  defaultValue = false,
 }: {
   mediaQuery: string;
   trueComponent: ReactNode;
   falseComponent: ReactNode;
+  initializeWithValue?: boolean;
+  defaultValue?: boolean;
 }) => {
   const mediaQueryCondition = useMediaQuery(mediaQuery, {
-    initializeWithValue: false,
+    initializeWithValue,
+    defaultValue,
   });
   return mediaQueryCondition ? trueComponent : falseComponent;
 };
