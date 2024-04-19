@@ -53,7 +53,7 @@ const NavbarMobile = ({
           "z-50 flex w-full items-center justify-between gap-5 px-6 sm:px-12",
           variant === "main" && "fixed top-0 text-light-700",
           variant === "default" &&
-            "text-dark-500 shadow-md dark:border-b-2 dark:text-light-700 dark:shadow-none",
+            "text-dark-500 shadow-md dark:border-b-2 dark:text-light-700 dark:shadow-none bg-inherit",
           className
         )}
       >
