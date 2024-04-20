@@ -20,9 +20,12 @@ const CoursesLayout = ({
     <main className="relative flex size-full flex-col bg-light-850 dark:bg-dark-300">
       <Navbar />
       <CourseJSONProvider>
-        <ResizablePanelGroup direction="horizontal" onLayout={onLayout}>
-          {desktopAddition}
-        </ResizablePanelGroup>
+        <div className="hidden overflow-hidden lg:block">
+          <ResizablePanelGroup direction="horizontal" onLayout={onLayout}>
+            {desktopAddition}
+          </ResizablePanelGroup>
+        </div>
+
         {mobileAddition}
       </CourseJSONProvider>
     </main>

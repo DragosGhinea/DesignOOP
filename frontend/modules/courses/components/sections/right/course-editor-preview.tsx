@@ -19,7 +19,7 @@ const CourseEditorPreview = () => {
         </h6>
       </div>
       <Separator className="mt-3" />
-      <ScrollArea className="size-full flex-1 pt-10">
+      <ScrollArea className="size-full flex-1 px-2 pt-10">
         <Course jsonData={jsonData as CourseType} />
       </ScrollArea>
     </div>

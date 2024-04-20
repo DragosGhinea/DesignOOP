@@ -31,7 +31,10 @@ const CoursesDesktopAddition = ({
       {/* static is required for tooltip to show above */}
       <ResizableHandle className="static hidden lg:block" />
 
-      <ResizablePanel defaultSize={defaultLayoutMiddle}>
+      <ResizablePanel
+        defaultSize={defaultLayoutMiddle}
+        className="hidden lg:block"
+      >
         {middleSection}
       </ResizablePanel>
 

@@ -14,7 +14,7 @@ const CoursesMobileAddition = ({
 }) => {
   return (
     <>
-      <div className="flex-1 overflow-hidden lg:hidden">
+      <div className="lg:hidden">
         <Sheet>
           <SheetTrigger>
             <div className="absolute top-0 h-full w-2 bg-blue-400 dark:bg-blue-800" />
@@ -24,7 +24,7 @@ const CoursesMobileAddition = ({
           </SheetTrigger>
           <SheetContent side="left">{leftSide}</SheetContent>
         </Sheet>
-        <div className="mx-3">{middleSection}</div>
+
         <Sheet>
           <SheetTrigger>
             <div className="absolute right-0 top-0 h-full w-2 bg-blue-400 dark:bg-blue-800" />
@@ -32,9 +32,13 @@ const CoursesMobileAddition = ({
               <ChevronLeftIcon className="size-8 text-light-700" />
             </div>
           </SheetTrigger>
-          <SheetContent side="right">{rightSide}</SheetContent>
+          <SheetContent side="right" className="min-w-[90%]">
+            {rightSide}
+          </SheetContent>
         </Sheet>
       </div>
+
+      <div className="overflow-hidden px-10 lg:hidden">{middleSection}</div>
     </>
   );
 };
