@@ -1,5 +1,7 @@
 "use client";
 
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { ReactNode } from "react";
 import { toast } from "sonner";
 import { SWRConfig } from "swr";
@@ -15,6 +17,7 @@ export interface SWRKey {
 
 const SessionSWRConfig = ({ children }: { children: ReactNode }) => {
   const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const router = useRouter();
 
   const fetcher = async (key: SWRKey) => {
     if (key.accessToken === "loading") return;
@@ -70,7 +73,15 @@ const SessionSWRConfig = ({ children }: { children: ReactNode }) => {
 
   const onError = (error: any, key: string) => {
     if (error.status === 401) {
-      console.log("401 error", key, error);
+      const hasAccessToken = key.includes("accessToken");
+      if (hasAccessToken) {
+        signOut({ redirect: false }).then((data) => {
+          router.push(data.url);
+          toast.warning("Your session ended abruptly. You will need to login again.", {
+            duration: 5000,
+          });
+        });
+      }
     }
   };
 
