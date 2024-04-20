@@ -41,7 +41,7 @@ const LoginPage = ({
             </AlertDescription>
           </Alert>
         )}
-        <Card className="relative flex w-full flex-col items-center shadow-dark-100 dark:shadow-none md:w-[30%]">
+        <Card className="relative flex w-[85%] flex-col items-center shadow-dark-100 dark:shadow-none md:w-[60%] lg:w-[40%]">
           <CardHeader className="flex flex-row items-center justify-stretch gap-5">
             <CardTitle className="grow">Login</CardTitle>
             <CardDescription className="border-l-[1px] pl-3 font-semibold">
