@@ -50,6 +50,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
 export const options: NextAuthOptions = {
   pages: {
     signIn: "/login",
+    signOut: "/logout",
     error: "/login",
   },
   providers: [

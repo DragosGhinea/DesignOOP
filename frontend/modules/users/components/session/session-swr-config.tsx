@@ -77,9 +77,12 @@ const SessionSWRConfig = ({ children }: { children: ReactNode }) => {
       if (hasAccessToken) {
         signOut({ redirect: false }).then((data) => {
           router.push(data.url);
-          toast.warning("Your session ended abruptly. You will need to login again.", {
-            duration: 5000,
-          });
+          toast.warning(
+            "Your session ended abruptly. You will need to login again.",
+            {
+              duration: 5000,
+            }
+          );
         });
       }
     }

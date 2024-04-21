@@ -6,44 +6,40 @@ import { NextRequest } from "next/server";
 const DEFAULT_LOGIN_REDIRECT = "/";
 const apiAuthPrefix = "/api/auth";
 const authRoutes = ["/login"];
-const publicRoutes = ["/", "/courses", "/profile"];
+const publicRoutes = [
+  /^\/$/, // matching "/"
+  /^\/courses(\/(\w)*)?$/, // matching "/courses" and "/courses/**"
+  /^\/profile$/, // matching "/profile"
+];
 
 export default withAuth(
   (req: NextRequest) => {
     // const { nextUrl } = req;
     // const isLoggedIn = !!req.nextauth.token;
-
     // console.log("TEST");
-
     // const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     // const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
     // const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-
     // if (isApiAuthRoute) {
     //   return null;
     // }
-
     // console.log("TEST ", isPublicRoute)
     // if (isPublicRoute) {
     //   return null;
     // }
-
     // // if (isAuthRoute) {
     // //   if (isLoggedIn) {
     // //     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     // //   }
     // //   return null;
     // // }
-
     // // if (!isLoggedIn && !isPublicRoute) {
     // //   const encodedCallbackUrl = computeCallbackURL(nextUrl.pathname, nextUrl.search);
-
     // //   return Response.redirect(new URL(
     // //     `/login?callbackUrl=${encodedCallbackUrl}`,
     // //     nextUrl
     // //   ));
     // // }
-
     // return null;
   },
   {
@@ -51,7 +47,9 @@ export default withAuth(
     callbacks: {
       authorized: ({ token, req }) => {
         const { nextUrl } = req;
-        const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+        const isPublicRoute = publicRoutes.some((regex) =>
+          regex.test(nextUrl.pathname)
+        );
 
         if (isPublicRoute) {
           return true;
