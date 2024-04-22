@@ -8,7 +8,7 @@ const apiAuthPrefix = "/api/auth";
 const authRoutes = ["/login"];
 const publicRoutes = [
   /^\/$/, // matching "/"
-  /^\/courses(\/(\w)*)?$/, // matching "/courses" and "/courses/**"
+  /^\/courses(\/.*)?$/, // matching "/courses" and "/courses/**"
   /^\/profile$/, // matching "/profile"
 ];
 

@@ -1,32 +1,34 @@
 "use client";
 
-import { ResizablePanelGroup } from "@/components/ui/resizable";
-import React, { ReactNode } from "react";
+import React, { ReactNode} from "react";
 import Navbar from "@/components/navbar/navbar";
 import CourseJSONProvider from "../context/course-json-provider";
+import { ReactFlowProvider } from "reactflow";
+import MiddleSectionResponsive from "./middle-section-responsive";
+import LeftSectionResponsive from "./left-section-responsive";
+import RightSectionResponsive from "./right-section-responsive";
 
 const CoursesLayout = ({
-  desktopAddition,
-  mobileAddition,
+  leftSection,
+  middleSection,
+  rightSection,
 }: {
-  desktopAddition: ReactNode;
-  mobileAddition: ReactNode;
+  leftSection: ReactNode;
+  middleSection: ReactNode;
+  rightSection: ReactNode;
 }) => {
-  const onLayout = (sizes: number[]) => {
-    document.cookie = `react-resizable-panels:courses-layout=${JSON.stringify(sizes)}; path=/`;
-  };
 
   return (
     <main className="relative flex size-full flex-col bg-light-850 dark:bg-dark-300">
       <Navbar />
       <CourseJSONProvider>
-        <div className="hidden overflow-hidden lg:block">
-          <ResizablePanelGroup direction="horizontal" onLayout={onLayout}>
-            {desktopAddition}
-          </ResizablePanelGroup>
-        </div>
-
-        {mobileAddition}
+        <ReactFlowProvider>
+          <div className="flex size-full overflow-hidden">
+            <LeftSectionResponsive>{leftSection}</LeftSectionResponsive>
+            <MiddleSectionResponsive>{middleSection}</MiddleSectionResponsive>
+            <RightSectionResponsive>{rightSection}</RightSectionResponsive>
+          </div>
+        </ReactFlowProvider>
       </CourseJSONProvider>
     </main>
   );
