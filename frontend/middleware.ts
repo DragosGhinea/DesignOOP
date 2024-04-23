@@ -10,6 +10,7 @@ const publicRoutes = [
   /^\/$/, // matching "/"
   /^\/courses(\/.*)?$/, // matching "/courses" and "/courses/**"
   /^\/profile$/, // matching "/profile"
+  /^\/test$/, // matching "/test"
 ];
 
 export default withAuth(
