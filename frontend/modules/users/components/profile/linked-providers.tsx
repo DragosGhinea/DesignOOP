@@ -1,7 +1,7 @@
 import React from "react";
 import { LinkedProvider as LinkedProviderType } from "../../types/linked-provider";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { capitalize } from "@/lib/string-utils";
+import { capitalize } from "@/utils/string-utils";
 
 const LinkedProvider = ({
   linkedProvider,

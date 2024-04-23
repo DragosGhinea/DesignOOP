@@ -4,7 +4,7 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ChevronRightIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/common";
 
 const LeftSectionResponsive = ({ children }: { children: ReactNode }) => {
   const isDesktop = useMediaQuery("(min-width: 1024px)", {

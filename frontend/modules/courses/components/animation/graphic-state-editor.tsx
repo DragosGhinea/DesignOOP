@@ -23,9 +23,10 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 import "reactflow/dist/style.css";
+import { sleep } from "@/utils/sleep-utils";
 
 const minimapStyle = {
   height: 120,
@@ -61,42 +62,62 @@ const GraphicStateEditor = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-  const [paneContextMenuOpen, setPaneContextMenuOpen] = React.useState(false);
+  const [paneContextMenuOpen, setPaneContextMenuOpen] = React.useState<
+    { left: number; top: number } | undefined
+  >();
 
-  // const state = useStoreApi().getState();
-  // console.log(state);
+  const handlePaneContextMenu = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setPaneContextMenuOpen(undefined);
+    // if it doesn't sleep, although the trigger position changes
+    // the dropdown menu itself will remain in the old place
+    sleep(70).then(() => {
+      setPaneContextMenuOpen({
+        left: event.nativeEvent.offsetX,
+        top: event.nativeEvent.offsetY,
+      });
+    });
+  };
 
   return (
-      <div className="h-[90%]">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          // onPaneContextMenu={(event) => console.log("Pane context menu", event)}
-          // onNodeContextMenu={(event) => console.log("Node context menu", event)}
-          // onPaneClick={(event) => console.log("Pane clicked", event)}
-          proOptions={{ hideAttribution: true }}
-          // fitView
+    <div className="h-[90%]">
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onPaneContextMenu={handlePaneContextMenu}
+        onNodeContextMenu={(event) => console.log("Node context menu", event)}
+        proOptions={{ hideAttribution: true }}
+        fitView
+      >
+        <MiniMap style={minimapStyle} zoomable pannable />
+        <Controls />
+        <Background color="#aaa" gap={16} />
+        <DropdownMenu
+          open={paneContextMenuOpen !== undefined}
+          onOpenChange={(open) => {
+            if (!open) setPaneContextMenuOpen(undefined);
+          }}
         >
-          <MiniMap style={minimapStyle} zoomable pannable />
-          <Controls />
-          <Background color="#aaa" gap={16} />
-          {/* <DropdownMenu>
-            <DropdownMenuContent className="w-64">
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger inset>Create</DropdownMenuSubTrigger>
-                <DropdownMenuSubContent className="w-48">
-                  <DropdownMenuItem>Code Node</DropdownMenuItem>
-                  <DropdownMenuItem>Information Node</DropdownMenuItem>
-                  <DropdownMenuItem>Comment Node</DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
-        </ReactFlow>
-      </div>
+          <DropdownMenuTrigger
+            className="absolute"
+            style={paneContextMenuOpen}
+          />
+          <DropdownMenuContent className="w-64" align="start" side="top">
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger inset>Create</DropdownMenuSubTrigger>
+              <DropdownMenuSubContent className="w-48">
+                <DropdownMenuItem>Code Node</DropdownMenuItem>
+                <DropdownMenuItem>Information Node</DropdownMenuItem>
+                <DropdownMenuItem>Comment Node</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </ReactFlow>
+    </div>
   );
 };
 

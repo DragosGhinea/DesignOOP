@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { ReactNode } from "react";
 import ProfileLink from "@/components/navbar/profile-link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/common";
 
 const UnderlineAnimated = ({ children }: { children: ReactNode }) => {
   return <span className="underline-animated relative">{children}</span>;

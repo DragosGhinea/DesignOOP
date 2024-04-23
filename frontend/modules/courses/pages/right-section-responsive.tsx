@@ -4,7 +4,7 @@ import { useMediaQuery, useScreen } from "usehooks-ts";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ChevronLeftIcon } from "lucide-react";
 import { useResizable } from "react-resizable-layout";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/common";
 
 const RightSectionResponsive = ({ children }: { children: ReactNode }) => {
   const isDesktop = useMediaQuery("(min-width: 1024px)", {

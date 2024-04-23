@@ -3,7 +3,7 @@ import { ProfileInfo } from "../../types/profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EditIcon, ImageIcon, ImagePlusIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/common";
 import { Card } from "@/components/ui/card";
 import LinkedProviders from "./linked-providers";
 import { Separator } from "@/components/ui/separator";

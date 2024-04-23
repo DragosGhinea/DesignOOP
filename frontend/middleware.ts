@@ -1,5 +1,5 @@
 import { NextAuthMiddlewareOptions, withAuth } from "next-auth/middleware";
-import { computeCallbackURL } from "@/lib/utils";
+import { computeCallbackURL } from "@/utils/common";
 import { options } from "@/modules/users/next_auth/auth.config";
 import { NextRequest } from "next/server";
 
