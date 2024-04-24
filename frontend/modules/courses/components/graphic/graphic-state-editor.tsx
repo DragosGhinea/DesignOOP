@@ -11,6 +11,7 @@ import ReactFlow, {
   useReactFlow,
   Node,
   Edge,
+  ReactFlowProvider,
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -51,7 +52,7 @@ const initialEdges = [
   { id: "provider-e1-3", source: "provider-1", target: "provider-3" },
 ];
 
-const GraphicStateEditor = () => {
+const GraphicStateEditorInternal = () => {
   // eslint-disable-next-line no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -116,37 +117,43 @@ const GraphicStateEditor = () => {
   };
 
   return (
-    <div className="h-[90%]">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onPaneContextMenu={handlePaneContextMenu}
-        onNodeContextMenu={handleNodeContextMenu}
-        onEdgeContextMenu={handleEdgeContextMenu}
-        proOptions={{ hideAttribution: true }}
-        fitView
-      >
-        <MiniMap style={minimapStyle} zoomable pannable />
-        <Controls />
-        <Background color="#aaa" gap={16} />
+    <ReactFlow
+      nodes={nodes}
+      edges={edges}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
+      onConnect={onConnect}
+      onPaneContextMenu={handlePaneContextMenu}
+      onNodeContextMenu={handleNodeContextMenu}
+      onEdgeContextMenu={handleEdgeContextMenu}
+      proOptions={{ hideAttribution: true }}
+      fitView
+    >
+      <MiniMap style={minimapStyle} zoomable pannable />
+      <Controls />
+      <Background color="#aaa" gap={16} />
 
-        <PaneContextMenu
-          paneContextMenuInfo={paneContextMenuInfo}
-          setPaneContextMenuInfo={setPaneContextMenuInfo}
-        />
-        <NodeContextMenu
-          nodeContextMenuInfo={nodeContextMenuInfo}
-          setNodeContextMenuInfo={setNodeContextMenuInfo}
-        />
-        <EdgeContextMenu
-          edgeContextMenuInfo={edgeContextMenuInfo}
-          setEdgeContextMenuInfo={setEdgeContextMenuInfo}
-        />
-      </ReactFlow>
-    </div>
+      <PaneContextMenu
+        paneContextMenuInfo={paneContextMenuInfo}
+        setPaneContextMenuInfo={setPaneContextMenuInfo}
+      />
+      <NodeContextMenu
+        nodeContextMenuInfo={nodeContextMenuInfo}
+        setNodeContextMenuInfo={setNodeContextMenuInfo}
+      />
+      <EdgeContextMenu
+        edgeContextMenuInfo={edgeContextMenuInfo}
+        setEdgeContextMenuInfo={setEdgeContextMenuInfo}
+      />
+    </ReactFlow>
+  );
+};
+
+const GraphicStateEditor = () => {
+  return (
+    <ReactFlowProvider>
+      <GraphicStateEditorInternal />
+    </ReactFlowProvider>
   );
 };
 

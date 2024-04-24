@@ -1,3 +1,3 @@
-import GraphicEditor from "@/modules/courses/components/graphic/graphic-editor";
+import CourseGraphicEditor from "@/modules/courses/components/sections/middle/course-graphic-editor";
 
-export default GraphicEditor;
+export default CourseGraphicEditor;
