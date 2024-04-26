@@ -12,7 +12,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
-import { Edge, useReactFlow } from "reactflow";
+import { Edge, EdgeMarkerType, MarkerType, useReactFlow } from "reactflow";
 
 export type EdgeContextMenuInfo =
   | {
@@ -21,6 +21,30 @@ export type EdgeContextMenuInfo =
       edge: Edge;
     }
   | undefined;
+
+const stringToEdgeMarkerType = (type: string): EdgeMarkerType | undefined => {
+  if (type === "none") return undefined;
+  if (type === "arrow")
+    return {
+      type: MarkerType.Arrow,
+      width: 20,
+      height: 20,
+    };
+  if (type === "closed-arrow")
+    return { type: MarkerType.ArrowClosed, width: 20, height: 20 };
+
+  return undefined;
+};
+
+const edgeMarkerTypeToString = (type: EdgeMarkerType | undefined): string => {
+  if (type === undefined) return "none";
+  if (typeof type === "string") return type;
+
+  if (type.type === MarkerType.Arrow) return "arrow";
+  if (type.type === MarkerType.ArrowClosed) return "closed-arrow";
+
+  return "none";
+};
 
 const EdgeContextMenu = ({
   edgeContextMenuInfo,
@@ -59,6 +83,42 @@ const EdgeContextMenu = ({
           return {
             ...edge,
             animated,
+          };
+        }
+
+        return edge;
+      })
+    );
+  };
+
+  const setEdgeMarkerStart = (
+    edgeToChange: Edge,
+    markerStart: EdgeMarkerType | undefined
+  ) => {
+    setEdges((edges) =>
+      edges.map((edge) => {
+        if (edge.id === edgeToChange.id) {
+          return {
+            ...edge,
+            markerStart,
+          };
+        }
+
+        return edge;
+      })
+    );
+  };
+
+  const setEdgeMarkerEnd = (
+    edgeToChange: Edge,
+    markerEnd: EdgeMarkerType | undefined
+  ) => {
+    setEdges((edges) =>
+      edges.map((edge) => {
+        if (edge.id === edgeToChange.id) {
+          return {
+            ...edge,
+            markerEnd,
           };
         }
 
@@ -123,6 +183,50 @@ const EdgeContextMenu = ({
               </DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="default">
                 Default
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Marker Start</DropdownMenuSubTrigger>
+          <DropdownMenuSubContent className="w-48">
+            <DropdownMenuRadioGroup
+              value={edgeMarkerTypeToString(
+                edgeContextMenuInfo?.edge.markerStart
+              )}
+              onValueChange={(value) =>
+                setEdgeMarkerStart(
+                  edgeContextMenuInfo!.edge,
+                  stringToEdgeMarkerType(value)
+                )
+              }
+            >
+              <DropdownMenuRadioItem value="none">None</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="arrow">Arrow</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="closed-arrow">
+                Closed Arrow
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Marker End</DropdownMenuSubTrigger>
+          <DropdownMenuSubContent className="w-48">
+            <DropdownMenuRadioGroup
+              value={edgeMarkerTypeToString(
+                edgeContextMenuInfo?.edge.markerEnd
+              )}
+              onValueChange={(value) =>
+                setEdgeMarkerEnd(
+                  edgeContextMenuInfo!.edge,
+                  stringToEdgeMarkerType(value)
+                )
+              }
+            >
+              <DropdownMenuRadioItem value="none">None</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="arrow">Arrow</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="closed-arrow">
+                Closed Arrow
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuSubContent>
