@@ -86,7 +86,7 @@ const CodeBoxEditor = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogContent className="overflow-y-auto lg:max-w-[90%]">
+      <DialogContent className="z-[200] overflow-y-auto lg:max-w-[90%]">
         <ScrollArea className="max-h-[80vh] px-5">
           <div className="flex flex-col gap-8">
             <h3 className="h3-typography font-bold">Code Box Editor</h3>

@@ -12,6 +12,8 @@ import ReactFlow, {
   Node,
   Edge,
   ReactFlowProvider,
+  updateEdge,
+  Connection,
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -25,6 +27,7 @@ import NodeContextMenu, {
 import EdgeContextMenu, {
   EdgeContextMenuInfo,
 } from "./context-menu/edge-context-menu";
+import CodeNode from "./nodes/code-node";
 
 const minimapStyle = {
   height: 120,
@@ -52,16 +55,36 @@ const initialEdges = [
   { id: "provider-e1-3", source: "provider-1", target: "provider-3" },
 ];
 
+const nodeTypes = {
+  code: CodeNode,
+};
+
+export type GraphicStateEditorExtraConfig = {
+  snapToGrid: boolean;
+};
+
 const GraphicStateEditorInternal = () => {
   // eslint-disable-next-line no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [extraConfig, setExtraConfig] = useState<GraphicStateEditorExtraConfig>(
+    {
+      snapToGrid: false,
+    }
+  );
   const { screenToFlowPosition } = useReactFlow();
   const onConnect = useCallback(
     (params: any) => setEdges((eds) => addEdge(params, eds)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+  const onEdgeUpdate = useCallback(
+    (oldEdge: Edge, newConnection: Connection) =>
+      setEdges((els) => updateEdge(oldEdge, newConnection, els)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   const [paneContextMenuInfo, setPaneContextMenuInfo] =
     useState<PaneContextMenuInfo>();
   const [nodeContextMenuInfo, setNodeContextMenuInfo] =
@@ -120,8 +143,11 @@ const GraphicStateEditorInternal = () => {
     <ReactFlow
       nodes={nodes}
       edges={edges}
+      nodeTypes={nodeTypes}
+      snapToGrid={extraConfig.snapToGrid}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
+      onEdgeUpdate={onEdgeUpdate}
       onConnect={onConnect}
       onPaneContextMenu={handlePaneContextMenu}
       onNodeContextMenu={handleNodeContextMenu}
@@ -134,6 +160,8 @@ const GraphicStateEditorInternal = () => {
       <Background color="#aaa" gap={16} />
 
       <PaneContextMenu
+        extraConfig={extraConfig}
+        setExtraConfig={setExtraConfig}
         paneContextMenuInfo={paneContextMenuInfo}
         setPaneContextMenuInfo={setPaneContextMenuInfo}
       />

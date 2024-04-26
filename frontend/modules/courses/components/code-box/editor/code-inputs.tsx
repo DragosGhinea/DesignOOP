@@ -40,7 +40,7 @@ const CodeInputs = ({
                 <AccordionTrigger>{key}</AccordionTrigger>
                 <AccordionContent className="relative h-[350px]">
                   <Button
-                    className="absolute bottom-4 right-0 m-2"
+                    className="absolute bottom-4 right-0 m-2 mr-8"
                     variant="destructive"
                     onClick={() => {
                       updateCodes(key, undefined);
@@ -49,7 +49,7 @@ const CodeInputs = ({
                     Delete Snippet
                   </Button>
                   <Textarea
-                    className="size-full max-h-full resize-none rounded-md bg-slate-100 text-sm dark:bg-dark-300"
+                    className="size-full max-h-full resize-none rounded-none bg-slate-100 text-sm dark:bg-dark-300"
                     defaultValue={value}
                     onChange={(e) => {
                       debouncedUpdateCodes(key, e.target.value);

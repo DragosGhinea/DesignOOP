@@ -4,6 +4,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Node, useReactFlow, useStoreApi } from "reactflow";
 
@@ -60,15 +62,32 @@ const NodeContextMenu = ({
       <DropdownMenuTrigger className="fixed" style={nodeContextMenuInfo} />
       <DropdownMenuContent className="z-[200] w-64" align="start" side="top">
         <DropdownMenuItem
+          inset
           onClick={() => deleteNode(nodeContextMenuInfo!.node.id)}
         >
           Delete Node
         </DropdownMenuItem>
         <DropdownMenuItem
+          inset
           onClick={() => duplicateNode(nodeContextMenuInfo!.node)}
         >
           Duplicate Node
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem
+          checked={nodeContextMenuInfo?.node.data.resizable ?? false}
+          onCheckedChange={(checked) => {
+            setNodes((n) =>
+              n.map((node) =>
+                node.id === nodeContextMenuInfo!.node.id
+                  ? { ...node, data: { ...node.data, resizable: checked } }
+                  : node
+              )
+            );
+          }}
+        >
+          Resizable
+        </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

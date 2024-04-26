@@ -27,7 +27,7 @@ const LeftSectionResponsive = ({ children }: { children: ReactNode }) => {
       <div className="flex grow">
         <div
           className={cn(
-            "size-full shrink-0 z-[100]",
+            "size-full shrink-0 z-[50]",
             isDraggingLeft && "select-none cursor-col-resize"
           )}
           style={{ width: leftSectionWidth }}

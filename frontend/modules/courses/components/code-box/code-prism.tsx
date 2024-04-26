@@ -3,8 +3,10 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/utils/common";
 import { useTheme } from "next-themes";
-import { themes, Highlight, PrismTheme } from "prism-react-renderer";
+import { themes, Highlight, PrismTheme, Prism } from "prism-react-renderer";
 import React, { useEffect, useState } from "react";
+
+(typeof global !== "undefined" ? global : window).Prism = Prism;
 
 const CodePrism = ({
   code,
@@ -20,6 +22,8 @@ const CodePrism = ({
   const { resolvedTheme } = useTheme();
   const [theme, setTheme] = useState<PrismTheme | undefined>();
 
+  require(`prismjs/components/prism-${language}`);
+
   useEffect(() => {
     setTheme(resolvedTheme === "dark" ? themes.vsDark : themes.vsLight);
   }, [resolvedTheme]);
@@ -29,7 +33,7 @@ const CodePrism = ({
   return (
     <Highlight theme={theme} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre style={style} className={cn("flex", className, wrapperClassName)}>
+        <pre style={style} className={cn("flex py-4", className, wrapperClassName)}>
           <ScrollArea className="w-full">
             {tokens.map((line, i) => (
               <div

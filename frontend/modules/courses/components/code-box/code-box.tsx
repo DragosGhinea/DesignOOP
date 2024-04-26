@@ -53,7 +53,7 @@ const CodeBox = ({
   };
 
   return (
-    <Card className={cn("text-sm overflow-x-hidden", className)}>
+    <Card className={cn("text-xs overflow-x-hidden flex flex-col", className)}>
       <CardHeader className="flex flex-row flex-nowrap items-center justify-between gap-3 bg-slate-100 p-2 shadow-sm dark:bg-dark-300">
         <SelectFile
           value={selectedCodeFile}
@@ -74,7 +74,7 @@ const CodeBox = ({
         code={selectedCodeFile.code}
         highlightLines={selectedCodeFile.highlightLines}
         language={selectedCode.language}
-        wrapperClassName={cn("py-4", codeWrapperClassName)}
+        wrapperClassName={cn("grow overflow-y-hidden", codeWrapperClassName)}
       />
     </Card>
   );
