@@ -3,6 +3,8 @@
 import React from "react";
 import CodeBox from "@/modules/courses/components/code-box/code-box";
 import Navbar from "@/components/navbar/navbar";
+import CodeBoxEditor from "@/modules/courses/components/code-box/editor/code-box-editor";
+import CodeBoxWithEdit from "@/modules/courses/components/code-box/code-box-with-edit";
 
 const code = `function MyComponent(props) {
   return (
@@ -90,7 +92,7 @@ const Test = () => {
     <>
       <Navbar />
       <div className="p-60">
-        <CodeBox code={codeBoxJson} codeWrapperClassName="max-h-[200px]" />
+        <CodeBoxWithEdit code={codeBoxJson} codeWrapperClassName="max-h-[200px]" />
       </div>
     </>
   );

@@ -20,7 +20,7 @@ const CopyCodeButton = ({ code }: { code: string }) => {
   };
 
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger asChild onClick={(event) => event.preventDefault()}>
           <Button

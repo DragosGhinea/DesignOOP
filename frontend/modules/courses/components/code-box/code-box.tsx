@@ -5,6 +5,7 @@ import { cn } from "@/utils/common";
 import SelectLanguage from "./select-language";
 import SelectFile from "./select-file";
 import CopyCodeButton from "./copy-code-button";
+import EditCodeButton from "./edit-code-button";
 
 export type CodeFileJson = {
   name: string;
@@ -23,11 +24,14 @@ const CodeBox = ({
   code,
   codeWrapperClassName,
   className,
+  onEditButtonClick,
 }: {
   code: CodeBoxJson;
   codeWrapperClassName?: string;
   className?: string;
+  onEditButtonClick?: () => void;
 }) => {
+  const isEditable = !!onEditButtonClick;
   const languages = Object.keys(code);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const selectedCode = code[selectedLanguage];
@@ -42,7 +46,7 @@ const CodeBox = ({
 
   return (
     <Card className={cn("text-sm overflow-x-hidden", className)}>
-      <CardHeader className="flex flex-row flex-nowrap items-center justify-between bg-slate-100 p-2 shadow-sm">
+      <CardHeader className="flex flex-row flex-nowrap items-center justify-between gap-3 bg-slate-100 p-2 shadow-sm dark:bg-dark-300">
         <SelectFile
           value={selectedCodeFile}
           setValue={setSelectedCodeFile}
@@ -55,13 +59,14 @@ const CodeBox = ({
             languages={languages}
           />
           <CopyCodeButton code={selectedCodeFile.code} />
+          {isEditable && <EditCodeButton onClick={onEditButtonClick} />}
         </div>
       </CardHeader>
       <CodePrism
         code={selectedCodeFile.code}
         highlightLines={selectedCodeFile.highlightLines}
         language={selectedCode.language}
-        wrapperClassName={codeWrapperClassName}
+        wrapperClassName={cn("py-4", codeWrapperClassName)}
       />
     </Card>
   );
