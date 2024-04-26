@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import CodeMirror, {
   Extension,
@@ -43,6 +43,13 @@ const CodeBoxConfigEditor = ({
   setCodeBoxJson: (json: CodeBoxJson) => void;
 }) => {
   const { resolvedTheme } = useTheme();
+
+  const initialCodeBoxJsonString = useMemo(
+    () => JSON.stringify(codeBoxJson, null, 2),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   const themeCodeMirror = resolvedTheme === "dark" ? xcodeDark : xcodeLight;
 
   const codeRef = React.useRef<ReactCodeMirrorRef>(null);
@@ -69,7 +76,7 @@ const CodeBoxConfigEditor = ({
           lang="json"
           extensions={[...extensions]}
           theme={themeCodeMirror}
-          value={JSON.stringify(codeBoxJson, null, 2)}
+          value={initialCodeBoxJsonString}
           onUpdate={(viewUpdate) => {
             debouncedUpdate(viewUpdate);
           }}

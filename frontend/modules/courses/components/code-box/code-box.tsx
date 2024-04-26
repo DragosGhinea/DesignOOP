@@ -39,6 +39,14 @@ const CodeBox = ({
     selectedCode.files[0]
   );
 
+  // recommended approch
+  // https://react.dev/learn/you-might-not-need-an-effect
+  const [prevSelectedCode, setPrevSelectedCode] = useState(selectedCode);
+  if (prevSelectedCode !== selectedCode) {
+    setPrevSelectedCode(selectedCode);
+    setSelectedCodeFile(selectedCode.files[0]);
+  }
+
   const updateSelectedLanguage = (language: string) => {
     setSelectedLanguage(language);
     setSelectedCodeFile(code[language].files[0]);
