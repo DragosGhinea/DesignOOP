@@ -1,7 +1,8 @@
 import React from "react";
-import { Handle, NodeProps, NodeResizer, Position } from "reactflow";
+import { HandleProps, NodeProps, NodeResizer } from "reactflow";
 import CodeBoxWithEdit from "../../code-box/code-box-with-edit";
 import { CodeBoxJson } from "../../code-box/code-box";
+import CustomHandle from "../handles/CustomHandle";
 
 const javaCode = `public class Main {
     public static void main(String[] args) {
@@ -50,10 +51,14 @@ const exampleCodeBoxJson = {
 
 const CodeNode = (props: NodeProps) => {
   const resizable = props.data.resizable ?? false;
+  const customHandles: (HandleProps & { width: string; height: string })[] =
+    props.data.customHandles ?? [];
 
   return (
     <>
-      <Handle type="source" position={Position.Bottom} isConnectable={true} />
+      {customHandles.map((handle) => (
+        <CustomHandle key={handle.id} nodeId={props.id} {...handle} />
+      ))}
 
       <div className="size-full">
         <NodeResizer

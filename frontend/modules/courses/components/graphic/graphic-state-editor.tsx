@@ -122,6 +122,10 @@ const GraphicStateEditorInternal = () => {
       setNodeContextMenuInfo({
         left: event.clientX,
         top: event.clientY,
+        flowPosition: screenToFlowPosition({
+          x: event.clientX,
+          y: event.clientY,
+        }),
         node,
       });
     });
