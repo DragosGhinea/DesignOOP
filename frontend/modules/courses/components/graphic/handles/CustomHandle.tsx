@@ -49,6 +49,7 @@ const CustomHandle = ({ nodeId, ...props }: CustomHandleProps) => {
           left: props.width,
           marginTop: -5,
           marginLeft: -5,
+          zIndex: 10,
         }}
         onDoubleClick={() => {
           toast("Do you want to delete this handle?", {

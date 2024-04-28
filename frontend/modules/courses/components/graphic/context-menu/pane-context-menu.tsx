@@ -22,6 +22,26 @@ export type PaneContextMenuInfo =
     }
   | undefined;
 
+const generateData = (type: string) => {
+  switch (type) {
+    case "code":
+      return {
+        code: "console.log('Hello, world!')",
+      };
+    case "information":
+      return {
+        infoCfg: {
+          content:
+            "This is an example information node. You can resize it and the icon will get bigger. The editing button that appears in the corner is visible only in this editor. You can change the content and the font size. When the information gets too long, the content will become scrollable. The maximum height of this box is 128px, and the maximum width is 256px.",
+          fontSize: 12,
+          side: "top",
+        },
+      };
+    default:
+      return {};
+  }
+};
+
 const PaneContextMenu = ({
   paneContextMenuInfo,
   setPaneContextMenuInfo,
@@ -38,15 +58,14 @@ const PaneContextMenu = ({
   const addNode = (position: XYPosition, type: string) => {
     const nodes = getNodes();
     const id = `provider-${nodes.length + 1}`;
-    setNodes((n) => [
-      ...n,
-      {
-        id,
-        type,
-        data: { label: `Node ${nodes.length + 1}` },
-        position,
-      },
-    ]);
+    const toAdd = {
+      id,
+      type,
+      data: generateData(type),
+      position,
+    };
+
+    setNodes((n) => [...n, toAdd]);
   };
 
   return (
@@ -66,8 +85,20 @@ const PaneContextMenu = ({
             >
               Code Node
             </DropdownMenuItem>
-            <DropdownMenuItem>Information Node</DropdownMenuItem>
-            <DropdownMenuItem>Comment Node</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addNode(paneContextMenuInfo!.flowPosition, "information")
+              }
+            >
+              Information Node
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addNode(paneContextMenuInfo!.flowPosition, "rich-text")
+              }
+            >
+              Rich Text Node
+            </DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
