@@ -1,22 +1,32 @@
 import React from "react";
 
-import { NodeProps, NodeResizer } from "reactflow";
+import { HandleProps, NodeProps, NodeResizer } from "reactflow";
 import RichTextEditor from "../../rich-text-editor/rich-text-editor";
+import CustomHandle from "../handles/CustomHandle";
+import { Card } from "@/components/ui/card";
 
 const RichTextNode = (props: NodeProps) => {
   const resizable = props.data.resizable ?? false;
+  const customHandles: (HandleProps & { width: string; height: string })[] =
+    props.data.customHandles ?? [];
 
   return (
-    <div>
+    <>
+      {customHandles.map((handle) => (
+        <CustomHandle key={handle.id} nodeId={props.id} {...handle} />
+      ))}
+
       <NodeResizer
         isVisible={resizable}
-        minWidth={100}
-        minHeight={100}
+        minWidth={20}
+        minHeight={20}
         handleClassName="p-1"
       />
 
-      <RichTextEditor />
-    </div>
+      <Card className="relative size-full p-4">
+        <RichTextEditor />
+      </Card>
+    </>
   );
 };
 
