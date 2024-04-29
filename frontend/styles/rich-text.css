@@ -1,8 +1,20 @@
 @tailwind utilities;
 
 @layer utilities {
+  .rich-text ul {
+    @apply list-disc;
+  }
+
+  .rich-text li {
+    @apply ml-6;
+  }
+
+  .rich-text ol {
+    @apply list-decimal;
+  }
+
   .rich-text h1 {
-    @apply text-[3.815rem] bg-red-500;
+    @apply text-[3.815rem];
   }
 
   .rich-text h2 {

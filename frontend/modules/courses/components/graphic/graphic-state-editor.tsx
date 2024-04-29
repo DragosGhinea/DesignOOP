@@ -30,6 +30,7 @@ import EdgeContextMenu, {
 import CodeNode from "./nodes/code-node";
 import InformationNode from "./nodes/information-node";
 import RichTextNode from "./nodes/rich-text-node";
+import ImageNode from "./nodes/image-node";
 
 const minimapStyle = {
   height: 120,
@@ -61,6 +62,7 @@ const nodeTypes = {
   code: CodeNode,
   information: InformationNode,
   "rich-text": RichTextNode,
+  image: ImageNode,
 };
 
 export type GraphicStateEditorExtraConfig = {

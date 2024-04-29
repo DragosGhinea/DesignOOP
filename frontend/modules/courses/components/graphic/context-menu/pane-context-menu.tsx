@@ -37,6 +37,14 @@ const generateData = (type: string) => {
           side: "top",
         },
       };
+    case "rich-text":
+      return {
+        resizable: true,
+      };
+    case "image":
+      return {
+        resizable: true,
+      };
     default:
       return {};
   }
@@ -98,6 +106,13 @@ const PaneContextMenu = ({
               }
             >
               Rich Text Node
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addNode(paneContextMenuInfo!.flowPosition, "image")
+              }
+            >
+              Image Node
             </DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
