@@ -1,0 +1,39 @@
+@tailwind utilities;
+
+@layer utilities {
+  .rich-text h1 {
+    @apply text-[3.815rem] bg-red-500;
+  }
+
+  .rich-text h2 {
+    @apply text-[3.052rem];
+  }
+
+  .rich-text h3 {
+    @apply text-[2.441rem];
+  }
+
+  .rich-text h4 {
+    @apply text-[1.953rem];
+  }
+
+  .rich-text h5 {
+    @apply text-[1.563rem];
+  }
+
+  .rich-text h6 {
+    @apply text-[1.25rem];
+  }
+
+  .rich-text p {
+    @apply text-base;
+  }
+
+  .rich-text small {
+    @apply text-[0.8rem];
+  }
+
+  .rich-text caption {
+    @apply text-[0.64rem];
+  }
+}

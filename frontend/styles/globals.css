@@ -12,6 +12,7 @@ body {
 
 @import url("./typography.css");
 @import url("./scrollbar.css");
+@import url("./rich-text.css");
 
 @layer base {
   :root {

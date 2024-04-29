@@ -20,10 +20,10 @@ const RichTextNode = (props: NodeProps) => {
         isVisible={resizable}
         minWidth={20}
         minHeight={20}
-        handleClassName="p-1"
+        handleClassName="p-1 z-20"
       />
 
-      <Card className="relative size-full p-4">
+      <Card className="relative size-full overflow-hidden p-4">
         <RichTextEditor />
       </Card>
     </>
