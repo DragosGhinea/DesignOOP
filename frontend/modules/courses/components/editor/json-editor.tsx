@@ -31,7 +31,6 @@ import CopyContentButton from "./copy-content-button";
 import DownloadButton from "./download-button";
 import {
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
   Tooltip,
 } from "@/components/ui/tooltip";
@@ -136,27 +135,25 @@ const JSONEditor = () => {
   return (
     <>
       <div className="pointer-events-none absolute z-50 flex w-full items-center justify-end gap-3 p-3">
-        <TooltipProvider delayDuration={0}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <CollapseAllButton codeRef={codeRef} />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="font-bold">Folding toggle</p>
-            </TooltipContent>
-          </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <CollapseAllButton codeRef={codeRef} />
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="font-bold">Folding toggle</p>
+          </TooltipContent>
+        </Tooltip>
 
-          <CopyContentButton codeRef={codeRef} />
+        <CopyContentButton codeRef={codeRef} />
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <DownloadButton codeRef={codeRef} />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="font-bold">Download JSON</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DownloadButton codeRef={codeRef} />
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="font-bold">Download JSON</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
 
       <CodeMirror

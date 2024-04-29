@@ -9,7 +9,6 @@ import React from "react";
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useRouter } from "next/navigation";
@@ -17,18 +16,16 @@ import { cn } from "@/utils/common";
 
 const NotificationsButton = () => {
   return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger>
-          <div className="cursor-pointer p-2 transition-colors">
-            <BellIcon className="size-6" fill="currentColor" />
-          </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Notifications</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger>
+        <div className="cursor-pointer p-2 transition-colors">
+          <BellIcon className="size-6" fill="currentColor" />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Notifications</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 
@@ -36,25 +33,21 @@ const LogoutButton = () => {
   const router = useRouter();
 
   return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger>
-          <div
-            className="cursor-pointer p-2 transition-colors"
-            onClick={() => {
-              signOut({ redirect: false }).then((data) =>
-                router.push(data.url)
-              );
-            }}
-          >
-            <LogOutIcon className="size-6" />
-          </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Log out</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger>
+        <div
+          className="cursor-pointer p-2 transition-colors"
+          onClick={() => {
+            signOut({ redirect: false }).then((data) => router.push(data.url));
+          }}
+        >
+          <LogOutIcon className="size-6" />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Log out</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

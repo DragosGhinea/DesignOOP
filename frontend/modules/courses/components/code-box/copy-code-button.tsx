@@ -6,7 +6,6 @@ import {
   Tooltip,
 } from "@/components/ui/tooltip";
 import { useBoolean } from "usehooks-ts";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 const CopyCodeButton = ({ code }: { code: string }) => {
   const { value: justCopiedToClipboard, setFalse, setTrue } = useBoolean(false);
@@ -20,33 +19,31 @@ const CopyCodeButton = ({ code }: { code: string }) => {
   };
 
   return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger asChild onClick={(event) => event.preventDefault()}>
-          <Button
-            variant="outline"
-            size="icon"
-            className="pointer-events-auto"
-            onClick={onClick}
-          >
-            {justCopiedToClipboard ? (
-              <CopyCheckIcon className="size-5" />
-            ) : (
-              <CopyIcon className="size-5" />
-            )}
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent
-          onPointerDownOutside={(event) => {
-            event.preventDefault();
-          }}
+    <Tooltip>
+      <TooltipTrigger asChild onClick={(event) => event.preventDefault()}>
+        <Button
+          variant="outline"
+          size="icon"
+          className="pointer-events-auto"
+          onClick={onClick}
         >
-          <p className="font-bold">
-            {justCopiedToClipboard ? "Copied!" : "Copy to clipboard"}
-          </p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+          {justCopiedToClipboard ? (
+            <CopyCheckIcon className="size-5" />
+          ) : (
+            <CopyIcon className="size-5" />
+          )}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent
+        onPointerDownOutside={(event) => {
+          event.preventDefault();
+        }}
+      >
+        <p className="font-bold">
+          {justCopiedToClipboard ? "Copied!" : "Copy to clipboard"}
+        </p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

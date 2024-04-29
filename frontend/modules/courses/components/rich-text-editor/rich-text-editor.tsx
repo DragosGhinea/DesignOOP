@@ -3,16 +3,35 @@
 
 import React, { useState } from "react";
 import { EditorProvider, useCurrentEditor } from "@tiptap/react";
+import { Placeholder } from "@tiptap/extension-placeholder";
 import { Color } from "@tiptap/extension-color";
-import ListItem from "@tiptap/extension-list-item";
-import TextStyle from "@tiptap/extension-text-style";
+import { ListItem } from "@tiptap/extension-list-item";
+import { TextStyle } from "@tiptap/extension-text-style";
+import Focus from "@tiptap/extension-focus";
 import StarterKit from "@tiptap/starter-kit";
 import { Card } from "@/components/ui/card";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Bold, Italic, Underline } from "lucide-react";
+import {
+  Bold,
+  EyeIcon,
+  Italic,
+  StrikethroughIcon,
+  Underline,
+} from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
+import UnderlineExtension from "@tiptap/extension-underline";
+import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
+import { TooltipTrigger } from "@radix-ui/react-tooltip";
+import { Button } from "@/components/ui/button";
 
 const extensions = [
+  UnderlineExtension,
+  Focus.configure({
+    mode: "deepest",
+  }),
+  Placeholder.configure({
+    placeholder: "Start typing...",
+    showOnlyCurrent: false,
+  }),
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] }),
   StarterKit.configure({
@@ -27,7 +46,7 @@ const extensions = [
   }),
 ];
 
-const MenuBar = () => {
+const MarkupGroup = () => {
   const { editor } = useCurrentEditor();
 
   if (!editor) {
@@ -36,22 +55,77 @@ const MenuBar = () => {
 
   return (
     <div className="flex gap-1">
-      <Toggle
-        value="bold"
-        aria-label="Toggle bold"
-        pressed={editor.isActive("bold")}
-        disabled={!editor.can().chain().focus().toggleBold().run()}
-        onClick={() => editor.chain().focus().toggleBold().run()}
-      >
-        <Bold className="size-4" />
-      </Toggle>
-      <Toggle value="italic" aria-label="Toggle italic">
-        <Italic className="size-4" />
-      </Toggle>
-      <Toggle value="underline" aria-label="Toggle underline">
-        <Underline className="size-4" />
-      </Toggle>
+      <Tooltip>
+        <TooltipTrigger>
+          <Toggle
+            value="bold"
+            aria-label="Toggle bold"
+            pressed={editor.isActive("bold")}
+            disabled={!editor.can().chain().focus().toggleBold().run()}
+            onClick={() => editor.chain().focus().toggleBold().run()}
+          >
+            <Bold className="size-4" />
+          </Toggle>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">Bold</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger>
+          <Toggle
+            value="italic"
+            aria-label="Toggle italic"
+            pressed={editor.isActive("italic")}
+            disabled={!editor.can().chain().focus().toggleItalic().run()}
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+          >
+            <Italic className="size-4" />
+          </Toggle>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">Italic</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger>
+          <Toggle
+            value="underline"
+            aria-label="Toggle underline"
+            pressed={editor.isActive("underline")}
+            disabled={!editor.can().chain().focus().toggleUnderline().run()}
+            onClick={() => editor.chain().focus().toggleUnderline().run()}
+          >
+            <Underline className="size-4" />
+          </Toggle>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">Underline</TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger>
+          <Toggle
+            value="strike"
+            aria-label="Toggle strike"
+            pressed={editor.isActive("strike")}
+            disabled={!editor.can().chain().focus().toggleStrike().run()}
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+          >
+            <StrikethroughIcon className="size-4" />
+          </Toggle>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">Strikethrough</TooltipContent>
+      </Tooltip>
     </div>
+  );
+};
+
+const HideEditorButton = ({ setEditing }: { setEditing: any }) => {
+  const { editor } = useCurrentEditor();
+
+  if (!editor) {
+    return null;
+  }
+
+  return (
+    <Button onClick={() => setEditing(false)}>
+      <EyeIcon className="size-4" />
+    </Button>
   );
 };
 
@@ -62,16 +136,20 @@ const RichTextEditor = () => {
     <EditorProvider
       editorProps={{
         attributes: {
-          class:
-            "nodrag nowheel cursor-default",
+          class: "nodrag nowheel cursor-default",
         },
       }}
       editable={editing}
       extensions={extensions}
-      content={'<div>test</div>'}
+      content={"<div>test</div>"}
       slotAfter={
-        <Card className="fixed -bottom-14 left-0 p-1">
-          <MenuBar />
+        <Card className="fixed -bottom-14 left-0 flex gap-2 p-1">
+          {editing && (
+            <Button variant="success" onClick={() => setEditing(false)}>
+              <EyeIcon className="size-4" />
+            </Button>
+          )}
+          <MarkupGroup />
         </Card>
       }
     >

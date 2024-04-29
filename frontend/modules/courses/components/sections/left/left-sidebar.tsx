@@ -6,7 +6,6 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { EyeIcon, SearchIcon, StarsIcon } from "lucide-react";
 import React, { ReactNode } from "react";
 
@@ -40,11 +39,9 @@ const LeftSidebar = () => {
   return (
     <div className="flex size-full flex-col items-center @container">
       <div className="flex h-full max-w-16 flex-col justify-between gap-5 py-10 transition-[max-width] duration-300 @[16rem]:max-w-[100%]">
-        <TooltipProvider>
-          <LeftSidebarItem name="Search Course" icon={<SearchIcon />} />
-          <LeftSidebarItem name="Recently Visited" icon={<EyeIcon />} />
-          <LeftSidebarItem name="Recommended" icon={<StarsIcon />} />
-        </TooltipProvider>
+        <LeftSidebarItem name="Search Course" icon={<SearchIcon />} />
+        <LeftSidebarItem name="Recently Visited" icon={<EyeIcon />} />
+        <LeftSidebarItem name="Recommended" icon={<StarsIcon />} />
       </div>
     </div>
   );

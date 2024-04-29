@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import SessionEnsure from "@/modules/users/components/session/session-ensure";
 import SessionSWRConfig from "@/modules/users/components/session/session-swr-config";
 import FetchWithAuthorizationProvider from "@/modules/users/context/fetch-with-authorization";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,15 +31,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <SessionEnsure>
-              <SessionSWRConfig>
-                <FetchWithAuthorizationProvider>
-                  {children}
-                </FetchWithAuthorizationProvider>
-              </SessionSWRConfig>
-            </SessionEnsure>
-          </AuthProvider>
+          <TooltipProvider delayDuration={0}>
+            <AuthProvider>
+              <SessionEnsure>
+                <SessionSWRConfig>
+                  <FetchWithAuthorizationProvider>
+                    {children}
+                  </FetchWithAuthorizationProvider>
+                </SessionSWRConfig>
+              </SessionEnsure>
+            </AuthProvider>
+          </TooltipProvider>
         </ThemeProvider>
         <Toaster closeButton richColors />
       </body>
