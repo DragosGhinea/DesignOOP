@@ -3,12 +3,14 @@
 import { Separator } from "@/components/ui/separator";
 import React, { useState } from "react";
 import GraphicStateDisplay from "../../graphic/graphic-state-display";
-import { ReactFlowProvider } from "reactflow";
+import { ReactFlowJsonObject, ReactFlowProvider } from "reactflow";
 import { Button } from "@/components/ui/button";
 import GraphicLoadModal from "../../graphic/graphic-load-modal";
 
 const CourseGraphicPreview = () => {
-  const [graphic, setGraphic] = useState<JSON | undefined>(undefined);
+  const [graphic, setGraphic] = useState<
+    ReactFlowJsonObject<any, any> | undefined
+  >(undefined);
 
   return (
     <div className="relative flex size-full flex-col pt-5">

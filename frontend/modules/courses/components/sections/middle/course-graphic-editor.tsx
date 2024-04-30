@@ -8,7 +8,7 @@ const CourseGraphicEditor = () => {
       <div className="px-3">
         <h3 className="h3-typography text-center font-bold">Graphic Editor</h3>
         <h6 className="h6-typography text-center text-muted-foreground">
-          Edit and preview graphics. You can also save them in raw format.
+          Edit and preview graphics. You can also save them in compressed format.
         </h6>
       </div>
       <Separator className="mt-3" />

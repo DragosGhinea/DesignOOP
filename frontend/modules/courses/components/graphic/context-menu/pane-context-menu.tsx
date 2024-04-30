@@ -14,6 +14,7 @@ import {
 import { useReactFlow, XYPosition } from "reactflow";
 import { GraphicStateEditorExtraConfig } from "../graphic-state-editor";
 import { CodeBoxJson } from "../../code-box/code-box";
+import { v4 as uuidv4 } from "uuid";
 
 const javaCode = `public class Main {
   public static void main(String[] args) {
@@ -108,11 +109,10 @@ const PaneContextMenu = ({
   extraConfig: GraphicStateEditorExtraConfig;
   setExtraConfig: any;
 }) => {
-  const { getNodes, setNodes } = useReactFlow();
+  const { setNodes } = useReactFlow();
 
   const addNode = (position: XYPosition, type: string) => {
-    const nodes = getNodes();
-    const id = `provider-${nodes.length + 1}`;
+    const id = `${uuidv4()}`;
     const toAdd = {
       id,
       type,

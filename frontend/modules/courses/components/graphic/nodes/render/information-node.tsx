@@ -28,27 +28,25 @@ const InformationNode = (props: NodeProps) => {
         <CustomHandleDisplay key={handle.id} nodeId={props.id} {...handle} />
       ))}
 
-      <div className="size-full">
-        <Card className="relative flex size-full items-center justify-center overflow-hidden dark:border-light-800">
-          <Tooltip>
-            <TooltipTrigger className="flex size-full items-center justify-center p-1">
-              <InfoIcon className="min-h-[max(32px,80%)] min-w-[max(32px,80%)]" />
-            </TooltipTrigger>
-            <TooltipContent side={infoCfg.side}>
-              <div className="flex max-h-32 max-w-64 overflow-hidden py-2">
-                <ScrollArea className="nodrag nowheel max-h-full cursor-default px-3">
-                  <p
-                    className="max-h-full text-justify"
-                    style={{ fontSize: infoCfg.fontSize }}
-                  >
-                    {infoCfg.content}
-                  </p>
-                </ScrollArea>
-              </div>
-            </TooltipContent>
-          </Tooltip>
-        </Card>
-      </div>
+      <Card className="relative flex size-full items-center justify-center overflow-hidden dark:border-light-800">
+        <Tooltip>
+          <TooltipTrigger className="flex size-full items-center justify-center p-1">
+            <InfoIcon className="min-h-[max(32px,80%)] min-w-[max(32px,80%)]" />
+          </TooltipTrigger>
+          <TooltipContent side={infoCfg.side}>
+            <div className="flex max-h-32 max-w-64 overflow-hidden py-2">
+              <ScrollArea className="nodrag nowheel max-h-full cursor-default px-3">
+                <p
+                  className="max-h-full text-justify"
+                  style={{ fontSize: infoCfg.fontSize }}
+                >
+                  {infoCfg.content}
+                </p>
+              </ScrollArea>
+            </div>
+          </TooltipContent>
+        </Tooltip>
+      </Card>
     </>
   );
 };

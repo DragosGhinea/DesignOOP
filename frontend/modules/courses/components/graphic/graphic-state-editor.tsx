@@ -36,6 +36,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { convertStringToBase64 } from "@/utils/base64";
 import JSONCrush from "jsoncrush";
+import GraphicLoadModal from "./graphic-load-modal";
+import { triggerDownload } from "../../utils/json-download";
+import { toast } from "sonner";
 
 const minimapStyle = {
   height: 120,
@@ -59,25 +62,50 @@ const SaveRestorePanel = ({
 }) => {
   const instance = useReactFlow();
 
-  const handleSave = () => {
+  const getFormattedData = () => {
     const data = instance.toObject();
-    console.log("DATA", data);
-    console.log("CONVERTED", convertStringToBase64(JSON.stringify(data)));
-
     const crushed = JSONCrush.crush(JSON.stringify(data));
-    console.log("CRUSHED", crushed);
-    const base64 = convertStringToBase64(crushed);
-    console.log("FINAL_CRUSHED", base64);
+    return convertStringToBase64(crushed);
+  };
 
-    if (onSave) onSave(data);
+  const handleSave = () => {
+    const data = getFormattedData();
+    navigator.clipboard.writeText(data);
+
+    toast.success("Graphic copied to clipboard");
+
+    if (onSave) onSave(instance.toObject());
+  };
+
+  const handleDownload = () => {
+    const data = getFormattedData();
+    triggerDownload(data, "graphic.txt");
+
+    toast.success("Graphic downloaded");
+
+    if (onSave) onSave(instance.toObject());
+  };
+
+  const restoreData = (data: ReactFlowJsonObject<any, any>) => {
+    instance.setNodes(data?.nodes || []);
+    instance.setEdges(data?.edges || []);
+
+    toast.success("Graphic loaded");
   };
 
   return (
     <Panel position="top-left">
-      <Card className="p-4">
+      <Card className="flex gap-2 p-4">
         <Button onClick={handleSave} variant="success">
-          Save
+          Copy to clipboard
         </Button>
+        <Button onClick={handleDownload} variant="outline">
+          Download txt
+        </Button>
+        <GraphicLoadModal
+          trigger={<Button>Load from text</Button>}
+          setGraphic={restoreData}
+        />
       </Card>
     </Panel>
   );

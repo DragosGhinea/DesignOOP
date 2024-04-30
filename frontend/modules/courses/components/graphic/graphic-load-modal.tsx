@@ -8,6 +8,7 @@ import {
 import { convertBase64ToString } from "@/utils/base64";
 import JSONCrush from "jsoncrush";
 import React, { ReactNode, useRef } from "react";
+import { ReactFlowJsonObject } from "reactflow";
 import { toast } from "sonner";
 
 const GraphicLoadModal = ({
@@ -15,7 +16,7 @@ const GraphicLoadModal = ({
   setGraphic,
 }: {
   trigger: ReactNode;
-  setGraphic: (graphic: JSON) => void;
+  setGraphic: (graphic: ReactFlowJsonObject<any, any>) => void;
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
