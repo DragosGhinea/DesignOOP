@@ -7,6 +7,9 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
 import {
   Node,
@@ -147,7 +150,7 @@ const NodeContextMenu = ({
       }}
     >
       <DropdownMenuTrigger className="fixed" style={nodeContextMenuInfo} />
-      <DropdownMenuContent className="z-[200] w-72" align="start" side="top">
+      <DropdownMenuContent className="z-[200] w-80" align="start" side="top">
         <DropdownMenuItem
           inset
           onClick={() => deleteNode(nodeContextMenuInfo!.node.id)}
@@ -176,20 +179,126 @@ const NodeContextMenu = ({
           Resizable
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          inset
-          onClick={() => addHandleToNodeJustType("source")}
-        >
-          Add Source Handle
-          <DropdownMenuShortcut>(Red Dev Only)</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          inset
-          onClick={() => addHandleToNodeJustType("target")}
-        >
-          Add Target Handle
-          <DropdownMenuShortcut>(Blue Dev Only)</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger inset>
+            Add Source Handle
+            <DropdownMenuShortcut>(Red Dev Only)</DropdownMenuShortcut>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem onClick={() => addHandleToNodeJustType("source")}>
+              Add at Cursor
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "50%",
+                  "0%",
+                  "source"
+                )
+              }
+            >
+              Add Middle Top
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "50%",
+                  "100%",
+                  "source"
+                )
+              }
+            >
+              Add Middle Bottom
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "0%",
+                  "50%",
+                  "source"
+                )
+              }
+            >
+              Add Middle Left
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "100%",
+                  "50%",
+                  "source"
+                )
+              }
+            >
+              Add Middle Right
+            </DropdownMenuItem>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger inset>
+            Add Target Handle
+            <DropdownMenuShortcut>(Blue Dev Only)</DropdownMenuShortcut>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem onClick={() => addHandleToNodeJustType("target")}>
+              Add at Cursor
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "50%",
+                  "0%",
+                  "target"
+                )
+              }
+            >
+              Add Middle Top
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "50%",
+                  "100%",
+                  "target"
+                )
+              }
+            >
+              Add Middle Bottom
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "0%",
+                  "50%",
+                  "target"
+                )
+              }
+            >
+              Add Middle Left
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() =>
+                addHandleToNode(
+                  nodeContextMenuInfo!.node.id,
+                  "100%",
+                  "50%",
+                  "target"
+                )
+              }
+            >
+              Add Middle Right
+            </DropdownMenuItem>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
       </DropdownMenuContent>
     </DropdownMenu>
   );

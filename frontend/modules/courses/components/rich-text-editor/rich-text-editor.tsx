@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { EditorProvider, useCurrentEditor } from "@tiptap/react";
+import { EditorProvider, JSONContent, useCurrentEditor } from "@tiptap/react";
 import { Placeholder } from "@tiptap/extension-placeholder";
 import { TextStyle } from "@tiptap/extension-text-style";
 import Focus from "@tiptap/extension-focus";
@@ -36,6 +36,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { useDebounceCallback } from "usehooks-ts";
 
 const extensions = [
   TextAlign.configure({
@@ -318,8 +319,18 @@ const HideEditorButton = ({
   );
 };
 
-const RichTextEditor = () => {
+const RichTextEditor = ({
+  content,
+  changeContent,
+}: {
+  content?: JSONContent;
+  changeContent?: (content: JSONContent) => void;
+}) => {
   const [editing, setEditing] = useState<boolean>(true);
+  const debouncedChangeContent = useDebounceCallback(
+    changeContent || (() => {}),
+    500
+  );
 
   return (
     <EditorProvider
@@ -330,7 +341,10 @@ const RichTextEditor = () => {
       }}
       editable={editing}
       extensions={extensions}
-      // content={""}
+      content={content}
+      onUpdate={(event) => {
+        if (changeContent) debouncedChangeContent(event.editor.getJSON());
+      }}
       slotAfter={
         <Card className="fixed -bottom-14 left-0 flex gap-2 p-1">
           <HideEditorButton editing={editing} setEditing={setEditing} />

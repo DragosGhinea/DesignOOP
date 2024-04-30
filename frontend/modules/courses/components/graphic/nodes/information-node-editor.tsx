@@ -83,7 +83,7 @@ const InformationNodeEditor = ({
             </div>
 
             <div className="flex items-center justify-between gap-2 rounded-sm bg-slate-200 px-3 py-4 dark:bg-slate-900">
-              <DialogClose>
+              <DialogClose asChild>
                 <Button
                   onClick={() => {
                     const cfg = collectInfoCfg();

@@ -11,9 +11,10 @@ import ReactFlow, {
   useReactFlow,
   Node,
   Edge,
-  ReactFlowProvider,
   updateEdge,
   Connection,
+  Panel,
+  ReactFlowJsonObject,
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -31,32 +32,14 @@ import CodeNode from "./nodes/code-node";
 import InformationNode from "./nodes/information-node";
 import RichTextNode from "./nodes/rich-text-node";
 import ImageNode from "./nodes/image-node";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { convertStringToBase64 } from "@/utils/base64";
+import JSONCrush from "jsoncrush";
 
 const minimapStyle = {
   height: 120,
 };
-
-const initialNodes = [
-  {
-    id: "provider-1",
-    type: "input",
-    data: { label: "Node 1" },
-    position: { x: 250, y: 5 },
-  },
-  { id: "provider-2", data: { label: "Node 2" }, position: { x: 100, y: 100 } },
-  { id: "provider-3", data: { label: "Node 3" }, position: { x: 400, y: 100 } },
-  { id: "provider-4", data: { label: "Node 4" }, position: { x: 400, y: 200 } },
-];
-
-const initialEdges = [
-  {
-    id: "provider-e1-2",
-    source: "provider-1",
-    target: "provider-2",
-    animated: true,
-  },
-  { id: "provider-e1-3", source: "provider-1", target: "provider-3" },
-];
 
 const nodeTypes = {
   code: CodeNode,
@@ -69,10 +52,60 @@ export type GraphicStateEditorExtraConfig = {
   snapToGrid: boolean;
 };
 
-const GraphicStateEditorInternal = () => {
+const SaveRestorePanel = ({
+  onSave,
+}: {
+  onSave?: (data: ReactFlowJsonObject<any, any>) => void;
+}) => {
+  const instance = useReactFlow();
+
+  const handleSave = () => {
+    const data = instance.toObject();
+    console.log("DATA", data);
+    console.log("CONVERTED", convertStringToBase64(JSON.stringify(data)));
+    console.log("CRUSHED", JSONCrush.crush(JSON.stringify(data)));
+    console.log(
+      "CONVERTED2",
+      convertStringToBase64(
+        JSON.stringify(JSONCrush.crush(JSON.stringify(data)))
+      )
+    );
+    if (onSave) onSave(data);
+  };
+
+  return (
+    <Panel position="top-left">
+      <Card className="p-4">
+        <Button onClick={handleSave} variant="success">
+          Save
+        </Button>
+      </Card>
+    </Panel>
+  );
+};
+
+const GraphicStateEditor = ({
+  onSave,
+  restoreDataJson,
+}: {
+  onSave?: (data: ReactFlowJsonObject<any, any>) => void;
+  restoreDataJson?: ReactFlowJsonObject<any, any>;
+}) => {
   // eslint-disable-next-line no-unused-vars
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(
+    restoreDataJson?.nodes || []
+  );
+  const [edges, setEdges, onEdgesChange] = useEdgesState(
+    restoreDataJson?.edges || []
+  );
+  const [prevRestoreDataJson, setPrevRestoreDataJson] =
+    useState(restoreDataJson);
+  if (restoreDataJson !== prevRestoreDataJson) {
+    setNodes(restoreDataJson?.nodes || []);
+    setEdges(restoreDataJson?.edges || []);
+    setPrevRestoreDataJson(restoreDataJson);
+  }
+
   const [extraConfig, setExtraConfig] = useState<GraphicStateEditorExtraConfig>(
     {
       snapToGrid: false,
@@ -150,48 +183,43 @@ const GraphicStateEditorInternal = () => {
   };
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      nodeTypes={nodeTypes}
-      snapToGrid={extraConfig.snapToGrid}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onEdgeUpdate={onEdgeUpdate}
-      onConnect={onConnect}
-      onPaneContextMenu={handlePaneContextMenu}
-      onNodeContextMenu={handleNodeContextMenu}
-      onEdgeContextMenu={handleEdgeContextMenu}
-      proOptions={{ hideAttribution: true }}
-      fitView
-    >
-      <MiniMap style={minimapStyle} zoomable pannable />
-      <Controls />
-      <Background color="#aaa" gap={16} />
+    <>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        nodeTypes={nodeTypes}
+        snapToGrid={extraConfig.snapToGrid}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onEdgeUpdate={onEdgeUpdate}
+        onConnect={onConnect}
+        onPaneContextMenu={handlePaneContextMenu}
+        onNodeContextMenu={handleNodeContextMenu}
+        onEdgeContextMenu={handleEdgeContextMenu}
+        proOptions={{ hideAttribution: true }}
+        fitView
+      >
+        <MiniMap style={minimapStyle} zoomable pannable />
+        <Controls />
+        <Background color="#aaa" gap={16} />
+        <SaveRestorePanel onSave={onSave} />
 
-      <PaneContextMenu
-        extraConfig={extraConfig}
-        setExtraConfig={setExtraConfig}
-        paneContextMenuInfo={paneContextMenuInfo}
-        setPaneContextMenuInfo={setPaneContextMenuInfo}
-      />
-      <NodeContextMenu
-        nodeContextMenuInfo={nodeContextMenuInfo}
-        setNodeContextMenuInfo={setNodeContextMenuInfo}
-      />
-      <EdgeContextMenu
-        edgeContextMenuInfo={edgeContextMenuInfo}
-        setEdgeContextMenuInfo={setEdgeContextMenuInfo}
-      />
-    </ReactFlow>
-  );
-};
-
-const GraphicStateEditor = () => {
-  return (
-    <ReactFlowProvider>
-      <GraphicStateEditorInternal />
-    </ReactFlowProvider>
+        <PaneContextMenu
+          extraConfig={extraConfig}
+          setExtraConfig={setExtraConfig}
+          paneContextMenuInfo={paneContextMenuInfo}
+          setPaneContextMenuInfo={setPaneContextMenuInfo}
+        />
+        <NodeContextMenu
+          nodeContextMenuInfo={nodeContextMenuInfo}
+          setNodeContextMenuInfo={setNodeContextMenuInfo}
+        />
+        <EdgeContextMenu
+          edgeContextMenuInfo={edgeContextMenuInfo}
+          setEdgeContextMenuInfo={setEdgeContextMenuInfo}
+        />
+      </ReactFlow>
+    </>
   );
 };
 

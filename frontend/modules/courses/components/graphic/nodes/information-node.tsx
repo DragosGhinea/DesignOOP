@@ -56,7 +56,7 @@ const InformationNode = (props: NodeProps) => {
           keepAspectRatio={true}
           handleClassName="p-1 z-20"
         />
-        <Card className="relative flex size-full items-center justify-center overflow-hidden">
+        <Card className="relative flex size-full items-center justify-center overflow-hidden dark:border-light-800">
           <Tooltip>
             <TooltipTrigger className="flex size-full items-center justify-center p-1">
               <InfoIcon className="min-h-[max(32px,80%)] min-w-[max(32px,80%)]" />
