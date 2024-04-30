@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import React from "react";
 import { HandleProps, NodeProps, NodeResizer, useReactFlow } from "reactflow";
-import CustomHandle from "../handles/CustomHandle";
+import CustomHandle from "../../handles/CustomHandle";
 import { Card } from "@/components/ui/card";
 import { InfoIcon } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";

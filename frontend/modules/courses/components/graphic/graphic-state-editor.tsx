@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useId, useState } from "react";
 import ReactFlow, {
   addEdge,
   MiniMap,
@@ -28,10 +28,10 @@ import NodeContextMenu, {
 import EdgeContextMenu, {
   EdgeContextMenuInfo,
 } from "./context-menu/edge-context-menu";
-import CodeNode from "./nodes/code-node";
-import InformationNode from "./nodes/information-node";
-import RichTextNode from "./nodes/rich-text-node";
-import ImageNode from "./nodes/image-node";
+import CodeNode from "./nodes/editor/code-node";
+import InformationNode from "./nodes/editor/information-node";
+import RichTextNode from "./nodes/editor/rich-text-node";
+import ImageNode from "./nodes/editor/image-node";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { convertStringToBase64 } from "@/utils/base64";
@@ -63,13 +63,12 @@ const SaveRestorePanel = ({
     const data = instance.toObject();
     console.log("DATA", data);
     console.log("CONVERTED", convertStringToBase64(JSON.stringify(data)));
-    console.log("CRUSHED", JSONCrush.crush(JSON.stringify(data)));
-    console.log(
-      "CONVERTED2",
-      convertStringToBase64(
-        JSON.stringify(JSONCrush.crush(JSON.stringify(data)))
-      )
-    );
+
+    const crushed = JSONCrush.crush(JSON.stringify(data));
+    console.log("CRUSHED", crushed);
+    const base64 = convertStringToBase64(crushed);
+    console.log("FINAL_CRUSHED", base64);
+
     if (onSave) onSave(data);
   };
 
@@ -91,6 +90,7 @@ const GraphicStateEditor = ({
   onSave?: (data: ReactFlowJsonObject<any, any>) => void;
   restoreDataJson?: ReactFlowJsonObject<any, any>;
 }) => {
+  const reactFlowId = useId();
   // eslint-disable-next-line no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(
     restoreDataJson?.nodes || []
@@ -185,6 +185,7 @@ const GraphicStateEditor = ({
   return (
     <>
       <ReactFlow
+        id={reactFlowId}
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}

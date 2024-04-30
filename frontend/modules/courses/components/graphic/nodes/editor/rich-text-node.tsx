@@ -1,8 +1,8 @@
 import React from "react";
 
 import { HandleProps, NodeProps, NodeResizer, useReactFlow } from "reactflow";
-import RichTextEditor from "../../rich-text-editor/rich-text-editor";
-import CustomHandle from "../handles/CustomHandle";
+import RichTextEditor from "../../../rich-text-editor/rich-text-editor";
+import CustomHandle from "../../handles/CustomHandle";
 import { Card } from "@/components/ui/card";
 import { JSONContent } from "@tiptap/react";
 

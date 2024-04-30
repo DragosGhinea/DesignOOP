@@ -1,12 +1,3 @@
-import React from "react";
+import CourseGraphicPreview from "@/modules/courses/components/sections/right/course-graphic-preview";
 
-const RightSection = () => {
-
-  return (
-    <div>
-      test
-    </div>
-  );
-};
-
-export default RightSection;
+export default CourseGraphicPreview;

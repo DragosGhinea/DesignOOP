@@ -2,7 +2,7 @@ import React from "react";
 import { HandleProps, NodeProps, NodeResizer, useReactFlow } from "reactflow";
 import { ImageIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import CustomHandle from "../handles/CustomHandle";
+import CustomHandle from "../../handles/CustomHandle";
 import ImageNodeEditor from "./image-node-editor";
 import { Avatar } from "@/components/ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -51,7 +51,11 @@ const ImageNode = (props: NodeProps) => {
           handleClassName="p-1 z-20"
         />
         <Avatar className="size-full rounded-none">
-          <AvatarImage src={imgData?.src || ""} alt="Image" className="rounded-sm"/>
+          <AvatarImage
+            src={imgData?.src || ""}
+            alt="Image"
+            className="rounded-sm"
+          />
           <AvatarFallback className="size-full">
             <Card className="flex size-full flex-col items-center justify-center">
               <ImageIcon className="aspect-square min-h-20 w-[95%] min-w-20" />

@@ -8,6 +8,8 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import Focus from "@tiptap/extension-focus";
 import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
+import UnderlineExtension from "@tiptap/extension-underline";
+import TextSizeIcon from "@/components/icons/text-size-icon";
 import { Card } from "@/components/ui/card";
 import {
   AlignCenterIcon,
@@ -22,11 +24,12 @@ import {
   Underline,
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
-import UnderlineExtension from "@tiptap/extension-underline";
-import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
-import { TooltipTrigger } from "@radix-ui/react-tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import TextSizeIcon from "@/components/icons/text-size-icon";
 import {
   Select,
   SelectContent,
