@@ -40,8 +40,10 @@ import { AlertCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { jsonParseLinter } from "../../utils/json-auto-repair-lint";
 import { toast } from "sonner";
+import { graphicWidgets } from "../../utils/json-graphic-replace";
 
 const extensions = [
+  graphicWidgets,
   courseJson(),
   jsonCodeFolding(),
   lintGutter(),

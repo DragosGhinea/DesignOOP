@@ -18,7 +18,9 @@ ComponentTypeProperty { ComponentTypePropertyName ":" value }
 ComponentTypePropertyName { componentTypeString }
 ChildrenProperty { ChildrenPropertyName ":" value }
 ChildrenPropertyName { childrenString }
-Property { PropertyName ":" value }
+GraphicProperty { GraphicPropertyName ":" value }
+GraphicPropertyName { graphicString }
+Property { GraphicProperty | PropertyName ":" value }
 PropertyName { string }
 
 @tokens {
@@ -33,8 +35,9 @@ PropertyName { string }
 
   componentTypeString { '"componentType"'}
   childrenString { '"children"' }
+  graphicString { '"graphic"' }
   string { '"' char* '"' }
-  @precedence {componentTypeString, childrenString, string}
+  @precedence {componentTypeString, childrenString, graphicString, string}
   
   char { $[\u{20}\u{21}\u{23}-\u{5b}\u{5d}-\u{10ffff}] | "\\" esc }
   esc  { $["\\\/bfnrt] | "u" hex hex hex hex }

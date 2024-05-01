@@ -7,6 +7,7 @@ export const jsonHighlighting = styleTags({
   PropertyName: t.propertyName,
   ComponentTypePropertyName: t.propertyName,
   ChildrenPropertyName: t.propertyName,
+  GraphicPropertyName: t.propertyName,
   Null: t.null,
   ",": t.separator,
   "[ ]": t.squareBracket,
