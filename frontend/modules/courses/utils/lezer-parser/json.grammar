@@ -2,12 +2,12 @@
 
 value { True | False | Null | Number | String | Component | Object | Array }
 
-String { string }
+String { string | graphicString }
 Component { "{" componentProperty "}" }
 Object { "{" properties "}" }
 Array  { "[" list<value>? "]" }
 
-properties { list<Property>? }
+properties { list<GraphicProperty | Property>? }
 
 componentProperty { properties (componentTypeOrChildren | childrenOrComponentType | ComponentTypeProperty) properties }
 
@@ -20,7 +20,7 @@ ChildrenProperty { ChildrenPropertyName ":" value }
 ChildrenPropertyName { childrenString }
 GraphicProperty { GraphicPropertyName ":" value }
 GraphicPropertyName { graphicString }
-Property { GraphicProperty | PropertyName ":" value }
+Property { PropertyName ":" value }
 PropertyName { string }
 
 @tokens {

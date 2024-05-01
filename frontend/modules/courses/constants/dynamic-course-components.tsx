@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "../components/course/container";
 import Paragraph from "../components/course/paragraph";
+import Graphic from "../components/course/graphic";
 
 type LintParams = {
   required?: boolean;
@@ -40,6 +41,11 @@ export const Components: { [key: string]: ComponentConfig } = {
       { paramName: "title", paramType: "string" },
       { paramName: "text", paramType: "string" },
     ],
+    hasChildren: false,
+  },
+  graphic: {
+    component: Graphic,
+    params: [{ paramName: "graphic", paramType: "string" }],
     hasChildren: false,
   },
 };
