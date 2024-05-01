@@ -346,6 +346,10 @@ const RichTextEditor = ({
       extensions={extensions}
       content={content}
       onUpdate={(event) => {
+        if (!event.transaction.docChanged) {
+          return;
+        }
+
         if (changeContent) debouncedChangeContent(event.editor.getJSON());
       }}
       slotAfter={

@@ -1,7 +1,7 @@
 import React from "react";
 import { HandleProps, NodeProps } from "reactflow";
 import CodeBox, { CodeBoxJson } from "../../../code-box/code-box";
-import CustomHandleDisplay from "../../handles/CustomHandleDisplay";
+import CustomHandleDisplay from "../../handles/custom-handle-display";
 
 const CodeNode = (props: NodeProps) => {
   const customHandles: (HandleProps & { width: string; height: string })[] =

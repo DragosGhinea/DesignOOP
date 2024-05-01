@@ -4,7 +4,7 @@ import { ImageIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import CustomHandleDisplay from "../../handles/CustomHandleDisplay";
+import CustomHandleDisplay from "../../handles/custom-handle-display";
 
 export type ImageNodeData = {
   src?: string;

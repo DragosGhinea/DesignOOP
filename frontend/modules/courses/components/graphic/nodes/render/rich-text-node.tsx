@@ -3,7 +3,7 @@ import React from "react";
 import { HandleProps, NodeProps } from "reactflow";
 import { Card } from "@/components/ui/card";
 import RichTextDisplay from "../../../rich-text-editor/rich-text-display";
-import CustomHandleDisplay from "../../handles/CustomHandleDisplay";
+import CustomHandleDisplay from "../../handles/custom-handle-display";
 
 const RichTextNode = (props: NodeProps) => {
   const customHandles: (HandleProps & { width: string; height: string })[] =

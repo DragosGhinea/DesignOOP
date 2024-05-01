@@ -39,6 +39,9 @@ import JSONCrush from "jsoncrush";
 import GraphicLoadModal from "./graphic-load-modal";
 import { triggerDownload } from "../../utils/json-download";
 import { toast } from "sonner";
+import { Popover, PopoverContent } from "@/components/ui/popover";
+import { PopoverTrigger } from "@radix-ui/react-popover";
+import { CircleEllipsis } from "lucide-react";
 
 const minimapStyle = {
   height: 120,
@@ -56,8 +59,10 @@ export type GraphicStateEditorExtraConfig = {
 };
 
 const SaveRestorePanel = ({
+  onChange,
   onSave,
 }: {
+  onChange?: (data: ReactFlowJsonObject<any, any>) => void;
   onSave?: (data: ReactFlowJsonObject<any, any>) => void;
 }) => {
   const instance = useReactFlow();
@@ -94,28 +99,49 @@ const SaveRestorePanel = ({
   };
 
   return (
-    <Panel position="top-left">
-      <Card className="flex gap-2 p-4">
-        <Button onClick={handleSave} variant="success">
-          Copy to clipboard
-        </Button>
-        <Button onClick={handleDownload} variant="outline">
-          Download txt
-        </Button>
-        <GraphicLoadModal
-          trigger={<Button>Load from text</Button>}
-          setGraphic={restoreData}
-        />
-      </Card>
+    <Panel position="top-right">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Card className="flex cursor-pointer items-center gap-2 p-2">
+            Options <CircleEllipsis />
+          </Card>
+        </PopoverTrigger>
+        <PopoverContent className="flex flex-col gap-2">
+          <Button onClick={handleSave} variant="success">
+            Copy to clipboard
+          </Button>
+          <Button onClick={handleDownload} variant="outline">
+            Download txt
+          </Button>
+
+          <GraphicLoadModal
+            trigger={<Button>Load from text</Button>}
+            setGraphic={restoreData}
+          />
+          <Button
+            variant="destructive"
+            onClick={() => {
+              instance.setNodes([]);
+              instance.setEdges([]);
+              if (onChange)
+                setTimeout(() => onChange(instance.toObject()), 100);
+            }}
+          >
+            Clear All
+          </Button>
+        </PopoverContent>
+      </Popover>
     </Panel>
   );
 };
 
 const GraphicStateEditor = ({
   onSave,
+  onChange,
   restoreDataJson,
 }: {
   onSave?: (data: ReactFlowJsonObject<any, any>) => void;
+  onChange?: (data: ReactFlowJsonObject<any, any>) => void;
   restoreDataJson?: ReactFlowJsonObject<any, any>;
 }) => {
   const reactFlowId = useId();
@@ -133,6 +159,7 @@ const GraphicStateEditor = ({
     setEdges(restoreDataJson?.edges || []);
     setPrevRestoreDataJson(restoreDataJson);
   }
+  const instance = useReactFlow();
 
   const [extraConfig, setExtraConfig] = useState<GraphicStateEditorExtraConfig>(
     {
@@ -218,8 +245,18 @@ const GraphicStateEditor = ({
         edges={edges}
         nodeTypes={nodeTypes}
         snapToGrid={extraConfig.snapToGrid}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        onNodesChange={(changes) => {
+          onNodesChange(changes);
+          if (onChange) {
+            setTimeout(() => onChange(instance.toObject()), 100);
+          }
+        }}
+        onEdgesChange={(changes) => {
+          onEdgesChange(changes);
+          if (onChange) {
+            setTimeout(() => onChange(instance.toObject()), 100);
+          }
+        }}
         onEdgeUpdate={onEdgeUpdate}
         onConnect={onConnect}
         onPaneContextMenu={handlePaneContextMenu}

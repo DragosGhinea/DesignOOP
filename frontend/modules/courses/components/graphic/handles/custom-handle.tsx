@@ -2,6 +2,7 @@ import React from "react";
 import {
   Handle,
   HandleProps,
+  Position,
   useReactFlow,
   useUpdateNodeInternals,
 } from "reactflow";
@@ -47,8 +48,16 @@ const CustomHandle = ({ nodeId, ...props }: CustomHandleProps) => {
           backgroundColor: props.type === "source" ? "red" : "blue",
           top: props.height,
           left: props.width,
-          marginTop: -5,
-          marginLeft: -5,
+          marginTop:
+            props.position === Position.Top ||
+            props.position === Position.Bottom
+              ? -5
+              : 0,
+          marginLeft:
+            props.position === Position.Left ||
+            props.position === Position.Right
+              ? -5
+              : 0,
           zIndex: 10,
         }}
         onDoubleClick={() => {

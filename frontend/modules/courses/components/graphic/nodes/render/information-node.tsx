@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import CustomHandleDisplay from "../../handles/CustomHandleDisplay";
+import CustomHandleDisplay from "../../handles/custom-handle-display";
 
 export type InformationNodeConfig = {
   content: string;

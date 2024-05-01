@@ -2,7 +2,7 @@ import React from "react";
 import { HandleProps, NodeProps, NodeResizer, useReactFlow } from "reactflow";
 import CodeBoxWithEdit from "../../../code-box/code-box-with-edit";
 import { CodeBoxJson } from "../../../code-box/code-box";
-import CustomHandle from "../../handles/CustomHandle";
+import CustomHandle from "../../handles/custom-handle";
 
 const CodeNode = (props: NodeProps) => {
   const { setNodes } = useReactFlow();

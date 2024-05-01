@@ -2,7 +2,7 @@ import React from "react";
 import { HandleProps, NodeProps, NodeResizer, useReactFlow } from "reactflow";
 import { ImageIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import CustomHandle from "../../handles/CustomHandle";
+import CustomHandle from "../../handles/custom-handle";
 import ImageNodeEditor from "./image-node-editor";
 import { Avatar } from "@/components/ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
