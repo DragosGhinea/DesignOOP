@@ -7,10 +7,14 @@ import { ReactFlowJsonObject, ReactFlowProvider } from "reactflow";
 import { Button } from "@/components/ui/button";
 import GraphicLoadModal from "../../graphic/graphic-load-modal";
 
-const CourseGraphicPreview = () => {
+const CourseGraphicPreview = ({
+  initialGraphic,
+}: {
+  initialGraphic?: ReactFlowJsonObject<any, any>;
+}) => {
   const [graphic, setGraphic] = useState<
     ReactFlowJsonObject<any, any> | undefined
-  >(undefined);
+  >(initialGraphic);
 
   return (
     <div className="relative flex size-full flex-col pt-5">
