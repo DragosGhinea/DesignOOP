@@ -24,7 +24,7 @@ const Graphic = ({ graphic }: { graphic: string }) => {
   }
 
   return (
-    <div className="min-h-20 min-w-40 w-full h-40">
+    <div className="h-[50vh] min-h-20 w-full min-w-20">
       <ReactFlowProvider>
         <GraphicStateDisplay restoreDataJson={graphicJson} />
       </ReactFlowProvider>

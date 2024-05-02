@@ -171,7 +171,7 @@ const JSONEditor = () => {
       />
 
       {jsonToRepair && jsonToRepair !== "ignored" && (
-        <div className="absolute bottom-0 z-[49] w-full bg-destructive p-3 text-destructive-foreground @container">
+        <div className="sticky bottom-0 z-[49] w-full bg-destructive p-3 text-destructive-foreground @container">
           <div className="flex flex-col items-center gap-3 @md:flex-row">
             <AlertCircleIcon className="size-10 min-w-[20px]" />
             <div className="flex flex-col">

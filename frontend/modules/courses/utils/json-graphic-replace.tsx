@@ -139,24 +139,29 @@ class GraphicWidget extends WidgetType {
   }
 }
 
+const generateDecorations = (state: EditorState) => {
+  const ranges = findGraphicRanges(state);
+  const newDecos = ranges.map((range) =>
+    Decoration.replace({
+      widget: new GraphicWidget(range.from, range.to),
+      block: false,
+    }).range(range.from, range.to)
+  );
+
+  return Decoration.set(newDecos, false);
+};
+
 export const graphicWidgets = StateField.define({
-  create() {
-    return Decoration.none;
+  create(state) {
+    return generateDecorations(state);
   },
+
   update(value, transaction) {
     if (!transaction.docChanged) {
       return value;
     }
 
-    const ranges = findGraphicRanges(transaction.state);
-    const newDecos = ranges.map((range) =>
-      Decoration.replace({
-        widget: new GraphicWidget(range.from, range.to),
-        block: false,
-      }).range(range.from, range.to)
-    );
-
-    return Decoration.set(newDecos, false);
+    return generateDecorations(transaction.state);
   },
   provide: (f) => EditorView.decorations.from(f),
 });
