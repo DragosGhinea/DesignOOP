@@ -19,7 +19,7 @@ public class CourseSearchRepositoryImpl implements CourseSearchRepository {
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public Page<Course> search(String query, int pageNumber, int pageSize) {
+    public Page<Course> search(String query, int pageNumber, int pageSize, boolean fetchWithoutComponents) {
         Query textQuery = TextQuery.queryText(
                 TextCriteria.forDefaultLanguage()
                         .caseSensitive(false)
@@ -28,6 +28,10 @@ public class CourseSearchRepositoryImpl implements CourseSearchRepository {
         )
                 .sortByScore()
                 .with(PageRequest.of(pageNumber, pageSize));
+
+        if (fetchWithoutComponents) {
+            textQuery.fields().exclude("components");
+        }
 
         List<Course> content = mongoTemplate.find(textQuery, Course.class);
 

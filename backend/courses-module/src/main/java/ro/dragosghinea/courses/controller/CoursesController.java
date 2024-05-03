@@ -18,12 +18,17 @@ public class CoursesController {
     private final CoursesService coursesService;
 
     @GetMapping
-    public ResponseEntity<PageDto<Course>> getCourses(@RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "") String search) {
+    public ResponseEntity<PageDto<Course>> getCourses(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "") String search,
+            @RequestHeader(value = "X-Fetch-Without-Components", defaultValue = "false") boolean fetchWithoutComponents
+    ) {
         if (!search.isEmpty()) {
-            return ResponseEntity.ok(coursesService.searchCourses(pageNumber, pageSize, search));
+            return ResponseEntity.ok(coursesService.searchCourses(pageNumber, pageSize, search, fetchWithoutComponents));
         }
 
-        return ResponseEntity.ok(coursesService.getCourses(pageNumber, pageSize));
+        return ResponseEntity.ok(coursesService.getCourses(pageNumber, pageSize, fetchWithoutComponents));
     }
 
     @PostMapping

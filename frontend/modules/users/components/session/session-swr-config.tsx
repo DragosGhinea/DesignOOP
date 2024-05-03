@@ -9,7 +9,7 @@ import { SWRConfig } from "swr";
 export interface SWRKey {
   tags: string[];
   url: string;
-  headers?: JSON;
+  headers?: any;
   method?: string;
   body?: any;
   accessToken?: string;

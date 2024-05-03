@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public interface CoursesService {
 
-    PageDto<Course> getCourses(int pageNumber, int pageSize);
+    PageDto<Course> getCourses(int pageNumber, int pageSize, boolean fetchWithoutComponents);
 
-    PageDto<Course> searchCourses(int pageNumber, int pageSize, String search);
+    PageDto<Course> searchCourses(int pageNumber, int pageSize, String search, boolean fetchWithoutComponents);
 
     Course createCourse(Course course) throws CourseAlreadyExists;
 

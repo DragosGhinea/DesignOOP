@@ -3,6 +3,7 @@ package ro.dragosghinea.courses.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
@@ -69,14 +70,15 @@ public class CoursesServiceImpl implements CoursesService {
     private final CoursesPageMapper pageMapper;
 
     @Override
-    public PageDto<Course> getCourses(int pageNumber, int pageSize) {
-        Page<Course> pageCourse = courseRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    public PageDto<Course> getCourses(int pageNumber, int pageSize, boolean fetchWithoutComponents) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Course> pageCourse = fetchWithoutComponents ? courseRepository.findAllExcludeComponents(pageable) : courseRepository.findAll(pageable);
         return pageMapper.toDto(pageCourse, pageNumber, pageSize);
     }
 
     @Override
-    public PageDto<Course> searchCourses(int pageNumber, int pageSize, String search) {
-        return pageMapper.toDto(courseRepository.search(search, pageNumber, pageSize), pageNumber, pageSize);
+    public PageDto<Course> searchCourses(int pageNumber, int pageSize, String search, boolean fetchWithoutComponents) {
+        return pageMapper.toDto(courseRepository.search(search, pageNumber, pageSize, fetchWithoutComponents), pageNumber, pageSize);
     }
 
     @Override

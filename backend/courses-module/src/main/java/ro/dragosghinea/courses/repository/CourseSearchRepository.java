@@ -5,5 +5,5 @@ import ro.dragosghinea.courses.model.entity.Course;
 
 public interface CourseSearchRepository {
 
-    Page<Course> search(String query, int pageNumber, int pageSize);
+    Page<Course> search(String query, int pageNumber, int pageSize, boolean fetchWithoutComponents);
 }
