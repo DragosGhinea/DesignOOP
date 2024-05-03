@@ -4,6 +4,7 @@ spring:
     active: @activatedProperties@
   data:
     mongodb:
+      auto-index-creation: true
       authentication-database: admin
       username: ${mongodb_username}
       password: ${mongodb_password}

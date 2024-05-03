@@ -2,6 +2,7 @@ package ro.dragosghinea.courses.service;
 
 import ro.dragosghinea.courses.exceptions.CourseAlreadyExists;
 import ro.dragosghinea.courses.exceptions.CourseNotFound;
+import ro.dragosghinea.courses.model.dto.PageDto;
 import ro.dragosghinea.courses.model.entity.Course;
 
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.UUID;
 
 public interface CoursesService {
 
-    List<Course> getCourses(int offset, int limit);
+    PageDto<Course> getCourses(int pageNumber, int pageSize);
+
+    PageDto<Course> searchCourses(int pageNumber, int pageSize, String search);
 
     Course createCourse(Course course) throws CourseAlreadyExists;
 

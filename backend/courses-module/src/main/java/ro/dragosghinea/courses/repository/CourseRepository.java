@@ -5,6 +5,6 @@ import ro.dragosghinea.courses.model.entity.Course;
 
 import java.util.UUID;
 
-public interface CourseRepository extends MongoRepository<Course, UUID> {
+public interface CourseRepository extends MongoRepository<Course, UUID>, CourseSearchRepository {
 
 }
