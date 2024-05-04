@@ -12,6 +12,8 @@ public interface CoursesService {
 
     PageDto<Course> getCourses(int pageNumber, int pageSize, boolean fetchWithoutComponents);
 
+    Course getCourse(UUID courseId) throws CourseNotFound;
+
     PageDto<Course> searchCourses(int pageNumber, int pageSize, String search, boolean fetchWithoutComponents);
 
     Course createCourse(Course course) throws CourseAlreadyExists;

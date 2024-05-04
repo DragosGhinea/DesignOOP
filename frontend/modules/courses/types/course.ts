@@ -4,7 +4,7 @@ export type Course = {
   subtitle: string;
   description: string;
   tags: string[];
-  components: any[];
+  components?: any[];
   textSearchScore?: number;
 };
 

@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import CodeBox from "@/modules/courses/components/code-box/code-box";
 import Navbar from "@/components/navbar/navbar";
-import CodeBoxEditor from "@/modules/courses/components/code-box/editor/code-box-editor";
 import CodeBoxWithEdit from "@/modules/courses/components/code-box/code-box-with-edit";
 
 const code = `function MyComponent(props) {
@@ -92,7 +90,14 @@ const Test = () => {
     <>
       <Navbar />
       <div className="p-60">
-        <CodeBoxWithEdit code={codeBoxJson} codeWrapperClassName="max-h-[200px]" />
+        <div className="relative z-10 flex size-full cursor-pointer items-center overflow-hidden rounded-xl border p-[1.5px]">
+          <div className="absolute inset-0 left-[-450%] top-[-450%] size-[1000%] animate-border-spin rounded-full bg-[conic-gradient(#0ea5e9_0deg,#0ea5e9_0deg,transparent_80deg)]"></div>
+          <CodeBoxWithEdit
+            code={codeBoxJson}
+            className="z-10 size-full"
+            codeWrapperClassName="max-h-[200px]"
+          />
+        </div>
       </div>
     </>
   );

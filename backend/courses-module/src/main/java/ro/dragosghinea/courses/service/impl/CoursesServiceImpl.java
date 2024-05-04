@@ -77,6 +77,11 @@ public class CoursesServiceImpl implements CoursesService {
     }
 
     @Override
+    public Course getCourse(UUID courseId) throws CourseNotFound {
+        return courseRepository.findById(courseId).orElseThrow(CourseNotFound::new);
+    }
+
+    @Override
     public PageDto<Course> searchCourses(int pageNumber, int pageSize, String search, boolean fetchWithoutComponents) {
         return pageMapper.toDto(courseRepository.search(search, pageNumber, pageSize, fetchWithoutComponents), pageNumber, pageSize);
     }

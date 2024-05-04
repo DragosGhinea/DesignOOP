@@ -31,6 +31,11 @@ public class CoursesController {
         return ResponseEntity.ok(coursesService.getCourses(pageNumber, pageSize, fetchWithoutComponents));
     }
 
+    @GetMapping("/{courseId}")
+    public ResponseEntity<Course> getCourse(@PathVariable UUID courseId) {
+        return ResponseEntity.ok(coursesService.getCourse(courseId));
+    }
+
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
         return ResponseEntity.ok(coursesService.createCourse(course));
