@@ -69,6 +69,11 @@ const iterateComponentTree = (
   })[] = [...Components[componentType].params];
 
   for (const { node, property } of properties) {
+    // skip special property
+    if (property.propertyKey === "contentTable") {
+      continue;
+    }
+
     const paramIndex = componentParams.findIndex(
       (param) => param.paramName === property.propertyKey
     );

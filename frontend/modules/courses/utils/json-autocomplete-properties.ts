@@ -11,6 +11,7 @@ import {
   Components,
   CourseParameters,
 } from "../constants/dynamic-course-components";
+import { v4 as uuidv4 } from "uuid";
 
 const generateOptions = (componentConfig: ComponentConfig) => {
   const params = componentConfig.params.map((param) => {
@@ -149,6 +150,17 @@ export const propertyAutocomplete = (ctx: CompletionContext) => {
     const usedParams = getPresentPropertyNames(ctx.state.doc, componentNode);
     options = optionsPerComponent[componentType].filter(
       (option) => !usedParams.includes(option.label)
+    );
+
+    // it needs to be put separately from the generated values so the uuid changes on each autocomplete
+    options.push(
+      snippetCompletion(
+        `"contentTable": {\n\t"title": "${componentType}",\n\t"id": "${uuidv4()}"\n}`,
+        {
+          label: "contentTable",
+          detail: `Jumping to this component`,
+        }
+      )
     );
   }
 
