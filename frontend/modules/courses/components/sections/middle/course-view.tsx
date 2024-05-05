@@ -52,7 +52,7 @@ const CourseView = async ({ params }: { params: { courseId: string } }) => {
 
   return (
     <div className="relative flex size-full flex-col">
-      <ScrollArea className="size-full flex-1 px-2">
+      <ScrollArea className="size-full flex-1 px-2" id="course-scroll-wrapper">
         <div className="h-14" />
         <Course jsonData={jsonData as CourseType} />
       </ScrollArea>

@@ -6,7 +6,7 @@ import JSONCrush from "jsoncrush";
 import { ReactFlowJsonObject, ReactFlowProvider } from "reactflow";
 import GraphicStateDisplay from "../graphic/graphic-state-display";
 
-const Graphic = ({ graphic }: { graphic: string }) => {
+const Graphic = ({ graphic, id }: { graphic: string; id?: string }) => {
   const graphicJson: ReactFlowJsonObject<any, any> | undefined = useMemo(() => {
     try {
       const crushed = convertBase64ToString(
@@ -24,7 +24,7 @@ const Graphic = ({ graphic }: { graphic: string }) => {
   }
 
   return (
-    <div className="h-[50vh] min-h-20 w-full min-w-20">
+    <div className="h-[50vh] min-h-20 w-full min-w-20" id={id}>
       <ReactFlowProvider>
         <GraphicStateDisplay restoreDataJson={graphicJson} />
       </ReactFlowProvider>

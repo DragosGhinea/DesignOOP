@@ -7,7 +7,11 @@ import { Components } from "../../constants/dynamic-course-components";
 const DynamicCourseComponent = ({
   jsonData,
 }: {
-  jsonData: { componentType: string; children?: any };
+  jsonData: {
+    componentType: string;
+    children?: any;
+    contentTable?: { id: string };
+  };
 }) => {
   const { children: jsonDataChildren, ...jsonDataWithoutChildren } = jsonData;
 
@@ -30,7 +34,14 @@ const DynamicCourseComponent = ({
     throw new Error(`Component "${jsonData.componentType}" not found.`);
   }
 
-  return <Component {...jsonDataWithoutChildren}>{renderedChildren}</Component>;
+  return (
+    <Component
+      id={jsonDataWithoutChildren?.contentTable?.id}
+      {...jsonDataWithoutChildren}
+    >
+      {renderedChildren}
+    </Component>
+  );
 };
 
 export default DynamicCourseComponent;

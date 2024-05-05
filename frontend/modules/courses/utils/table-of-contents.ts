@@ -8,7 +8,7 @@ export const extractTableOfContents = (
   if ("contentTable" in json) {
     result.push({
       title: json.contentTable.title,
-      id: json.contentTable.title,
+      id: json.contentTable.id,
       depth,
     });
     depthToUse = depth + 1;
