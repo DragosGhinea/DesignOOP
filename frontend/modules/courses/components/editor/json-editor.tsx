@@ -81,7 +81,7 @@ const isLinterDoneEffect = (transactions: ViewUpdate["transactions"]) => {
 
 const JSONEditor = () => {
   const { resolvedTheme } = useTheme();
-  const { initialCourseJSON, setInEditCourseJSON } = useCourseJSON();
+  const { courseJson, setInEditCourseJSON } = useCourseJSON();
   const [jsonToRepair, setJsonToRepair] = useState<string>("");
 
   const codeRef = React.useRef<ReactCodeMirrorRef>(null);
@@ -163,7 +163,7 @@ const JSONEditor = () => {
         lang="json"
         extensions={[...extensions, jsonParseLint]}
         theme={themeCodeMirror}
-        value={JSON.stringify(initialCourseJSON, null, 2)}
+        value={JSON.stringify(courseJson.initialCourseJson, null, 2)}
         onUpdate={(viewUpdate) => {
           if (!isLinterDoneEffect(viewUpdate.transactions)) return;
           debouncedUpdate(viewUpdate);

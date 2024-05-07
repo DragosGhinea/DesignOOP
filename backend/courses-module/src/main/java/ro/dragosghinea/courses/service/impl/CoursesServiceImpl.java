@@ -1,14 +1,10 @@
 package ro.dragosghinea.courses.service.impl;
 
-import com.mongodb.MongoWriteException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.TextCriteria;
-import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Service;
 import ro.dragosghinea.courses.exceptions.CourseAlreadyExists;
 import ro.dragosghinea.courses.exceptions.CourseNotFound;
@@ -67,7 +63,11 @@ public class CoursesServiceImpl implements CoursesService {
             throw new CourseNotFound();
         }
 
-        return courseRepository.save(course);
+        try {
+            return courseRepository.save(course);
+        }catch (DuplicateKeyException e){
+            throw new CourseAlreadyExists("Course with this title already exists!");
+        }
     }
 
     @Override

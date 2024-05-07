@@ -3,6 +3,7 @@ import DynamicCourseComponent from "./dynamic-course-component";
 import { Badge } from "@/components/ui/badge";
 
 export type CourseType = {
+  id?: string;
   title: string;
   subtitle: string;
   description: string;

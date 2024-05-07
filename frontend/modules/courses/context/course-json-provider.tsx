@@ -1,14 +1,22 @@
 import { useParams, usePathname } from "next/navigation";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { CourseType } from "../components/course/course";
+import ActionsBar from "../components/editor/actions-bar";
+import { toast } from "sonner";
 
 type CourseJSONType = CourseType | null;
 
 export interface CourseJSONContextType {
-  initialCourseJSON: CourseJSONType;
-  setInitialCourseJSON: React.Dispatch<React.SetStateAction<CourseJSONType>>;
-  inEditCourseJSON: CourseJSONType;
-  setInEditCourseJSON: React.Dispatch<React.SetStateAction<CourseJSONType>>;
+  courseJson: {
+    initialCourseJson: CourseJSONType;
+    inEditCourseJson: CourseJSONType;
+  };
+  setInitialCourseJSON: (json: CourseJSONType) => void;
+  setInEditCourseJSON: (json: CourseJSONType) => void;
+  setWholeCourseJson: (courseJson: {
+    initialCourseJson: CourseJSONType;
+    inEditCourseJson: CourseJSONType;
+  }) => void;
 }
 
 export const CourseJSONContext = createContext<
@@ -86,45 +94,85 @@ const exampleCourseJSON = JSON.parse(
       },
     ],
   })
-) as JSON;
+) as CourseType;
 
 const CourseJSONProvider = ({ children }: CourseJSONProviderProps) => {
-  const [initialCourseJSON, setInitialCourseJSON] =
-    useState<CourseJSONType>(null);
-  const [inEditCourseJSON, setInEditCourseJSON] =
-    useState<CourseJSONType>(null);
+  const [wholeJson, setWholeJson] = useState<{
+    initialCourseJson: CourseJSONType;
+    inEditCourseJson: CourseJSONType;
+  }>({
+    initialCourseJson: null,
+    inEditCourseJson: null,
+  });
+
+  const setInitialCourseJSON = (json: CourseJSONType) => {
+    setWholeJson((prevJson) => ({ ...prevJson, initialCourseJson: json }));
+  };
+
+  const setInEditCourseJSON = (json: CourseJSONType) => {
+    setWholeJson((prevJson) => ({ ...prevJson, inEditCourseJson: json }));
+  };
 
   const path = usePathname();
   const params = useParams();
 
   useEffect(() => {
     if (!path.startsWith("/courses/editor")) {
-      setInitialCourseJSON(null);
-      setInEditCourseJSON(null);
+      setWholeJson({ initialCourseJson: null, inEditCourseJson: null });
       return;
     }
 
     if (params.courseArgs) {
+      fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/courses/${params.courseArgs[0]}`
+      )
+        .then(async (res) => {
+          if (!res.ok) {
+            console.log(res);
+            toast.error("Failed to fetch course data.");
+            return;
+          }
+
+          try {
+            const resJson = await res.json();
+            delete resJson.id;
+            delete resJson.textSearchScore;
+            setWholeJson({
+              initialCourseJson: resJson,
+              inEditCourseJson: resJson,
+            });
+          } catch (e) {
+            toast.error("Response from server is not in JSON format.");
+          }
+        })
+        .catch((err) => {
+          console.error("FETCH ERROR FOR COURSE " + params.courseArgs[0], err);
+          toast.error("Failed to fetch course data.");
+        });
+
       return;
     }
 
-    setInitialCourseJSON(exampleCourseJSON);
-    setInEditCourseJSON(exampleCourseJSON);
+    setWholeJson({
+      initialCourseJson: exampleCourseJSON,
+      inEditCourseJson: exampleCourseJSON,
+    });
 
     // ignoring initialCourseJSON
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path, params, setInEditCourseJSON, setInitialCourseJSON]);
+  }, [path, params, setWholeJson]);
 
   return (
     <CourseJSONContext.Provider
       value={{
-        initialCourseJSON,
+        courseJson: wholeJson,
         setInitialCourseJSON,
-        inEditCourseJSON,
         setInEditCourseJSON,
+        setWholeCourseJson: setWholeJson,
       }}
     >
       {children}
+      <ActionsBar />
     </CourseJSONContext.Provider>
   );
 };

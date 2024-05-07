@@ -1,12 +1,13 @@
 import React from "react";
-import { CourseType } from "../../course/course";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BookDashed, BugIcon } from "lucide-react";
 import TableOfContent from "../../course/table-of-content";
+import CourseViewSideActions from "./course-view-side-actions";
 
 const CourseViewSide = async ({ params }: { params: { courseId: string } }) => {
   const jsonData = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/courses/${params.courseId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/courses/${params.courseId}`,
+    { next: { revalidate: 3600, tags: [`course-${params.courseId}`] } }
   )
     .then((res) => res.json())
     .catch((err) => {
@@ -54,8 +55,10 @@ const CourseViewSide = async ({ params }: { params: { courseId: string } }) => {
   return (
     <div className="relative flex size-full flex-col">
       <ScrollArea className="size-full flex-1 px-2">
-        <div className="h-14" />
-        <TableOfContent courseJson={jsonData as CourseType} />
+        <div className="flex size-full flex-col gap-4 pt-14">
+          <CourseViewSideActions courseJson={jsonData} />
+          <TableOfContent courseJson={jsonData} />
+        </div>
       </ScrollArea>
     </div>
   );
