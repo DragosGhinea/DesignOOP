@@ -124,7 +124,7 @@ const CourseJSONProvider = ({ children }: CourseJSONProviderProps) => {
 
     if (params.courseArgs) {
       fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/courses/${params.courseArgs[0]}`
+        `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses/${params.courseArgs[0]}`
       )
         .then(async (res) => {
           if (!res.ok) {

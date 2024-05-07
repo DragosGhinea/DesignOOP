@@ -1,6 +1,7 @@
 package ro.dragosghinea.users.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -42,7 +43,11 @@ public class JwtService {
     }
 
     public String generateAccessToken(UserDetails userDetails) {
-        return generateAccessToken(new HashMap<>(), userDetails);
+        return generateAccessToken(new HashMap<>(){
+            {
+                put("authorities", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toArray());
+            }
+        }, userDetails);
     }
 
     public String generateAccessToken(

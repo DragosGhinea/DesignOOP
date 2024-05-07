@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const isLoadingSession = sessionStatus === "loading";
   const { data: profile, isLoading: isLoadingProfile } = useSWR({
     tags: ["profile", "user-profile-data"],
-    url: "/v1/users/me",
+    url: `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/users/me"`,
     method: "GET",
     accessToken: isLoadingSession
       ? "loading"

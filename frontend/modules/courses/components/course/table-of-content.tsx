@@ -10,12 +10,9 @@ const TableOfContent = ({ courseJson }: { courseJson: CourseType }) => {
   extractTableOfContentsFromJSON(courseJson, result);
 
   const handleClick = (id: string) => () => {
-    console.log("CLICKED", id);
-    // const wrapper = document.getElementById("course-scroll-wrapper");
     const target = document.getElementById(id);
     if (!target) return;
 
-    console.log(target);
     target?.scrollIntoView({
       behavior: "smooth",
       block: "start",

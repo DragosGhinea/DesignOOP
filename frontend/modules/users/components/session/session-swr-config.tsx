@@ -16,7 +16,6 @@ export interface SWRKey {
 }
 
 const SessionSWRConfig = ({ children }: { children: ReactNode }) => {
-  const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL;
   const router = useRouter();
 
   const fetcher = async (key: SWRKey) => {
@@ -47,7 +46,7 @@ const SessionSWRConfig = ({ children }: { children: ReactNode }) => {
       options.body = JSON.stringify(key.body);
     }
 
-    const res = await fetch(`${urlBase}${key.url}`, options);
+    const res = await fetch(key.url, options);
     if (!res.ok) {
       if (res.status === 401) {
         let error;

@@ -11,7 +11,7 @@ export const createCourse = async (
     return false;
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/courses`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const saveCourse = async (
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/courses/${courseJson.id}`,
+    `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses/${courseJson.id}`,
     {
       method: "PUT",
       headers: {
@@ -65,7 +65,7 @@ export const saveCourse = async (
 };
 
 export const deleteCourse = (router: any, courseId: string) => {
-  fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/v1/courses/${courseId}`, {
+  fetch(process.env.NEXT_COURSES_PUBLIC_BACKEND_URL + `/v1/courses/${courseId}`, {
     method: "DELETE",
   })
     .then(async (res) => {

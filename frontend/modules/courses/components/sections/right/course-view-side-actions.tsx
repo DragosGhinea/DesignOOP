@@ -116,11 +116,12 @@ const AnyUserActions = ({ courseJson }: { courseJson: CourseType }) => {
 const CourseViewSideActions = ({ courseJson }: { courseJson: CourseType }) => {
   const { data: user, status } = useSession();
   const isAdmin =
-    status === "authenticated" && user?.user.roles.contains("ADMIN");
+    status === "authenticated" &&
+    user?.user.authorities.includes("ROLE_COURSE_MANAGER");
 
-  if (status === "loading") return "Loading...";
+  if (status !== "authenticated") return "Loading...";
 
-  if (!isAdmin) return <AdminActions courseJson={courseJson} />;
+  if (isAdmin) return <AdminActions courseJson={courseJson} />;
 
   return <AnyUserActions courseJson={courseJson} />;
 };

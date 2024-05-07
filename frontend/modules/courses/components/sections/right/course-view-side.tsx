@@ -6,7 +6,7 @@ import CourseViewSideActions from "./course-view-side-actions";
 
 const CourseViewSide = async ({ params }: { params: { courseId: string } }) => {
   const jsonData = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/courses/${params.courseId}`,
+    `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses/${params.courseId}`,
     { next: { revalidate: 3600, tags: [`course-${params.courseId}`] } }
   )
     .then((res) => res.json())

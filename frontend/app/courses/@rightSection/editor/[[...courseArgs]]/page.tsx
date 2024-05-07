@@ -10,13 +10,17 @@ import useCourseJSON from "@/modules/courses/hooks/use-course-json";
 import React from "react";
 
 const Page = () => {
-  const { inEditCourseJSON } = useCourseJSON();
+  const { courseJson } = useCourseJSON();
 
   return (
     <div className="relative size-full overflow-hidden">
       <CourseEditorPreviewFull content={<CourseEditorPreview />} />
       <CourseEditorPreviewTable
-        content={<TableOfContent courseJson={inEditCourseJSON as CourseType} />}
+        content={
+          <TableOfContent
+            courseJson={courseJson.inEditCourseJson as CourseType}
+          />
+        }
       />
       <CourseEditorPreview />
     </div>

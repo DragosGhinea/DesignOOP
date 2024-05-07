@@ -115,7 +115,9 @@ const Results = ({ results }: { results: CoursesPage }) => {
 const SearchResultsList = ({ search }: { search: string | undefined }) => {
   const key: SWRKey = {
     tags: ["courses", "search-courses"],
-    url: search ? `/v1/courses?search=${search}` : "/v1/courses",
+    url: search
+      ? `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses?search=${search}`
+      : `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses`,
     headers: {
       "X-FETCH-WITHOUT-COMPONENTS": "true",
     },

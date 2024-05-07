@@ -36,7 +36,7 @@ const UnsavedChangesProfileProvider = ({
   const handleSaveChanges = async () => {
     try {
       const res = await fetcherWithAuthorization(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/me`,
+        `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/users/me`,
         {
           method: "PATCH",
           body: JSON.stringify(changes),

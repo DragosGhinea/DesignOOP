@@ -5,11 +5,9 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ro.dragosghinea.users.security.DefaultAdmin;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Setter
 @Getter
@@ -49,6 +47,8 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(DefaultAdmin.getDefaultAdminEmail().equals(email))
+            return Arrays.stream(UserRole.values()).map(role -> new SimpleGrantedAuthority("ROLE_"+role.name())).toList();
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role.name())).toList();
     }
 

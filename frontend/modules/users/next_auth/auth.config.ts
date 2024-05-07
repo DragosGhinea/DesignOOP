@@ -3,6 +3,7 @@ import { JWT } from "next-auth/jwt";
 import Discord from "next-auth/providers/discord";
 import Github from "next-auth/providers/github";
 import {
+  extractAuthoritiesFromBackendToken,
   extractExpirationFromBackendToken,
   extractSubjectFromBackendToken,
 } from "../utils/token-utils";
@@ -30,6 +31,9 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
       ...token,
       user: {
         ...token.user,
+        authorities: extractAuthoritiesFromBackendToken(
+          newAccessToken.access_token
+        ),
         backend: {
           ...token.user.backend,
           accessToken: newAccessToken.access_token,
@@ -67,16 +71,19 @@ export const options: NextAuthOptions = {
     async signIn({ user, account }) {
       try {
         if (account) {
-          const res = await fetch("http://localhost:8081/v1/auth/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              clientRegistrationId: account.provider,
-              accessToken: account.access_token,
-            }),
-          });
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/auth/login`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                clientRegistrationId: account.provider,
+                accessToken: account.access_token,
+              }),
+            }
+          );
 
           const data = await res.json();
 
@@ -85,9 +92,12 @@ export const options: NextAuthOptions = {
           }
 
           user.id = extractSubjectFromBackendToken(data.access_token);
-          user.name = undefined;
-          user.email = undefined;
-          user.image = undefined;
+          user.authorities = extractAuthoritiesFromBackendToken(
+            data.access_token
+          );
+          delete user.name;
+          delete user.email;
+          delete user.image;
           user.backend = {
             accessTokenExpiration: extractExpirationFromBackendToken(
               data.access_token
@@ -134,13 +144,16 @@ export const options: NextAuthOptions = {
   events: {
     signOut: async ({ token }) => {
       try {
-        await fetch("http://localhost:8081/v1/auth/logout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token.user.backend.accessToken}`,
-          },
-        });
+        await fetch(
+          `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/auth/logout`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token.user.backend.accessToken}`,
+            },
+          }
+        );
       } catch (e) {}
     },
   },

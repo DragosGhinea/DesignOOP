@@ -5,6 +5,7 @@ import { User as UserModel } from "@/prisma/dbServerActions";
 declare module "next-auth" {
   interface User {
     id: string;
+    authorities: string[];
     backend: {
       accessTokenExpiration: number;
       accessToken: string;
@@ -22,6 +23,7 @@ declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
     user: {
       id: string;
+      authorities: string[];
       backend: {
         accessTokenExpiration: number;
         accessToken: string;
