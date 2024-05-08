@@ -20,6 +20,7 @@ import React, { useState } from "react";
 import { CourseType } from "../../course/course";
 import { useRouter } from "next/navigation";
 import { deleteCourse } from "@/modules/courses/utils/course-crud";
+import LoadingSpinner from "@/components/loading/loading-spinner";
 
 const DeleteCourseButton = ({
   courseName,
@@ -54,7 +55,13 @@ const DeleteCourseButton = ({
         <DialogClose asChild>
           <Button
             variant="destructive"
-            onClick={async () => deleteCourse(router, user?.user.backend.accessToken || "", courseId)}
+            onClick={async () =>
+              deleteCourse(
+                router,
+                user?.user.backend.accessToken || "",
+                courseId
+              )
+            }
             disabled={courseNameInput !== courseName}
           >
             Delete Course
@@ -120,7 +127,7 @@ const CourseViewSideActions = ({ courseJson }: { courseJson: CourseType }) => {
     status === "authenticated" &&
     user?.user.authorities.includes("ROLE_COURSE_MANAGER");
 
-  if (status !== "authenticated") return "Loading...";
+  if (status !== "authenticated") return <LoadingSpinner />;
 
   if (isAdmin) return <AdminActions courseJson={courseJson} />;
 

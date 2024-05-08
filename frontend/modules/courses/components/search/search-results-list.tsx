@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "@/components/loading/loading-spinner";
 
 const NoResults = ({ search }: { search: string | undefined }) => {
   return (
@@ -132,7 +133,7 @@ const SearchResultsList = ({ search }: { search: string | undefined }) => {
   });
 
   if (loadingSearch) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner variant="large" text="Loading courses..."/>;
   }
 
   return searchResults.content.length > 0 ? (

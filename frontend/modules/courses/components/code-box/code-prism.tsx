@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingSpinner from "@/components/loading/loading-spinner";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/utils/common";
 import { useTheme } from "next-themes";
@@ -28,12 +29,15 @@ const CodePrism = ({
     setTheme(resolvedTheme === "dark" ? themes.vsDark : themes.vsLight);
   }, [resolvedTheme]);
 
-  if (!theme) return "Loading...";
+  if (!theme) return <LoadingSpinner text="Loading code..." />;
 
   return (
     <Highlight theme={theme} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre style={style} className={cn("flex py-4", className, wrapperClassName)}>
+        <pre
+          style={style}
+          className={cn("flex py-4", className, wrapperClassName)}
+        >
           <ScrollArea className="w-full">
             {tokens.map((line, i) => (
               <div

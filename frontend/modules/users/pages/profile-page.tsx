@@ -6,6 +6,7 @@ import UnsavedChangesProfileProvider from "../context/unsaved-changes-profile";
 import useSWR from "swr";
 import { SWRKey } from "../components/session/session-swr-config";
 import { useSession } from "next-auth/react";
+import LoadingSpinner from "@/components/loading/loading-spinner";
 
 const ProfilePage = () => {
   const { data: session, status: sessionStatus } = useSession();
@@ -20,7 +21,7 @@ const ProfilePage = () => {
   } as SWRKey);
 
   if (isLoadingSession || isLoadingProfile) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner variant="large" text="Loading profile..." />;
   }
 
   if (!profile) {

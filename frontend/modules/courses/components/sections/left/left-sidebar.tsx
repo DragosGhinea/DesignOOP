@@ -54,7 +54,7 @@ const LeftSidebar = () => {
         <LeftSidebarItem
           name="Search Course"
           icon={<SearchIcon />}
-          onClick={() => router.push("/courses/search")}
+          onClick={() => router.push("/courses")}
         />
         <LeftSidebarItem
           name="Recently Visited"
