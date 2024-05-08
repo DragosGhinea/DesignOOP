@@ -69,4 +69,12 @@ public class AuthenticationController {
         authenticationService.logout(UUID.fromString(authentication.getName()));
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/validate-token")
+    public ResponseEntity<Void> validateToken(Authentication authentication) {
+        if (authentication == null)
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+
+        return ResponseEntity.ok().build();
+    }
 }

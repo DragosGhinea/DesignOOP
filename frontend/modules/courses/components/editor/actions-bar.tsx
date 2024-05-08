@@ -43,7 +43,7 @@ const ActionsBar = () => {
           <DialogClose asChild>
             <Button
               variant="success"
-              onClick={() => createCourse(router, courseJson.inEditCourseJson)}
+              onClick={() => createCourse(router, data?.user.backend.accessToken || "", courseJson.inEditCourseJson)}
             >
               Create
             </Button>
@@ -71,7 +71,7 @@ const ActionsBar = () => {
               variant="success"
               className="flex gap-2 rounded-none p-6"
               onClick={() =>
-                saveCourse(router, {
+                saveCourse(router, data?.user.backend.accessToken || "", {
                   ...(courseJson.inEditCourseJson as CourseType),
                   id: courseId as string,
                 })

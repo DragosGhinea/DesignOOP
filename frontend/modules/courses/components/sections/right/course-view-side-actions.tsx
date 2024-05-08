@@ -28,6 +28,7 @@ const DeleteCourseButton = ({
   courseName: string;
   courseId: string;
 }) => {
+  const { data: user } = useSession();
   const [courseNameInput, setCourseNameInput] = useState<string>("");
   const router = useRouter();
 
@@ -53,7 +54,7 @@ const DeleteCourseButton = ({
         <DialogClose asChild>
           <Button
             variant="destructive"
-            onClick={() => deleteCourse(router, courseId)}
+            onClick={async () => deleteCourse(router, user?.user.backend.accessToken || "", courseId)}
             disabled={courseNameInput !== courseName}
           >
             Delete Course

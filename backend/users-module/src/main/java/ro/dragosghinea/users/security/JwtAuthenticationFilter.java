@@ -1,6 +1,7 @@
 package ro.dragosghinea.users.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -9,9 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -45,6 +44,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         response.getWriter().close();
     }
 
+    private void processInvalidToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ErrorDto errorDto = ErrorDto.generate("Provided token is not well formatted.", request.getRequestURI(), HttpStatus.BAD_REQUEST);
+
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.getWriter().write(objectMapper.writeValueAsString(errorDto));
+        response.getWriter().flush();
+        response.getWriter().close();
+    }
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
@@ -52,7 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         if (request.getServletPath().contains("/v1/auth")) {
-            if (!request.getServletPath().contains("/v1/auth/logout")) {
+            if (!request.getServletPath().contains("/v1/auth/logout") && !request.getServletPath().contains("/v1/auth/validate-token")) {
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -83,7 +92,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         else
             jwt = authHeader.substring(7);
 
-        userId = jwtService.extractUsername(jwt);
+        try {
+            userId = jwtService.extractUsername(jwt);
+        }catch(SignatureException e) {
+            processInvalidToken(request, response);
+            return;
+        }
+
         if (userId != null) {
             RefreshTokenDto refreshTokenDto;
             try {

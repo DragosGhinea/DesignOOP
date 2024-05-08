@@ -6,50 +6,8 @@ import {
   extractAuthoritiesFromBackendToken,
   extractExpirationFromBackendToken,
   extractSubjectFromBackendToken,
+  ensureAccessToken,
 } from "../utils/token-utils";
-
-const refreshAccessToken = async (token: JWT): Promise<JWT> => {
-  try {
-    const response = await fetch("http://localhost:8081/v1/auth/refresh", {
-      headers: {
-        "Content-Type": "application/json",
-        "refresh-token": token.user.backend.refreshToken,
-      },
-      method: "POST",
-    });
-
-    const newAccessToken = await response.json();
-
-    if (!response.ok) {
-      // If the response is 429 (TOO MANY REQUESTS), and it contains an access_token
-      // it means that refreshing is in cooldown, and the previously generated access token is returned
-      if (response.status !== 429 || !("access_token" in newAccessToken))
-        throw newAccessToken;
-    }
-
-    return {
-      ...token,
-      user: {
-        ...token.user,
-        authorities: extractAuthoritiesFromBackendToken(
-          newAccessToken.access_token
-        ),
-        backend: {
-          ...token.user.backend,
-          accessToken: newAccessToken.access_token,
-          accessTokenExpiration: extractExpirationFromBackendToken(
-            newAccessToken.access_token
-          ),
-        },
-      },
-    };
-  } catch (error) {
-    return {
-      ...token,
-      error: "RefreshAccessTokenError",
-    };
-  }
-};
 
 export const options: NextAuthOptions = {
   pages: {
@@ -123,13 +81,18 @@ export const options: NextAuthOptions = {
         };
       }
 
-      // Return previous token if the access token has not expired yet
-      if (Date.now() < token.user.backend.accessTokenExpiration * 1000) {
-        return token;
-      }
+      return await ensureAccessToken(
+        token,
+        token.user.backend.accessTokenExpiration * 1000
+      );
 
-      // Access token has expired, try to update it
-      return await refreshAccessToken(token);
+      // // Return previous token if the access token has not expired yet
+      // if (Date.now() < token.user.backend.accessTokenExpiration * 1000) {
+      //   return token;
+      // }
+
+      // // Access token has expired, try to update it
+      // return await refreshAccessToken(token);
     },
     async session({ session, token }) {
       if (token.user) session.user = token.user;

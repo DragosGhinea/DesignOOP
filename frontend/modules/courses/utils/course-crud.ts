@@ -4,6 +4,7 @@ import { triggerRevalidationOfCourse } from "./revalidate";
 
 export const createCourse = async (
   router: any,
+  accessToken: string,
   courseJson: CourseType | null
 ) => {
   if (!courseJson) {
@@ -11,13 +12,17 @@ export const createCourse = async (
     return false;
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(courseJson),
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(courseJson),
+    }
+  );
 
   if (!res.ok) {
     console.error("Failed to save course", res);
@@ -34,6 +39,7 @@ export const createCourse = async (
 
 export const saveCourse = async (
   router: any,
+  accessToken: string,
   courseJson: CourseType | null
 ) => {
   if (!courseJson) {
@@ -47,6 +53,7 @@ export const saveCourse = async (
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(courseJson),
     }
@@ -64,10 +71,20 @@ export const saveCourse = async (
   return true;
 };
 
-export const deleteCourse = (router: any, courseId: string) => {
-  fetch(process.env.NEXT_COURSES_PUBLIC_BACKEND_URL + `/v1/courses/${courseId}`, {
-    method: "DELETE",
-  })
+export const deleteCourse = (
+  router: any,
+  accessToken: string,
+  courseId: string
+) => {
+  fetch(
+    process.env.NEXT_COURSES_PUBLIC_BACKEND_URL + `/v1/courses/${courseId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      method: "DELETE",
+    }
+  )
     .then(async (res) => {
       let jsonRes: any;
       try {
