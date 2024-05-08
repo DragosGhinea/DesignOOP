@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { DefaultSession, DefaultUser } from "next-auth";
 import { DefaultJWT } from "next-auth/jwt";
-import { User as UserModel } from "@/prisma/dbServerActions";
+import { User as UserModel } from "@/types/user";
 declare module "next-auth" {
   interface User {
     id: string;
