@@ -97,7 +97,7 @@ const CourseHistory = () => {
   if (!history || history.length === 0) {
     return (
       <div className="flex size-full flex-col items-center p-10">
-        <h1 className="h1-typography">Courses</h1>
+        <h1 className="h1-typography">Courses History</h1>
         <p className="h6-typography mt-3 font-semibold text-muted-foreground">
           The courses you have recently visited.
         </p>
@@ -115,7 +115,7 @@ const CourseHistory = () => {
 
   return (
     <div className="flex size-full flex-col items-center p-10">
-      <h1 className="h1-typography">Courses</h1>
+      <h1 className="h1-typography">Courses History</h1>
       <p className="h6-typography mt-3 font-semibold text-muted-foreground">
         The courses you have recently visited.
       </p>
