@@ -14,7 +14,7 @@ const LoadingSpinner = ({
       <svg
         aria-hidden="true"
         className={cn(
-          "animate-spin fill-blue-600 text-gray-200 dark:text-gray-600",
+          "animate-spin fill-blue-600 dark:fill-blue-400 text-gray-200 dark:text-gray-600",
           variant === "small" && "size-6",
           variant === "normal" && "size-8",
           variant === "large" && "size-12"

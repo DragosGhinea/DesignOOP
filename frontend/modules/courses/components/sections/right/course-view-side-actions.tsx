@@ -127,7 +127,7 @@ const CourseViewSideActions = ({ courseJson }: { courseJson: CourseType }) => {
     status === "authenticated" &&
     user?.user.authorities.includes("ROLE_COURSE_MANAGER");
 
-  if (status !== "authenticated") return <LoadingSpinner />;
+  if (status === "loading") return <LoadingSpinner />;
 
   if (isAdmin) return <AdminActions courseJson={courseJson} />;
 

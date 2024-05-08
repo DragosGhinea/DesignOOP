@@ -2,6 +2,7 @@ import React from "react";
 import Course, { CourseType } from "../../course/course";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BookDashed, BugIcon } from "lucide-react";
+import CourseViewHistory from "./course-view-history";
 
 const CourseView = async ({ params }: { params: { courseId: string } }) => {
   const jsonData = await fetch(
@@ -57,6 +58,7 @@ const CourseView = async ({ params }: { params: { courseId: string } }) => {
         <div className="h-14" />
         <Course jsonData={jsonData as CourseType} />
       </ScrollArea>
+      <CourseViewHistory courseJson={jsonData} />
     </div>
   );
 };
