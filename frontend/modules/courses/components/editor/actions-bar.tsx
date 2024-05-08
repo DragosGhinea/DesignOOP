@@ -24,8 +24,9 @@ const ActionsBar = () => {
   const params = useParams();
   const router = useRouter();
   const courseId = params?.courseArgs ? params.courseArgs[0] : null;
+  const isAdmin = status === "authenticated" && data.user.authorities.includes("ROLE_COURSE_MANAGER");
 
-  if (status === "loading") return null;
+  if (!isAdmin) return null;
 
   if (courseId === null && courseJson.inEditCourseJson !== null) {
     return (
@@ -43,7 +44,13 @@ const ActionsBar = () => {
           <DialogClose asChild>
             <Button
               variant="success"
-              onClick={() => createCourse(router, data?.user.backend.accessToken || "", courseJson.inEditCourseJson)}
+              onClick={() =>
+                createCourse(
+                  router,
+                  data?.user.backend.accessToken || "",
+                  courseJson.inEditCourseJson
+                )
+              }
             >
               Create
             </Button>

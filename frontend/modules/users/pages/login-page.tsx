@@ -45,8 +45,9 @@ const LoginPage = ({
           <CardHeader className="flex flex-row items-center justify-stretch gap-5">
             <CardTitle className="grow">Login</CardTitle>
             <CardDescription className="border-l-[1px] pl-3 font-semibold">
-              If you want to access your progress stats and activity, you need
-              to be authenticated.
+              You do not need to create an account to use the application.
+              Accounts are currently used for admin purposes, but in the future
+              they will be used to save your progress.
             </CardDescription>
           </CardHeader>
           <Separator className="mb-10 mt-5 flex h-[3px] w-[90%] items-center justify-center">

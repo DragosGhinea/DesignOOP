@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { cn } from "@/utils/common";
-import { KeyRoundIcon, Layers3Icon, LinkIcon } from "lucide-react";
+import { EditIcon, Layers3Icon, LinkIcon } from "lucide-react";
 import DiscordIcon from "@/components/icons/discord-icon";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -58,12 +58,6 @@ const SuggestionsCard = ({ className }: { className?: string }) => {
       <ScrollArea className="mx-8 h-[72%] max-h-[63%] border-y-2 lg:max-h-[72%]">
         <CardContent className="flex flex-col items-center gap-3 p-4">
           <SuggestionEntry
-            name="Login"
-            description="You need an account if you want to track your activity and progress."
-            link="/login"
-            icon={<KeyRoundIcon className="size-8" />}
-          />
-          <SuggestionEntry
             name="See courses"
             description="See all articles and search for specific ones."
             link="/courses"
@@ -74,6 +68,12 @@ const SuggestionsCard = ({ className }: { className?: string }) => {
             description="Interact with the community."
             link="/discord"
             icon={<DiscordIcon className="size-8" />}
+          />
+          <SuggestionEntry
+            name="Create Courses"
+            description="Use our tools to create your own courses and graphics."
+            link="/courses/editor"
+            icon={<EditIcon className="size-8" />}
           />
         </CardContent>
       </ScrollArea>

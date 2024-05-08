@@ -1,7 +1,7 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import { BellIcon, LogOutIcon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
@@ -13,21 +13,6 @@ import {
 } from "@/components/ui/tooltip";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils/common";
-
-const NotificationsButton = () => {
-  return (
-    <Tooltip>
-      <TooltipTrigger>
-        <div className="cursor-pointer p-2 transition-colors">
-          <BellIcon className="size-6" fill="currentColor" />
-        </div>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Notifications</p>
-      </TooltipContent>
-    </Tooltip>
-  );
-};
 
 const LogoutButton = () => {
   const router = useRouter();
@@ -90,7 +75,6 @@ const ProfileLink = ({ variant = "default" }: { variant: string }) => {
         orientation="vertical"
         className={cn("h-7 w-[2px]", variant === "main" && "bg-current")}
       />
-      <NotificationsButton />
       <LogoutButton />
     </div>
   );

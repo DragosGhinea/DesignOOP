@@ -41,7 +41,7 @@ const RightSectionResponsive = ({ children }: { children: ReactNode }) => {
 
         <div
           className={cn(
-            "size-full shrink-0",
+            "size-full shrink-0 overflow-hidden",
             isDraggingRight && "select-none cursor-col-resize"
           )}
           style={{ width: rightSectionWidth }}
