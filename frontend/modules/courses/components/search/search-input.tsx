@@ -12,10 +12,7 @@ const SearchInput = ({ className }: { className?: string }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [searches, setSearches] = useLocalStorage<string[]>(
-    "course-searches",
-    []
-  );
+  const [, setSearches] = useLocalStorage<string[]>("course-searches", []);
 
   const debouncedSearch = useDebounceCallback((e) => {
     router.replace(
