@@ -40,17 +40,20 @@ const SearchInput = ({ className }: { className?: string }) => {
     if (searchInput.current && search) {
       searchInput.current.value = search;
       const str = searchInput.current.value;
-      const searchesCopy = [...searches];
-      const index = searchesCopy.indexOf(str);
-      if (index > -1) {
-        searchesCopy.splice(index, 1);
-      }
-      searchesCopy.push(str);
-      if (searchesCopy.length > 10) {
-        searchesCopy.shift();
-      }
 
-      setSearches(searchesCopy);
+      setSearches((oldSearches) => {
+        const searchesCopy = [...oldSearches];
+        const index = searchesCopy.indexOf(str);
+        if (index > -1) {
+          searchesCopy.splice(index, 1);
+        }
+        searchesCopy.push(str);
+        if (searchesCopy.length > 10) {
+          searchesCopy.shift();
+        }
+
+        return searchesCopy;
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput, search]);
