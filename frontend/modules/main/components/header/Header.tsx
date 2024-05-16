@@ -4,6 +4,7 @@ import SuggestionsCard from "../suggestion/suggestions-card";
 import { BadgeCheckIcon } from "lucide-react";
 import HeaderCanvasMobile from "./canvas/header-canvas-mobile";
 import ConditionalRenderMediaQuery from "@/context/conditional-render-media-query";
+import Attribution from "../attribution/attribution";
 
 const HeaderLi = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -30,10 +31,11 @@ const Header = () => {
         <ul className="h6-typography flex flex-col gap-5">
           <HeaderLi>Learn design patterns</HeaderLi>
           <HeaderLi>Simplify complex concepts</HeaderLi>
-          <HeaderLi>Verify your knowledge</HeaderLi>
+          <HeaderLi>Create your own resources</HeaderLi>
         </ul>
       </section>
       <SuggestionsCard className="relative col-span-10 col-start-2 row-span-6 row-start-3 lg:col-span-4 lg:col-start-8 lg:row-span-6 lg:row-start-6" />
+      <Attribution />
     </header>
   );
 };
