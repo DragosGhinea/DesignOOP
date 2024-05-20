@@ -12,7 +12,12 @@ import { ReactFlowJsonObject } from "reactflow";
 const CourseGraphicEditor = () => {
   const [graphicData, setGraphicData] = useSessionStorage<string | undefined>(
     "course-graphic-editor",
-    undefined
+    undefined,
+    {
+      deserializer(value) {
+        return value;
+      },
+    }
   );
 
   const onChange = (data: ReactFlowJsonObject<any, any>) => {

@@ -77,7 +77,7 @@ export const deleteCourse = (
   courseId: string
 ) => {
   fetch(
-    process.env.NEXT_COURSES_PUBLIC_BACKEND_URL + `/v1/courses/${courseId}`,
+    process.env.NEXT_PUBLIC_COURSES_BACKEND_URL + `/v1/courses/${courseId}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
