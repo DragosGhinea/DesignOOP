@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 import { convertBase64ToString } from "@/utils/base64";
 import JSONCrush from "jsoncrush";
 import { ReactFlowJsonObject, ReactFlowProvider } from "reactflow";
-import GraphicStateDisplay from "../graphic/graphic-state-display";
+import GraphicStateDisplay from "../../graphic/graphic-state-display";
 
 const Graphic = ({ graphic, id }: { graphic: string; id?: string }) => {
   const graphicJson: ReactFlowJsonObject<any, any> | undefined = useMemo(() => {

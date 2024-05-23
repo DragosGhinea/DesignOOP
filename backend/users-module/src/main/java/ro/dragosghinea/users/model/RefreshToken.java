@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.UUID;
 
-@Entity
+
 @ToString
 @EqualsAndHashCode
 @Getter
@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 
-@Table
+@Entity
 public class RefreshToken {
 
     @Id

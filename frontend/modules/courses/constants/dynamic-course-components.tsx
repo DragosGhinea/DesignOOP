@@ -1,7 +1,7 @@
 import React from "react";
-import Container from "../components/course/container";
-import Paragraph from "../components/course/paragraph";
-import Graphic from "../components/course/graphic";
+import Container from "../components/course/components/container";
+import Paragraph from "../components/course/components/paragraph";
+import Graphic from "../components/course/components/graphic";
 
 type LintParams = {
   required?: boolean;

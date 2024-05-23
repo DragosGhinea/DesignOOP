@@ -13,7 +13,7 @@ const DynamicCourseComponent = ({
     contentTable?: { id: string };
   };
 }) => {
-  const { children: jsonDataChildren, ...jsonDataWithoutChildren } = jsonData;
+  const { children: jsonDataChildren, contentTable, ...otherJsonProperties } = jsonData;
 
   const renderedChildren = useMemo(() => {
     if (!jsonDataChildren || jsonDataChildren.length === 0) {
@@ -36,8 +36,8 @@ const DynamicCourseComponent = ({
 
   return (
     <Component
-      id={jsonDataWithoutChildren?.contentTable?.id}
-      {...jsonDataWithoutChildren}
+      id={contentTable?.id}
+      {...otherJsonProperties}
     >
       {renderedChildren}
     </Component>
