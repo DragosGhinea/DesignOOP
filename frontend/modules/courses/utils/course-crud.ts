@@ -86,14 +86,14 @@ export const deleteCourse = (
     }
   )
     .then(async (res) => {
-      let jsonRes: any;
-      try {
-        jsonRes = await res.json();
-      } catch (e) {
-        toast.error("Response from server is not in JSON format.");
-      }
-
       if (res.status !== 200) {
+        let jsonRes: any;
+        try {
+          jsonRes = await res.json();
+        } catch (e) {
+          toast.error("Response from server is not in JSON format.");
+        }
+        
         console.log("Failed to delete course. " + jsonRes);
         toast.error("Failed to delete course. " + jsonRes.message);
         return;

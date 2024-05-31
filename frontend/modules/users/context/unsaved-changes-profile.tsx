@@ -67,6 +67,9 @@ const UnsavedChangesProfileProvider = ({
         return false;
       });
       setChanges({});
+      toast.success("Changes saved successfully.", {
+        duration: 5000,
+      });
     } catch (e) {
       toast.error("An error occurred while sending request to save changes.", {
         duration: 5000,
