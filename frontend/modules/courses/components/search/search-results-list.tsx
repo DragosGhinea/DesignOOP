@@ -22,6 +22,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/loading/loading-spinner";
+import { getCoursesUrl } from "@/utils/backend-utils";
 
 const NoResults = ({ search }: { search: string | undefined }) => {
   return (
@@ -117,8 +118,8 @@ const SearchResultsList = ({ search }: { search: string | undefined }) => {
   const key: SWRKey = {
     tags: ["courses", "search-courses"],
     url: search
-      ? `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses?search=${search}`
-      : `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses`,
+      ? `${getCoursesUrl()}/v1/courses?search=${search}`
+      : `${getCoursesUrl()}/v1/courses`,
     headers: {
       "X-FETCH-WITHOUT-COMPONENTS": "true",
     },

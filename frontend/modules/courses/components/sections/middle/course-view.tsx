@@ -3,10 +3,11 @@ import Course, { CourseType } from "../../course/course";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BookDashed, BugIcon } from "lucide-react";
 import CourseViewHistory from "./course-view-history";
+import { getCoursesUrl } from "@/utils/backend-utils";
 
 const CourseView = async ({ params }: { params: { courseId: string } }) => {
   const jsonData = await fetch(
-    `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses/${params.courseId}`,
+    `${getCoursesUrl()}/v1/courses/${params.courseId}`,
     { next: { revalidate: 3600, tags: [`course-${params.courseId}`] } }
   )
     .then((res) => res.json())

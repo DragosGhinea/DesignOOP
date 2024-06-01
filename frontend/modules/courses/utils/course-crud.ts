@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import { CourseType } from "../components/course/course";
 import { triggerRevalidationOfCourse } from "./revalidate";
+import { getCoursesUrl } from "@/utils/backend-utils";
 
 export const createCourse = async (
   router: any,
@@ -13,7 +14,7 @@ export const createCourse = async (
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses`,
+    `${getCoursesUrl()}/v1/courses`,
     {
       method: "POST",
       headers: {
@@ -48,7 +49,7 @@ export const saveCourse = async (
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses/${courseJson.id}`,
+    `${getCoursesUrl()}/v1/courses/${courseJson.id}`,
     {
       method: "PUT",
       headers: {
@@ -77,7 +78,7 @@ export const deleteCourse = (
   courseId: string
 ) => {
   fetch(
-    process.env.NEXT_PUBLIC_COURSES_BACKEND_URL + `/v1/courses/${courseId}`,
+    getCoursesUrl() + `/v1/courses/${courseId}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,

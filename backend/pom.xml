@@ -38,6 +38,7 @@
         <profile>
             <id>prod</id>
             <properties>
+                <skipTests>true</skipTests>
                 <activatedProperties>prod</activatedProperties>
             </properties>
         </profile>

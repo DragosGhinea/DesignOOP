@@ -8,6 +8,7 @@ import {
   extractSubjectFromBackendToken,
   ensureAccessToken,
 } from "../utils/token-utils";
+import { getUsersUrl } from "@/utils/backend-utils";
 
 export const options: NextAuthOptions = {
   pages: {
@@ -30,7 +31,7 @@ export const options: NextAuthOptions = {
       try {
         if (account) {
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/auth/login`,
+            `${getUsersUrl()}/v1/auth/login`,
             {
               method: "POST",
               headers: {
@@ -108,7 +109,7 @@ export const options: NextAuthOptions = {
     signOut: async ({ token }) => {
       try {
         await fetch(
-          `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/auth/logout`,
+          `${getUsersUrl()}/v1/auth/logout`,
           {
             method: "POST",
             headers: {

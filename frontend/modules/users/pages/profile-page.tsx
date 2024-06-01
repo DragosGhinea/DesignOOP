@@ -7,13 +7,14 @@ import useSWR from "swr";
 import { SWRKey } from "../components/session/session-swr-config";
 import { useSession } from "next-auth/react";
 import LoadingSpinner from "@/components/loading/loading-spinner";
+import { getUsersUrl } from "@/utils/backend-utils";
 
 const ProfilePage = () => {
   const { data: session, status: sessionStatus } = useSession();
   const isLoadingSession = sessionStatus === "loading";
   const { data: profile, isLoading: isLoadingProfile } = useSWR({
     tags: ["profile", "user-profile-data"],
-    url: `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/users/me`,
+    url: `${getUsersUrl()}/v1/users/me`,
     method: "GET",
     accessToken: isLoadingSession
       ? "loading"

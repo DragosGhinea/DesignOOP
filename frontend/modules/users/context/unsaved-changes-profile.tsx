@@ -7,6 +7,7 @@ import useFetchWithAuthorization from "../hooks/use-fetch-with-authorization";
 import { toast } from "sonner";
 import { useSWRConfig } from "swr";
 import { SWRKey } from "../components/session/session-swr-config";
+import { getUsersUrl } from "@/utils/backend-utils";
 
 export interface ProfileChanges {
   username?: string;
@@ -36,7 +37,7 @@ const UnsavedChangesProfileProvider = ({
   const handleSaveChanges = async () => {
     try {
       const res = await fetcherWithAuthorization(
-        `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/users/me`,
+        `${getUsersUrl()}/v1/users/me`,
         {
           method: "PATCH",
           body: JSON.stringify(changes),

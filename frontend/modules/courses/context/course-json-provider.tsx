@@ -3,6 +3,7 @@ import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { CourseType } from "../components/course/course";
 import ActionsBar from "../components/editor/actions-bar";
 import { toast } from "sonner";
+import { getCoursesUrl } from "@/utils/backend-utils";
 
 type CourseJSONType = CourseType | null;
 
@@ -124,7 +125,7 @@ const CourseJSONProvider = ({ children }: CourseJSONProviderProps) => {
 
     if (params.courseArgs) {
       fetch(
-        `${process.env.NEXT_PUBLIC_COURSES_BACKEND_URL}/v1/courses/${params.courseArgs[0]}`
+        `${getCoursesUrl()}/v1/courses/${params.courseArgs[0]}`
       )
         .then(async (res) => {
           if (!res.ok) {

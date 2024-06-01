@@ -39,3 +39,5 @@ src/main/resources/application.properties
 nbproject/
 /courses-module/.env
 /users-module/.env
+/users-module/.env.docker.dev
+/courses-module/.env.docker.dev

@@ -1,3 +1,4 @@
+import { getUsersUrl } from "@/utils/backend-utils";
 import { jwtDecode } from "jwt-decode";
 import { JWT } from "next-auth/jwt";
 
@@ -33,7 +34,7 @@ export const ensureAccessToken = async (
 export const refreshAccessToken = async (token: JWT): Promise<JWT> => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_USERS_BACKEND_URL}/v1/auth/refresh`,
+      `${getUsersUrl()}/v1/auth/refresh`,
       {
         headers: {
           "Content-Type": "application/json",
