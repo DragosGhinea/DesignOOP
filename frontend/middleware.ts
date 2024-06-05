@@ -19,7 +19,7 @@ export default withAuth(
       const isAdmin =
         req.nextauth?.token!.user.authorities.includes("ROLE_ADMIN");
       if (isAdmin) return null;
-
+      
       return Response.redirect(req.nextUrl.origin);
     }
   },

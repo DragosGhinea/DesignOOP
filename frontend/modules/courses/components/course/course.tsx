@@ -14,17 +14,17 @@ export type CourseType = {
 const Course = ({ jsonData }: { jsonData: CourseType }) => {
   return (
     <div>
-      <div className="flex flex-col items-center">
+      <div className="mb-3 flex flex-col items-center">
         <h1 className="h1-typography font-bold leading-[3.5rem]">
           {jsonData.title}
         </h1>
         <h4 className="h4-typography leading-[2.5rem]">{jsonData.subtitle}</h4>
         <p className="mt-3">{jsonData.description}</p>
-        <div className="mx-5 my-7 flex cursor-default flex-wrap gap-2">
+        <div className="mx-5 my-7 flex cursor-default flex-wrap justify-center gap-2">
           {jsonData.tags?.map((tag, index) => {
             return (
               <Badge
-                className="h6-typography rounded-2xl px-3 py-1"
+                className="p-typography rounded-[5px] px-3 py-1 dark:bg-light-700"
                 key={index}
               >
                 {tag}

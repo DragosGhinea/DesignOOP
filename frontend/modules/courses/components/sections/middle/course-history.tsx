@@ -24,7 +24,7 @@ import { Badge } from "@/components/ui/badge";
 const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
   const router = useRouter();
   const date = new Date(element.lastAccessDate);
-  const formattedDate = `${date.toLocaleDateString()} at ${date.getHours() % 12}:${date.getMinutes()} ${date.getHours() >= 12 ? "PM" : "AM"}`;
+  const formattedDate = `${date.toLocaleDateString()} at ${date.getHours() % 12}:${date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()} ${date.getHours() >= 12 ? "PM" : "AM"}`;
 
   const handleClick = () => {
     router.push(`/courses/${element.id}`);
