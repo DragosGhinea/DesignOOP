@@ -2,6 +2,8 @@ import React from "react";
 import Container from "../components/course/components/container";
 import Paragraph from "../components/course/components/paragraph";
 import Graphic from "../components/course/components/graphic";
+import Notification from "../components/course/components/notification";
+import MultiParagraph from "../components/course/components/multi-paragraph";
 
 type LintParams = {
   required?: boolean;
@@ -32,14 +34,64 @@ export type ComponentConfig = {
 export const Components: { [key: string]: ComponentConfig } = {
   container: {
     component: Container,
-    params: [],
+    params: [
+      {
+        paramName: "vertical",
+        paramType: "boolean",
+        paramAutocomplete: "true",
+      },
+    ],
     hasChildren: true,
   },
   paragraph: {
     component: Paragraph,
     params: [
-      { paramName: "title", paramType: "string" },
-      { paramName: "text", paramType: "string" },
+      {
+        paramName: "title",
+        paramType: "string",
+        paramAutocomplete: '"New Paragraph Title"',
+      },
+      {
+        paramName: "text",
+        paramType: "string",
+        paramAutocomplete: '"New Paragraph Content"',
+      },
+    ],
+    hasChildren: false,
+  },
+  "multi-paragraph": {
+    component: MultiParagraph,
+    params: [
+      {
+        paramName: "title",
+        paramType: "string",
+        paramAutocomplete: '"New Multi-Paragraph Title"',
+      },
+      {
+        paramName: "text",
+        paramType: "string[]",
+        paramAutocomplete: '[\n\t\t"New Multi-Paragraph Content",\n\t\t"New Multi-Paragraph Content2"\n\t]',
+      },
+    ],
+    hasChildren: false,
+  },
+  notification: {
+    component: Notification,
+    params: [
+      {
+        paramName: "type",
+        literalValues: ['"info"', '"warning"', '"error"'],
+      },
+      {
+        paramName: "content",
+        paramType: "string",
+        linting: { required: true, type: "String" },
+      },
+      {
+        paramName: "closable",
+        paramType: "boolean",
+        paramAutocomplete: "true",
+      },
     ],
     hasChildren: false,
   },

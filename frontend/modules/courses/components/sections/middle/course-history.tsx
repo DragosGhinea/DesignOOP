@@ -24,7 +24,7 @@ import { Badge } from "@/components/ui/badge";
 const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
   const router = useRouter();
   const date = new Date(element.lastAccessDate);
-  const formattedDate = `${date.toLocaleDateString()} at ${date.getHours() % 12}:${date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()} ${date.getHours() >= 12 ? "PM" : "AM"}`;
+  const formattedDate = `${date.toLocaleDateString()} at ${date.getHours() % 12}:${date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()} ${date.getHours() >= 12 ? "PM" : "AM"}`;
 
   const handleClick = () => {
     router.push(`/courses/${element.id}`);
@@ -36,15 +36,20 @@ const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
         className="peer z-10 flex size-full cursor-pointer flex-col gap-3 p-5"
         onClick={handleClick}
       >
-        <div>
-          <h1 className="h4-typography flex items-center gap-4 font-bold">
-            <GraduationCapIcon className="size-8" />{" "}
-            <span>{element.title}</span>
-          </h1>
-          <h2 className="h6-typography flex items-center gap-4 text-muted-foreground">
-            <BookOpenIcon className="ml-1 size-6" />{" "}
-            <span>{element.subtitle}</span>
-          </h2>
+        <div className="grid h-[110px] grid-cols-6 gap-2">
+          <div className="col-span-1 flex items-center justify-center">
+            <GraduationCapIcon className="size-12" />
+          </div>
+          <div className="h4-typography col-span-5 font-bold">
+            {element.title}
+          </div>
+
+          <div className="col-span-1 flex items-center justify-center">
+            <BookOpenIcon className="size-6" />
+          </div>
+          <div className="h6-typography col-span-5  text-muted-foreground">
+            {element.subtitle}
+          </div>
         </div>
 
         <Separator className="mb-3 mt-4 flex h-[2px] items-center justify-center">
@@ -54,12 +59,12 @@ const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
         </Separator>
 
         <ScrollArea className="">
-          <div className="max-h-20">{element.description}</div>
+          <div className="max-h-[75px]">{element.description}</div>
         </ScrollArea>
 
         <Separator className="my-2 h-[2px]" />
 
-        <ScrollArea className="h-24 ">
+        <ScrollArea className="max-h-24">
           <div className="flex flex-wrap items-center gap-1">
             {element.tags.map((tag: string) => (
               <Badge key={tag} className="rounded-[5px] dark:bg-light-700">
@@ -120,7 +125,7 @@ const CourseHistory = () => {
         The courses you have recently visited.
       </p>
       <ScrollArea className="size-full flex-1 p-3 [&>div>div]:size-full">
-        <div className="grid size-full flex-1 grid-cols-[repeat(auto-fill,_400px)] flex-col items-center justify-center gap-5">
+        <div className="grid size-full flex-1 grid-cols-[repeat(auto-fill,_400px)] flex-col items-stretch justify-center gap-5">
           {history.map((item) => (
             <CourseHistoryElement key={item.id} element={item} />
           ))}

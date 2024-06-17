@@ -1,12 +1,12 @@
 import React from "react";
 import Markdown from "react-markdown";
 
-const Paragraph = ({
+const MultiParagraph = ({
   text,
   title,
   id,
 }: {
-  text: string;
+  text: string[];
   title: string;
   id?: string;
 }) => {
@@ -16,11 +16,15 @@ const Paragraph = ({
       id={id}
     >
       <h3 className="h3-typography mb-5 leading-10">{title}</h3>
-      <p lang="en" className="hyphens-auto text-justify">
-        <Markdown>{text}</Markdown>
-      </p>
+      <div className="flex flex-col gap-4">
+        {text.map((paragraph, index) => (
+          <p key={index} lang="en" className="hyphens-auto text-justify">
+            <Markdown>{paragraph}</Markdown>
+          </p>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default Paragraph;
+export default MultiParagraph;

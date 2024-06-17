@@ -9,6 +9,17 @@ const config = {
     "./src/**/*.{ts,tsx}",
     "./modules/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    "border-blue-500",
+    "bg-blue-500",
+    "text-blue-500",
+    "border-yellow-500",
+    "bg-yellow-500",
+    "text-yellow-500",
+    "border-red-500",
+    "bg-red-500",
+    "text-red-500",
+  ],
   prefix: "",
   theme: {
     container: {

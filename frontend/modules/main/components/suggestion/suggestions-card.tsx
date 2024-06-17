@@ -59,7 +59,7 @@ const SuggestionsCard = ({ className }: { className?: string }) => {
         <CardContent className="flex flex-col items-center gap-3 p-4">
           <SuggestionEntry
             name="See courses"
-            description="See all articles and search for specific ones."
+            description="See all courses and search for specific ones."
             link="/courses"
             icon={<Layers3Icon className="size-8" />}
           />

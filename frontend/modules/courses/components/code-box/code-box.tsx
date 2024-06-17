@@ -6,6 +6,7 @@ import SelectLanguage from "./select-language";
 import SelectFile from "./select-file";
 import CopyCodeButton from "./copy-code-button";
 import EditCodeButton from "./edit-code-button";
+import { useLocalStorage } from "usehooks-ts";
 
 export type CodeFileJson = {
   name: string;
@@ -33,7 +34,13 @@ const CodeBox = ({
 }) => {
   const isEditable = !!onEditButtonClick;
   const languages = Object.keys(code);
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+  const [preferedLanguage, setPreferedLanguage] = useLocalStorage<string>(
+    "preferedCodeLanguage",
+    ""
+  );
+  const selectedLanguage = languages.includes(preferedLanguage)
+    ? preferedLanguage
+    : languages[0];
   const selectedCode = code[selectedLanguage];
   const [selectedCodeFile, setSelectedCodeFile] = useState(
     selectedCode.files[0]
@@ -48,8 +55,9 @@ const CodeBox = ({
   }
 
   const updateSelectedLanguage = (language: string) => {
-    setSelectedLanguage(language);
-    setSelectedCodeFile(code[language].files[0]);
+    // setSelectedLanguage(language);
+    // setSelectedCodeFile(code[language].files[0]);
+    setPreferedLanguage(language);
   };
 
   return (

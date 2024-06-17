@@ -98,6 +98,18 @@ const iterateComponentTree = (
         }
       }
 
+      if ("literalValues" in param) {
+        const literalValues = param.literalValues;
+        if (!literalValues.includes(text.sliceString(node.lastChild!.from, node.lastChild!.to))) {
+          diagnostics.push({
+            from: node.from,
+            to: node.to,
+            message: `Property "${property.propertyKey}" must be one of ${literalValues.join(" | ")}`,
+            severity: "error",
+          });
+        }
+      }
+
       componentParams[paramIndex].visited = true;
     }
   }
