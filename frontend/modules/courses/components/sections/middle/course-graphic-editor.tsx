@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { Separator } from "@/components/ui/separator";
 import GraphicEditor from "../../graphic/graphic-editor";
 import { useDebounceCallback, useSessionStorage } from "usehooks-ts";
@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { ReactFlowJsonObject } from "reactflow";
 
 const CourseGraphicEditor = () => {
+  const workerRef = useRef<Worker>()
   const [graphicData, setGraphicData] = useSessionStorage<string | undefined>(
     "course-graphic-editor",
     undefined,
@@ -20,12 +21,30 @@ const CourseGraphicEditor = () => {
     }
   );
 
+  useEffect(() => {
+    // worker receives data and returns the crushed data in base64
+    workerRef.current = new Worker(new URL("/public/workers/graphic-session-worker.js", import.meta.url));
+
+    workerRef.current.onmessage = (event) => {
+      setGraphicData(event.data);
+    };
+
+    return () => {
+      if (workerRef.current)
+        workerRef.current.terminate();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onChange = (data: ReactFlowJsonObject<any, any>) => {
-    const stringifiedData = JSONCrush.crush(JSON.stringify(data));
-    setGraphicData(convertStringToBase64(stringifiedData));
+    // const stringifiedData = JSONCrush.crush(JSON.stringify(data));
+    // setGraphicData(convertStringToBase64(stringifiedData));
+    if (workerRef.current) {
+      workerRef.current.postMessage(data);
+    }
   };
 
-  const debouncedOnChange = useDebounceCallback(onChange, 500);
+  const debouncedOnChange = useDebounceCallback(onChange, 1000);
 
   const jsonData = useMemo(() => {
     if (!graphicData) {
