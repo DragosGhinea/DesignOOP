@@ -48,6 +48,7 @@
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",
     "codemirror-wrapped-line-indent": "^1.0.5",
+    "embla-carousel-react": "^8.1.5",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.14.0",

@@ -182,6 +182,22 @@ const PaneContextMenu = ({
         >
           Snap To Grid
         </DropdownMenuCheckboxItem>
+        {/* <DropdownMenuItem
+          inset
+          onClick={() => {
+            setNodes((n) =>
+              n.map((node) => {
+                const newFlowPosition = {
+                  x: node.position.x - paneContextMenuInfo!.flowPosition.x,
+                  y: node.position.y - paneContextMenuInfo!.flowPosition.y,
+                } as XYPosition;
+                return { ...node, position: newFlowPosition };
+              })
+            );
+          }}
+        >
+          Center Relative to Cursor
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -20,6 +20,7 @@ import {
   XYPosition,
 } from "reactflow";
 import { toast } from "sonner";
+import { v4 as uuidv4 } from "uuid";
 
 export type NodeContextMenuInfo =
   | {
@@ -37,7 +38,7 @@ const NodeContextMenu = ({
   nodeContextMenuInfo: NodeContextMenuInfo;
   setNodeContextMenuInfo: (arg: NodeContextMenuInfo) => void;
 }) => {
-  const { setNodes, setEdges, getNodes } = useReactFlow();
+  const { setNodes, setEdges } = useReactFlow();
   const store = useStoreApi();
   const { addSelectedNodes } = store.getState();
   const updateNodeInternals = useUpdateNodeInternals();
@@ -50,8 +51,8 @@ const NodeContextMenu = ({
   };
 
   const duplicateNode = (node: Node) => {
-    const nodes = getNodes();
-    const id = `provider-${nodes.length + 1}`;
+    // const nodes = getNodes();
+    const id = `${uuidv4()}`;
     setNodes((n) => [
       ...n,
       {

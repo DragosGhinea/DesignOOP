@@ -4,6 +4,7 @@ import Paragraph from "../components/course/components/paragraph";
 import Graphic from "../components/course/components/graphic";
 import Notification from "../components/course/components/notification";
 import MultiParagraph from "../components/course/components/multi-paragraph";
+import Carousel from "../components/course/components/carousel";
 
 type LintParams = {
   required?: boolean;
@@ -40,7 +41,16 @@ export const Components: { [key: string]: ComponentConfig } = {
         paramType: "boolean",
         paramAutocomplete: "true",
       },
+      {
+        paramName: "title",
+        paramType: "string",
+      },
     ],
+    hasChildren: true,
+  },
+  carousel: {
+    component: Carousel,
+    params: [],
     hasChildren: true,
   },
   paragraph: {
@@ -70,7 +80,8 @@ export const Components: { [key: string]: ComponentConfig } = {
       {
         paramName: "text",
         paramType: "string[]",
-        paramAutocomplete: '[\n\t\t"New Multi-Paragraph Content",\n\t\t"New Multi-Paragraph Content2"\n\t]',
+        paramAutocomplete:
+          '[\n\t\t"New Multi-Paragraph Content",\n\t\t"New Multi-Paragraph Content2"\n\t]',
       },
     ],
     hasChildren: false,

@@ -2,13 +2,13 @@
 
 import React, { useCallback, useId, useState } from "react";
 import ReactFlow, {
-  addEdge,
   MiniMap,
   Controls,
   Background,
   useNodesState,
   useEdgesState,
   ReactFlowJsonObject,
+  addEdge,
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -35,10 +35,10 @@ const GraphicStateDisplay = ({
 }) => {
   const reactFlowId = useId();
   // eslint-disable-next-line no-unused-vars
-  const [nodes, setNodes, onNodesChange] = useNodesState(
+  const [nodes, setNodes, ] = useNodesState(
     restoreDataJson?.nodes || []
   );
-  const [edges, setEdges, onEdgesChange] = useEdgesState(
+  const [edges, setEdges, ] = useEdgesState(
     restoreDataJson?.edges || []
   );
   const [prevRestoreDataJson, setPrevRestoreDataJson] =
@@ -59,12 +59,13 @@ const GraphicStateDisplay = ({
     <>
       <ReactFlow
         contentEditable={false}
+        nodesDraggable={false}
         id={reactFlowId}
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        // onNodesChange={onNodesChange}
+        // onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         proOptions={{ hideAttribution: true }}
         fitView
