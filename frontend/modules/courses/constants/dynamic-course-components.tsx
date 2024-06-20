@@ -5,6 +5,7 @@ import Graphic from "../components/course/components/graphic";
 import Notification from "../components/course/components/notification";
 import MultiParagraph from "../components/course/components/multi-paragraph";
 import Carousel from "../components/course/components/carousel";
+import Separator from "../components/course/components/separator";
 
 type LintParams = {
   required?: boolean;
@@ -33,6 +34,17 @@ export type ComponentConfig = {
 };
 
 export const Components: { [key: string]: ComponentConfig } = {
+  separator: {
+    component: Separator,
+    params: [
+      {
+        paramName: "invisible",
+        paramType: "boolean",
+        paramAutocomplete: "true",
+      },
+    ],
+    hasChildren: false,
+  },
   container: {
     component: Container,
     params: [

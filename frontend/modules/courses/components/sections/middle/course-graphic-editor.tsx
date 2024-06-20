@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { Separator } from "@/components/ui/separator";
 import GraphicEditor from "../../graphic/graphic-editor";
 import { useDebounceCallback, useSessionStorage } from "usehooks-ts";
-import { convertBase64ToString, convertStringToBase64 } from "@/utils/base64";
+import { convertBase64ToString } from "@/utils/base64";
 import JSONCrush from "jsoncrush";
 import { toast } from "sonner";
 import { ReactFlowJsonObject } from "reactflow";
