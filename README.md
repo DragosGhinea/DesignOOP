@@ -20,4 +20,4 @@ Custom tools were developed to enhance user experience, including an integrated 
 
 ## Technologies and Tools
 
-![Technologies](https://github.com/DragosGhinea/DesignOOP/blob/main/images/Ctechnologies.png)
+![Technologies](https://github.com/DragosGhinea/DesignOOP/blob/main/images/technologies.png)
