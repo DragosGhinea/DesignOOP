@@ -13,16 +13,21 @@ services:
   postgres:
     image: postgres
     container_name: designoop-postgres
-    environment:
-      POSTGRES_USER: prodUser
-      POSTGRES_PASSWORD: prodPassword
-      POSTGRES_DB: DesignOOP-UsersDB
     expose:
       - "5432"
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./prod-env/postgres.env
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    ports:
+      - "8888:80"
+    env_file:
+      - ./prod-env/pgadmin.env
 
   users-module:
     image: designoop-users-module
@@ -31,36 +36,31 @@ services:
       - postgres
     build:
       context: ./backend/users-module
-    ports:
-      - "8083:8083"
+    expose:
+      - "8083"
     env_file:
-      - ./backend/users-module/.env.docker.dev
+      - ./prod-env/users-module.env
 
 
   mongodb:
     image: mongo:latest
     container_name: designoop-mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pass1234
-    ports:
-      - "27017:27017"
+    expose:
+      - "27017"
     volumes:
       - mongodb_data:/data/db
+    env_file:
+      - ./prod-env/mongodb.env
 
   mongo-express:
     image: mongo-express
     container_name: designoop-mongo-express
-    environment:
-      ME_CONFIG_MONGODB_SERVER: designoop-mongodb
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: pass1234
-      ME_CONFIG_MONGODB_URL: mongodb://root:pass1234@designoop-mongodb:27017/
-      ME_CONFIG_BASICAUTH: false
     ports:
-      - "8082:8081"
+      - "8999:8081"
     depends_on:
       - mongodb
+    env_file:
+      - ./prod-env/mongo-express.env
 
   courses-module:
     image: designoop-courses-module
@@ -69,23 +69,23 @@ services:
       - mongodb
     build:
       context: ./backend/courses-module
-    ports:
-      - "8081:8081"
+    expose:
+      - "8081"
     env_file:
-      - ./backend/courses-module/.env.docker.dev
+      - ./prod-env/courses-module.env
 
   frontend: #nextjs
     container_name: designoop-frontend
     build:
       context: ./frontend
     env_file:
-      - ./frontend/.env.local
+      - ./prod-env/frontend.env
     image: designoop-frontend
     depends_on:
       - users-module
       - courses-module
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
 
 volumes:
   mongodb_data: {}
