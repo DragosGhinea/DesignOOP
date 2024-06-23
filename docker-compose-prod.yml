@@ -26,6 +26,8 @@ services:
     restart: always
     expose:
       - "80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     env_file:
       - ./prod-env/pgadmin.env
 
@@ -90,3 +92,4 @@ services:
 volumes:
   mongodb_data: {}
   postgres_data: {}
+  pgadmin_data: {}
