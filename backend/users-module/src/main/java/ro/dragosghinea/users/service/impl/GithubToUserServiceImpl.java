@@ -22,6 +22,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,11 @@ public class GithubToUserServiceImpl implements OAuth2ToUserService {
     @Override
     public UserDto getUserFromOAuth2(String accessToken) {
         Map<String, Object> userAttributes = oAuth2Fetcher.getUserAttributes(LiteClientRegistration.GITHUB, accessToken);
+        String mapAsString = userAttributes.keySet().stream()
+                .map(key -> key + "=" + userAttributes.get(key))
+                .collect(Collectors.joining(", ", "{", "}"));
+
+        System.out.println("[DEBUG] userAttributes for login request: " + mapAsString);
         String providerUserId = userAttributes.get("id").toString();
         String email = userAttributes.get("email").toString();
 
