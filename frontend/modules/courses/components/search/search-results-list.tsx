@@ -54,14 +54,14 @@ const CourseResult = ({ result }: { result: Course }) => {
           <div className="col-span-1 flex items-center justify-center">
             <GraduationCapIcon className="size-12" />
           </div>
-          <div className="h4-typography col-span-5 font-bold">
+          <div className="h4-typography col-span-5 flex items-center font-bold">
             {result.title}
           </div>
 
           <div className="col-span-1 flex items-center justify-center">
             <BookOpenIcon className="size-6" />
           </div>
-          <div className="h6-typography col-span-5  text-muted-foreground">
+          <div className="h6-typography col-span-5 flex items-center text-muted-foreground">
             {result.subtitle}
           </div>
         </div>
@@ -78,7 +78,7 @@ const CourseResult = ({ result }: { result: Course }) => {
 
         <Separator className="my-2 h-[2px]" />
 
-        <ScrollArea className="h-24 ">
+        <ScrollArea className="h-24">
           <div className="flex flex-wrap items-center gap-1">
             {result.tags.map((tag: string) => (
               <Badge key={tag} className="rounded-[5px] dark:bg-light-700">
@@ -89,13 +89,13 @@ const CourseResult = ({ result }: { result: Course }) => {
         </ScrollArea>
 
         {result.textSearchScore && (
-          <div className="-mt-3 flex items-center justify-end gap-2">
+          <div className="absolute bottom-4 right-6 z-30 flex items-center gap-2">
             <PackageSearchIcon />
             <Tooltip>
               <TooltipTrigger className="font-bold">
                 {result.textSearchScore.toFixed(2)} Score
               </TooltipTrigger>
-              <TooltipContent className="w-52">
+              <TooltipContent className="z-20 w-52" side="left">
                 The score is based on how well the course matches the search
                 criteria.
               </TooltipContent>
