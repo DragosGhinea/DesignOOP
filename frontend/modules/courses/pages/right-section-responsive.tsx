@@ -18,7 +18,7 @@ const RightSectionResponsive = ({ children }: { children: ReactNode }) => {
     isDragging: isDraggingRight,
   } = useResizable({
     axis: "x",
-    initial: 300,
+    initial: 500,
     min: 20,
     max: screen ? screen.width / 2 : undefined,
     reverse: true,
