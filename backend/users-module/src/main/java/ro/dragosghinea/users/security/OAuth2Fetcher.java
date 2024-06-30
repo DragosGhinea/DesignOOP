@@ -12,7 +12,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 // inspired by DefaultOAuth2UserService
 public class OAuth2Fetcher {
@@ -42,6 +44,21 @@ public class OAuth2Fetcher {
 
         public Map<String, Object> getUserAttributes(LiteClientRegistration clientRegistration, String accessToken) {
             RequestEntity<?> request = getRequest(clientRegistration.getHttpMethod(), clientRegistration.getUserEndpointURI(), accessToken);
-            return this.restTemplate.exchange(request, PARAMETERIZED_RESPONSE_TYPE).getBody();
+
+            Map<String, Object> toReturn = this.restTemplate.exchange(request, PARAMETERIZED_RESPONSE_TYPE).getBody();
+            if (toReturn == null) {
+                return Collections.emptyMap();
+            }
+
+            if (toReturn.getOrDefault("email", null) == null && clientRegistration.equals(LiteClientRegistration.GITHUB)) {
+                RequestEntity<?> emailsRequest = getRequest(HttpMethod.GET, "https://api.github.com/user/emails", accessToken);
+
+                Object[] emails = this.restTemplate.exchange(emailsRequest, Object[].class).getBody();
+
+                LinkedHashMap<String, Object> emailMap = (LinkedHashMap<String, Object>) emails[0];
+                toReturn.put("email", emailMap.getOrDefault("email", null));
+            }
+
+            return toReturn;
         }
 }
