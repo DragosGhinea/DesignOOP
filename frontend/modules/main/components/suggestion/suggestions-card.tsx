@@ -20,16 +20,19 @@ const SuggestionEntry = ({
   link,
   className,
   icon = <LinkIcon className="size-8" />,
+  blank = false,
 }: {
   name: string;
   description: string;
   link: string;
   className?: string;
   icon?: React.ReactNode;
+  blank?: boolean;
 }) => {
   return (
     <Link
       href={link}
+      target={blank ? "_blank" : undefined}
       className={cn(
         "w-full shadow-[rgba(0,0,0,0.1)_0px_4px_12px] dark:shadow-none dark:bg-dark-300 bg-light-850 p-5 rounded-md grid grid-cols-8 grid-rows-2 whitespace-nowrap hover:whitespace-normal max-h-[100px] hover:max-h-[500px] transition-all [&_div]:hover:border-blue-300 [&_div]:dark:hover:border-blue-800 duration-500",
         className
@@ -68,6 +71,7 @@ const SuggestionsCard = ({ className }: { className?: string }) => {
             description="Interact with the community."
             link="/discord"
             icon={<DiscordIcon className="size-8" />}
+            blank
           />
           <SuggestionEntry
             name="Create Courses"

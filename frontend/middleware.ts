@@ -9,7 +9,8 @@ const publicRoutes = [
   /^\/$/, // matching "/"
   /^\/courses(\/.*)?$/, // matching "/courses" and "/courses/**"
   /^\/test$/, // matching "/test"
-  /^\/workers(\/.*)?$/, // matching "/workers" and "/workers/**"
+  /^\/workers(\/.*)?$/, // matching "/workers" and "/workers/**",
+  /^\/discord$/, // matching "/discord"
 ];
 const adminRoutes = ["/admin"];
 

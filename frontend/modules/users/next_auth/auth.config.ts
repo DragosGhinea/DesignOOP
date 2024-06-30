@@ -11,7 +11,7 @@ import {
 import { getUsersUrl } from "@/utils/backend-utils";
 
 export const options: NextAuthOptions = {
-  debug: true,
+  // debug: true,
   pages: {
     signIn: "/login",
     signOut: "/logout",
