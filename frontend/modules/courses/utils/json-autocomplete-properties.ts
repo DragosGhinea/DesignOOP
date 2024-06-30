@@ -153,15 +153,16 @@ export const propertyAutocomplete = (ctx: CompletionContext) => {
     );
 
     // it needs to be put separately from the generated values so the uuid changes on each autocomplete
-    options.push(
-      snippetCompletion(
-        `"contentTable": {\n\t"title": "${componentType}",\n\t"id": "${uuidv4()}"\n}`,
-        {
-          label: "contentTable",
-          detail: `Jumping to this component`,
-        }
-      )
-    );
+    if (!usedParams.includes("contentTable"))
+      options.push(
+        snippetCompletion(
+          `"contentTable": {\n\t"title": "${componentType}",\n\t"id": "${uuidv4()}"\n}`,
+          {
+            label: "contentTable",
+            detail: `Jumping to this component`,
+          }
+        )
+      );
   }
 
   let from = word?.from ?? ctx.pos;
