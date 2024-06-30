@@ -18,9 +18,9 @@ const MultiParagraph = ({
       <h3 className="h3-typography mb-5 leading-10">{title}</h3>
       <div className="flex flex-col gap-4">
         {text.map((paragraph, index) => (
-          <p key={index} lang="en" className="hyphens-auto text-justify">
+          <div key={index} lang="en" className="hyphens-auto text-justify">
             <Markdown>{paragraph}</Markdown>
-          </p>
+          </div>
         ))}
       </div>
     </div>
