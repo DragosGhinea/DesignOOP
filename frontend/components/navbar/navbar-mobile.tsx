@@ -41,7 +41,7 @@ const NavbarMobile = ({
                 href="/courses"
                 className="flex items-center gap-5 rounded-md bg-slate-100 p-6 font-semibold dark:bg-dark-300 [&_span]:before:hover:scale-x-100"
               >
-                <BookOpenIcon className="size-8" />
+                <BookOpenIcon className="size-8 shrink-0" />
                 <UnderlineAnimated>Courses</UnderlineAnimated>
               </Link>
             </div>

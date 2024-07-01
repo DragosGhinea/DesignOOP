@@ -19,7 +19,7 @@ const ProfileLinkMobile = ({ variant = "default" }: { variant: string }) => {
         href="/login"
         className="flex items-center gap-5 rounded-md bg-slate-100 p-6 font-semibold dark:bg-dark-300 [&_span]:before:hover:scale-x-100"
       >
-        <UserIcon className="size-8" />
+        <UserIcon className="size-8 shrink-0" />
         <span className="underline-animated relative">Login</span>
       </Link>
     );
@@ -30,7 +30,7 @@ const ProfileLinkMobile = ({ variant = "default" }: { variant: string }) => {
         href="/profile"
         className="flex items-center gap-5 rounded-md bg-slate-100 p-6 font-semibold dark:bg-dark-300 [&_span]:before:hover:scale-x-100"
       >
-        <ContactIcon className="size-8" />
+        <ContactIcon className="size-8 shrink-0" />
         <span className="underline-animated relative">Profile</span>
       </Link>
       <div
@@ -39,7 +39,7 @@ const ProfileLinkMobile = ({ variant = "default" }: { variant: string }) => {
         }}
         className="flex items-center gap-5 rounded-md bg-slate-100 p-6 font-semibold dark:bg-dark-300 [&_span]:before:hover:scale-x-100"
       >
-        <LogOutIcon className="size-8" />
+        <LogOutIcon className="size-8 shrink-0" />
         <span className="underline-animated relative">Logout</span>
       </div>
     </>
