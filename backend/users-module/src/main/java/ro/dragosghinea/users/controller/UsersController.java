@@ -1,5 +1,6 @@
 package ro.dragosghinea.users.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class UsersController {
     }
 
     @PatchMapping("/me")
-    public ResponseEntity<UserDto> updateUserMe(Authentication authentication, @RequestBody UpdateProfileDto updatesDto) {
+    public ResponseEntity<UserDto> updateUserMe(Authentication authentication, @Valid @RequestBody UpdateProfileDto updatesDto) {
         if (authentication == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Must be logged in to access this endpoint");
         }

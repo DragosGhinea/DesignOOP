@@ -58,7 +58,7 @@ const EditUsernameModal = ({
 
         <DialogFooter>
           <Button
-            disabled={/^[a-zA-Z0-9_]{3,}$/.test(newUsername) === false}
+            disabled={/^[a-zA-Z0-9_]{3,30}$/.test(newUsername) === false}
             onClick={handlePreviewChange}
           >
             Preview Change
