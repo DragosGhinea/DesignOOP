@@ -10,8 +10,9 @@ const Attribution = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="fixed bottom-0 left-[50%] flex translate-x-[-50%] cursor-pointer flex-nowrap gap-2 text-nowrap rounded-t-md bg-blue-light p-3 text-white dark:bg-blue-dark2">
-          <CopyrightIcon /> 2024 Ghinea Dragoș-Dumitru | Bachelor Thesis Project
+        <div className="fixed bottom-0 left-[50%] flex w-full translate-x-[-50%] cursor-pointer flex-nowrap rounded-t-md bg-blue-light p-1 text-white dark:bg-blue-dark2 sm:w-fit sm:gap-2 sm:text-nowrap sm:p-3">
+          <CopyrightIcon className="shrink-0" /> 2024 Ghinea Dragoș-Dumitru |
+          Bachelor Thesis Project
         </div>
       </DialogTrigger>
       <DialogContent className="flex max-h-full flex-col overflow-hidden">

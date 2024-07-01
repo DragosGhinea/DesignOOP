@@ -35,7 +35,7 @@ const NavbarMobile = ({
             <SheetHeader>
               <SheetTitle className="text-4xl">Menu</SheetTitle>
             </SheetHeader>
-            <div className="h4-typography flex flex-col gap-5 p-6">
+            <div className="h4-typography flex flex-col gap-5 py-6 sm:p-6">
               <ProfileLinkMobile variant={variant} />
               <Link
                 href="/courses"

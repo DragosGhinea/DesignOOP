@@ -34,7 +34,7 @@ const SuggestionEntry = ({
       href={link}
       target={blank ? "_blank" : undefined}
       className={cn(
-        "w-full shadow-[rgba(0,0,0,0.1)_0px_4px_12px] dark:shadow-none dark:bg-dark-300 bg-light-850 p-5 rounded-md grid grid-cols-8 grid-rows-2 whitespace-nowrap hover:whitespace-normal max-h-[100px] hover:max-h-[500px] transition-all [&_div]:hover:border-blue-300 [&_div]:dark:hover:border-blue-800 duration-500",
+        "w-full shadow-[rgba(0,0,0,0.1)_0px_4px_12px] dark:shadow-none dark:bg-dark-300 bg-light-850 p-3 sm:p-5 rounded-md grid grid-cols-8 grid-rows-2 whitespace-nowrap hover:whitespace-normal max-h-[100px] hover:max-h-[500px] transition-all [&_div]:hover:border-blue-300 [&_div]:dark:hover:border-blue-800 duration-500",
         className
       )}
     >
@@ -58,8 +58,8 @@ const SuggestionsCard = ({ className }: { className?: string }) => {
         <CardTitle>Suggestions</CardTitle>
         <CardDescription>Some actions suggested for you</CardDescription>
       </CardHeader>
-      <ScrollArea className="mx-8 h-[72%] max-h-[63%] border-y-2 lg:max-h-[72%]">
-        <CardContent className="flex flex-col items-center gap-3 p-4">
+      <ScrollArea className="mx-4 h-[72%] max-h-[63%] border-y-2 sm:mx-8 lg:max-h-[72%]">
+        <CardContent className="flex flex-col items-center gap-3 py-4 sm:p-4">
           <SuggestionEntry
             name="See courses"
             description="See all courses and search for specific ones."

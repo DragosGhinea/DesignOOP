@@ -16,7 +16,7 @@ const Paragraph = ({
       id={id}
     >
       <h3 className="h3-typography mb-5 leading-10">{title}</h3>
-      <div lang="en" className="hyphens-auto text-justify">
+      <div lang="en" className="p-typography hyphens-auto text-justify">
         <Markdown>{text}</Markdown>
       </div>
     </div>

@@ -39,7 +39,7 @@ const Notification = ({
       id={id}
     >
       <IconToUse className={`text-${color}-500 size-8 shrink-0`} />
-      <div>
+      <div className="p-typography">
         <Markdown>{content}</Markdown>
       </div>
       {closable && (
