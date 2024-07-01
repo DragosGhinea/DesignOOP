@@ -24,7 +24,7 @@ public class CourseSearchRepositoryImpl implements CourseSearchRepository {
                 TextCriteria.forDefaultLanguage()
                         .caseSensitive(false)
                         .diacriticSensitive(false)
-                        .matchingPhrase(query)
+                        .matchingAny(query.split(" "))
         )
                 .sortByScore()
                 .with(PageRequest.of(pageNumber, pageSize));
