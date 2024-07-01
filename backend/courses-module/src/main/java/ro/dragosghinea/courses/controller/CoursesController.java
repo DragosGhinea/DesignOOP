@@ -5,17 +5,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ro.dragosghinea.courses.model.dto.PageDto;
 import ro.dragosghinea.courses.model.entity.Course;
 import ro.dragosghinea.courses.service.CoursesService;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("v1/courses")
 @RequiredArgsConstructor
 public class CoursesController {
+    private final static Pattern searchPattern = Pattern.compile("^[\\w\\- ]+$");
 
     private final CoursesService coursesService;
 
@@ -27,8 +30,14 @@ public class CoursesController {
             @RequestHeader(value = "X-Fetch-Without-Components", defaultValue = "false") boolean fetchWithoutComponents
     ) {
         if (!search.isEmpty()) {
+            if (!searchPattern.asPredicate().test(search)) {
+                throw new ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Invalid search query");
+            }
+            
             return ResponseEntity.ok(coursesService.searchCourses(pageNumber, pageSize, search, fetchWithoutComponents));
         }
+
+
 
         return ResponseEntity.ok(coursesService.getCourses(pageNumber, pageSize, fetchWithoutComponents));
     }
