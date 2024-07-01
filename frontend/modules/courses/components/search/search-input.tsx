@@ -13,10 +13,11 @@ const SearchInput = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const debouncedSearch = useDebounceCallback((e) => {
-    router.replace(
-      pathname + "?" + createQueryString("search", e.target.value.trim())
-    );
+  const debouncedSearch = useDebounceCallback((search, isValid) => {
+    if (isValid)
+      router.replace(
+        pathname + "?" + createQueryString("search", search.trim())
+      );
   }, 500);
 
   const createQueryString = useCallback(
@@ -35,21 +36,6 @@ const SearchInput = ({ className }: { className?: string }) => {
   useEffect(() => {
     if (searchInput.current && search) {
       searchInput.current.value = search;
-      // const str = searchInput.current.value;
-
-      // setSearches((oldSearches) => {
-      //   const searchesCopy = [...oldSearches];
-      //   const index = searchesCopy.indexOf(str);
-      //   if (index > -1) {
-      //     searchesCopy.splice(index, 1);
-      //   }
-      //   searchesCopy.push(str);
-      //   if (searchesCopy.length > 10) {
-      //     searchesCopy.shift();
-      //   }
-
-      //   return searchesCopy;
-      // });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput, search]);
@@ -58,16 +44,21 @@ const SearchInput = ({ className }: { className?: string }) => {
     <div className={cn("relative flex items-center", className)}>
       <input
         onChange={(e) => {
-          debouncedSearch(e);
+          debouncedSearch(e.target.value, e.target.validity.valid);
         }}
+        pattern="[\w\- ]*"
         ref={searchInput}
         placeholder="Search"
         type="text"
-        className="h6-typography peer w-full border-b-4 border-blue-200 bg-transparent py-1 pl-12 text-blue-600 transition-colors placeholder:text-transparent focus:border-blue-500 focus:outline-none focus:placeholder:text-blue-400 dark:border-blue-400 dark:text-blue-200 dark:focus:border-blue-300 dark:focus:placeholder:text-blue-200"
+        className="h6-typography peer w-full border-b-4 border-blue-200 bg-transparent py-1 pl-12 transition-colors placeholder:text-transparent valid:text-blue-600 invalid:border-red-200 invalid:text-red-500 focus:outline-none focus:placeholder:text-blue-400 valid:focus:border-blue-500 invalid:focus:border-red-500 dark:border-blue-400 dark:text-blue-200 invalid:dark:border-red-400 invalid:dark:text-red-200 dark:focus:border-blue-300 dark:focus:placeholder:text-blue-200 invalid:dark:focus:border-red-300"
         autoComplete="off"
       />
 
-      <div className="h6-typography pointer-events-none invisible absolute bottom-2 left-12 text-blue-400 transition-all duration-300 peer-placeholder-shown:visible peer-focus:opacity-0 dark:text-blue-200">
+      <div className="absolute -bottom-7 hidden overflow-hidden text-ellipsis text-nowrap text-red-600 peer-invalid:block">
+        Only letters, numbers, dashes and spaces allowed.
+      </div>
+
+      <div className="h6-typography pointer-events-none invisible absolute bottom-2 left-12 transition-all duration-300 peer-placeholder-shown:visible peer-valid:text-blue-400 peer-invalid:text-red-400 peer-focus:opacity-0 dark:text-blue-200 peer-invalid:dark:text-red-200">
         Search:{" "}
         <TypeAnimation
           cursor={false}
@@ -77,7 +68,7 @@ const SearchInput = ({ className }: { className?: string }) => {
         />
       </div>
 
-      <div className="pointer-events-none absolute bottom-2 text-blue-400 peer-focus:text-blue-700 dark:peer-focus:text-blue-200">
+      <div className="pointer-events-none absolute bottom-2 text-blue-400 peer-invalid:text-red-700 peer-valid:peer-focus:text-blue-700 dark:peer-focus:text-blue-200 peer-invalid:dark:peer-focus:text-red-200">
         <SearchIcon className="size-8" />
       </div>
     </div>
