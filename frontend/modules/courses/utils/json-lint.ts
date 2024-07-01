@@ -66,7 +66,7 @@ const iterateComponentTree = (
 
   const componentParams: ((ParamWithType | ParamWithLiteralValues) & {
     visited?: boolean;
-  })[] = [...Components[componentType].params];
+  })[] = [...Components[componentType].params.map((param) => ({ ...param, visited: false }))];
 
   for (const { node, property } of properties) {
     // skip special property
@@ -184,7 +184,7 @@ const iterateCourseObject = (
 
   const componentParams: (ParamWithType & {
     visited?: boolean;
-  })[] = [...CourseParameters];
+  })[] = [...CourseParameters.map((param) => ({ ...param, visited: false }))];
 
   for (const { node, property } of properties) {
     const paramIndex = componentParams.findIndex(
