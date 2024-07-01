@@ -5,14 +5,13 @@ import { SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useRef } from "react";
 import { TypeAnimation } from "react-type-animation";
-import { useDebounceCallback, useLocalStorage } from "usehooks-ts";
+import { useDebounceCallback } from "usehooks-ts";
 
 const SearchInput = ({ className }: { className?: string }) => {
   const searchInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [, setSearches] = useLocalStorage<string[]>("course-searches", []);
 
   const debouncedSearch = useDebounceCallback((e) => {
     router.replace(
@@ -36,21 +35,21 @@ const SearchInput = ({ className }: { className?: string }) => {
   useEffect(() => {
     if (searchInput.current && search) {
       searchInput.current.value = search;
-      const str = searchInput.current.value;
+      // const str = searchInput.current.value;
 
-      setSearches((oldSearches) => {
-        const searchesCopy = [...oldSearches];
-        const index = searchesCopy.indexOf(str);
-        if (index > -1) {
-          searchesCopy.splice(index, 1);
-        }
-        searchesCopy.push(str);
-        if (searchesCopy.length > 10) {
-          searchesCopy.shift();
-        }
+      // setSearches((oldSearches) => {
+      //   const searchesCopy = [...oldSearches];
+      //   const index = searchesCopy.indexOf(str);
+      //   if (index > -1) {
+      //     searchesCopy.splice(index, 1);
+      //   }
+      //   searchesCopy.push(str);
+      //   if (searchesCopy.length > 10) {
+      //     searchesCopy.shift();
+      //   }
 
-        return searchesCopy;
-      });
+      //   return searchesCopy;
+      // });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput, search]);

@@ -10,7 +10,7 @@ import {
   PackageSearchIcon,
   WindIcon,
 } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import useSWR from "swr";
 import { Course, CoursesPage } from "../../types/course";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,7 @@ import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/loading/loading-spinner";
 import { getCoursesUrl } from "@/utils/backend-utils";
+import { useLocalStorage } from "usehooks-ts";
 
 const NoResults = ({ search }: { search: string | undefined }) => {
   return (
@@ -138,6 +139,28 @@ const SearchResultsList = ({ search }: { search: string | undefined }) => {
       totalPages: -1,
     },
   });
+  const [, setSearches] = useLocalStorage<string[]>("course-searches", [], {
+    initializeWithValue: false,
+  });
+
+  useEffect(() => {
+    if (search && searchResults.content.length > 0) {
+      setSearches((oldSearches) => {
+        const searchesCopy = [...oldSearches];
+        const index = searchesCopy.indexOf(search);
+        if (index > -1) {
+          searchesCopy.splice(index, 1);
+        }
+        searchesCopy.push(search);
+        if (searchesCopy.length > 10) {
+          searchesCopy.shift();
+        }
+
+        return searchesCopy;
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, searchResults]);
 
   if (loadingSearch) {
     return <LoadingSpinner variant="large" text="Loading courses..." />;
