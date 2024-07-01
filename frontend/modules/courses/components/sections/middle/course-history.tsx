@@ -30,6 +30,66 @@ const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
     router.push(`/courses/${element.id}`);
   };
 
+  // return (
+  //   <div className="relative z-10 flex cursor-pointer items-center overflow-hidden rounded-xl p-[2px]">
+  //     <Card
+  //       className="peer z-10 flex size-full cursor-pointer flex-col gap-3 p-5"
+  //       onClick={handleClick}
+  //     >
+  //       <div className="grid h-[110px] grid-cols-6 gap-2">
+  //         <div className="col-span-1 flex items-center justify-center">
+  //           <GraduationCapIcon className="size-12" />
+  //         </div>
+  //         <div className="h4-typography col-span-5 font-bold">
+  //           {element.title}
+  //         </div>
+
+  //         <div className="col-span-1 flex items-center justify-center">
+  //           <BookOpenIcon className="size-6" />
+  //         </div>
+  //         <div className="h6-typography col-span-5  text-muted-foreground">
+  //           {element.subtitle}
+  //         </div>
+  //       </div>
+
+  //       <Separator className="mb-3 mt-4 flex h-[2px] items-center justify-center">
+  //         <div className="inline rounded-full bg-muted p-2">
+  //           <NotebookTextIcon className="size-6" />
+  //         </div>
+  //       </Separator>
+
+  //       <ScrollArea className="">
+  //         <div className="max-h-[75px]">{element.description}</div>
+  //       </ScrollArea>
+
+  //       <Separator className="my-2 h-[2px]" />
+
+  //       <ScrollArea className="max-h-24">
+  //         <div className="flex flex-wrap items-center gap-1">
+  //           {element.tags.map((tag: string) => (
+  //             <Badge key={tag} className="rounded-[5px] dark:bg-light-700">
+  //               {tag}
+  //             </Badge>
+  //           ))}
+  //         </div>
+  //       </ScrollArea>
+
+  //       <div className="mt-1 flex items-center justify-end gap-2">
+  //         <CalendarClockIcon />
+  //         <Tooltip>
+  //           <TooltipTrigger className="font-bold">
+  //             {formattedDate}
+  //           </TooltipTrigger>
+  //           <TooltipContent className="w-52">
+  //             Latest access date.
+  //           </TooltipContent>
+  //         </Tooltip>
+  //       </div>
+  //     </Card>
+  //     <div className="absolute inset-0 left-[-25%] top-[-25%] size-[150%] animate-border-spin rounded-sm bg-[conic-gradient(#0ea5e9_0deg,#0ea5e9_0deg,transparent_80deg)] opacity-0 transition-opacity peer-hover:opacity-100" />
+  //   </div>
+  // );
+
   return (
     <div className="relative z-10 flex cursor-pointer items-center overflow-hidden rounded-xl p-[2px]">
       <Card
@@ -40,19 +100,19 @@ const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
           <div className="col-span-1 flex items-center justify-center">
             <GraduationCapIcon className="size-12" />
           </div>
-          <div className="h4-typography col-span-5 font-bold">
+          <div className="h4-typography col-span-5 flex items-center font-bold">
             {element.title}
           </div>
 
           <div className="col-span-1 flex items-center justify-center">
             <BookOpenIcon className="size-6" />
           </div>
-          <div className="h6-typography col-span-5  text-muted-foreground">
+          <div className="h6-typography col-span-5 flex items-center text-muted-foreground">
             {element.subtitle}
           </div>
         </div>
 
-        <Separator className="mb-3 mt-4 flex h-[2px] items-center justify-center">
+        <Separator className="mb-3 mt-8 flex h-[2px] items-center justify-center sm:mt-4">
           <div className="inline rounded-full bg-muted p-2">
             <NotebookTextIcon className="size-6" />
           </div>
@@ -64,7 +124,7 @@ const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
 
         <Separator className="my-2 h-[2px]" />
 
-        <ScrollArea className="max-h-24">
+        <ScrollArea className="h-24">
           <div className="flex flex-wrap items-center gap-1">
             {element.tags.map((tag: string) => (
               <Badge key={tag} className="rounded-[5px] dark:bg-light-700">
@@ -74,7 +134,7 @@ const CourseHistoryElement = ({ element }: { element: CourseHistoryItem }) => {
           </div>
         </ScrollArea>
 
-        <div className="mt-1 flex items-center justify-end gap-2">
+        <div className="bottom-4 right-6 z-30 flex items-center gap-2 sm:absolute">
           <CalendarClockIcon />
           <Tooltip>
             <TooltipTrigger className="font-bold">
@@ -125,7 +185,7 @@ const CourseHistory = () => {
         The courses you have recently visited.
       </p>
       <ScrollArea className="size-full flex-1 p-3 [&>div>div]:size-full">
-        <div className="grid size-full flex-1 grid-cols-[repeat(auto-fill,_400px)] flex-col items-stretch justify-center gap-5">
+        <div className="grid size-full flex-1 grid-cols-[repeat(auto-fill,_250px)] flex-col items-stretch justify-center gap-5 sm:grid-cols-[repeat(auto-fill,_400px)]">
           {history.map((item) => (
             <CourseHistoryElement key={item.id} element={item} />
           ))}

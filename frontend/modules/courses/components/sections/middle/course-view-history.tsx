@@ -35,7 +35,7 @@ const CourseViewHistory = ({ courseJson }: { courseJson: CourseType }) => {
       const newHistory = prevHistory.filter(
         (item) => item.id !== courseJson.id
       );
-      newHistory.push(newHistoryItem);
+      newHistory.splice(0, 0, newHistoryItem);
 
       return newHistory;
     });
