@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { SWRKey } from "@/modules/users/components/session/session-swr-config";
 import {
   BookOpenIcon,
@@ -67,7 +67,7 @@ const CourseResult = ({ result }: { result: Course }) => {
           </div>
         </div>
 
-        <Separator className="mb-3 mt-4 flex h-[2px] items-center justify-center">
+        <Separator className="mb-3 mt-8 flex h-[2px] items-center justify-center sm:mt-4">
           <div className="inline rounded-full bg-muted p-2">
             <NotebookTextIcon className="size-6" />
           </div>
@@ -90,7 +90,7 @@ const CourseResult = ({ result }: { result: Course }) => {
         </ScrollArea>
 
         {result.textSearchScore && (
-          <div className="absolute bottom-4 right-6 z-30 flex items-center gap-2">
+          <div className="bottom-4 right-6 z-30 flex items-center gap-2 sm:absolute">
             <PackageSearchIcon />
             <Tooltip>
               <TooltipTrigger className="font-bold">
@@ -112,11 +112,12 @@ const CourseResult = ({ result }: { result: Course }) => {
 const Results = ({ results }: { results: CoursesPage }) => {
   return (
     <ScrollArea className="mt-10 size-full flex-1 p-3 [&>div>div]:size-full">
-      <div className="grid size-full flex-1 grid-cols-[repeat(auto-fill,_400px)] flex-col items-stretch justify-center gap-5">
+      <div className="grid size-full flex-1 grid-cols-[repeat(auto-fill,_250px)] flex-col items-stretch justify-center gap-5 sm:grid-cols-[repeat(auto-fill,_400px)]">
         {results.content.map((result: Course) => (
           <CourseResult key={result.id} result={result} />
         ))}
       </div>
+      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
 };

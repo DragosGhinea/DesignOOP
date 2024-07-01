@@ -1,6 +1,6 @@
 import React from "react";
 import Course, { CourseType } from "../../course/course";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { BookDashed, BugIcon } from "lucide-react";
 import CourseViewHistory from "./course-view-history";
 import { getCoursesUrl } from "@/utils/backend-utils";
@@ -58,6 +58,7 @@ const CourseView = async ({ params }: { params: { courseId: string } }) => {
       <ScrollArea className="size-full flex-1 px-2" id="course-scroll-wrapper">
         <div className="h-14" />
         <Course jsonData={jsonData as CourseType} />
+        <ScrollBar orientation="horizontal" />
       </ScrollArea>
       <CourseViewHistory courseJson={jsonData} />
     </div>

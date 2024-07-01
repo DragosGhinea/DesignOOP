@@ -104,7 +104,7 @@ const CourseSearchHistory = () => {
   );
 
   return (
-    <div className="flex size-full flex-col items-center p-10">
+    <div className="flex size-full flex-col items-center sm:p-10">
       <h5 className="h5-typography mb-5 text-nowrap font-bold">
         Latest searches
       </h5>
