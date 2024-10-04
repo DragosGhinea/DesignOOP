@@ -1,0 +1,919 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{apache-maven}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{Apache Maven}
+      \verb{urlraw}
+      \verb https://maven.apache.org/
+      \endverb
+      \verb{url}
+      \verb https://maven.apache.org/
+      \endverb
+    \endentry
+    \entry{junit5}{online}{}
+      \name{author}{7}{}{%
+        {{hash=d2176f132427d819db3d8d587d58975e}{%
+           family={Bechtold},
+           familyi={B\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ad50bfa612c3e1005f7aff53c4294d0e}{%
+           family={Brannen},
+           familyi={B\bibinitperiod},
+           given={Sam},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1bc0b68380b494c672537296e1cbcc62}{%
+           family={Link},
+           familyi={L\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod}}}%
+        {{hash=170dc7e23bc7ecb66223d2c3010fdd8e}{%
+           family={Merdes},
+           familyi={M\bibinitperiod},
+           given={Matthias},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a872f29a92f9d56ba1f30e606aef5611}{%
+           family={Philipp},
+           familyi={P\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+        {{hash=92dcd2f1921afc84895a74e3757cc4d0}{%
+           family={Rancourt},
+           familyi={R\bibinitperiod},
+           given={Juliette},
+           giveni={J\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=be6b1a49c2e6038167b2a587b5549235}{%
+           family={Stein},
+           familyi={S\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{cbd442e69086c84c508ce653f01f9bb3}
+      \strng{fullhash}{d9aa7a0d849f53ad4e9a86ae6d6e9a6f}
+      \strng{bibnamehash}{d9aa7a0d849f53ad4e9a86ae6d6e9a6f}
+      \strng{authorbibnamehash}{d9aa7a0d849f53ad4e9a86ae6d6e9a6f}
+      \strng{authornamehash}{cbd442e69086c84c508ce653f01f9bb3}
+      \strng{authorfullhash}{d9aa7a0d849f53ad4e9a86ae6d6e9a6f}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/17/2024}
+      \field{title}{JUnit 5 User Guide}
+      \verb{urlraw}
+      \verb https://junit.org/junit5/docs/current/user-guide/
+      \endverb
+      \verb{url}
+      \verb https://junit.org/junit5/docs/current/user-guide/
+      \endverb
+    \endentry
+    \entry{codemirror}{online}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/24/2024}
+      \field{title}{CodeMirror - Extensible Code Editor}
+      \verb{urlraw}
+      \verb https://codemirror.net/
+      \endverb
+      \verb{url}
+      \verb https://codemirror.net/
+      \endverb
+    \endentry
+    \entry{react-folder-structure}{online}{}
+      \name{author}{1}{}{%
+        {{hash=f18aa5529ed291f7df577e2dcb36f4e9}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Kyle},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{f18aa5529ed291f7df577e2dcb36f4e9}
+      \strng{fullhash}{f18aa5529ed291f7df577e2dcb36f4e9}
+      \strng{bibnamehash}{f18aa5529ed291f7df577e2dcb36f4e9}
+      \strng{authorbibnamehash}{f18aa5529ed291f7df577e2dcb36f4e9}
+      \strng{authornamehash}{f18aa5529ed291f7df577e2dcb36f4e9}
+      \strng{authorfullhash}{f18aa5529ed291f7df577e2dcb36f4e9}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/19/2024}
+      \field{title}{How To Structure React Projects From Beginner To Advanced}
+      \verb{urlraw}
+      \verb https://blog.webdevsimplified.com/2022-07/react-folder-structure/
+      \endverb
+      \verb{url}
+      \verb https://blog.webdevsimplified.com/2022-07/react-folder-structure/
+      \endverb
+    \endentry
+    \entry{springsecurity-github-issue-failhandler}{online}{}
+      \name{author}{1}{}{%
+        {{hash=63084ddf7c3e07337a728cdd35aee406}{%
+           family={Cummings},
+           familyi={C\bibinitperiod},
+           given={Josh},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{63084ddf7c3e07337a728cdd35aee406}
+      \strng{fullhash}{63084ddf7c3e07337a728cdd35aee406}
+      \strng{bibnamehash}{63084ddf7c3e07337a728cdd35aee406}
+      \strng{authorbibnamehash}{63084ddf7c3e07337a728cdd35aee406}
+      \strng{authornamehash}{63084ddf7c3e07337a728cdd35aee406}
+      \strng{authorfullhash}{63084ddf7c3e07337a728cdd35aee406}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/16/2024}
+      \field{title}{BearerTokenAuthenticationFilter prevents failureHandler from handling AuthenticationServiceException causing unhandled exception}
+      \verb{urlraw}
+      \verb https://github.com/spring-projects/spring-security/issues/10818#issuecomment-1034234544
+      \endverb
+      \verb{url}
+      \verb https://github.com/spring-projects/spring-security/issues/10818#issuecomment-1034234544
+      \endverb
+    \endentry
+    \entry{docker}{online}{}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{Docker}
+      \verb{urlraw}
+      \verb https://www.docker.com/
+      \endverb
+      \verb{url}
+      \verb https://www.docker.com/
+      \endverb
+    \endentry
+    \entry{docker-compose}{online}{}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{Docker Compose}
+      \verb{urlraw}
+      \verb https://docs.docker.com/compose/
+      \endverb
+      \verb{url}
+      \verb https://docs.docker.com/compose/
+      \endverb
+    \endentry
+    \entry{learn-by-teaching}{article}{}
+      \name{author}{1}{}{%
+        {{hash=17ee2b91afeb6f868a44d6360a8be99e}{%
+           family={Duran},
+           familyi={D\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Routledge}%
+      }
+      \strng{namehash}{17ee2b91afeb6f868a44d6360a8be99e}
+      \strng{fullhash}{17ee2b91afeb6f868a44d6360a8be99e}
+      \strng{bibnamehash}{17ee2b91afeb6f868a44d6360a8be99e}
+      \strng{authorbibnamehash}{17ee2b91afeb6f868a44d6360a8be99e}
+      \strng{authornamehash}{17ee2b91afeb6f868a44d6360a8be99e}
+      \strng{authorfullhash}{17ee2b91afeb6f868a44d6360a8be99e}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Innovations in Education and Teaching International}
+      \field{number}{5}
+      \field{title}{Learning-by-teaching. Evidence and implications as a pedagogical mechanism}
+      \field{volume}{54}
+      \field{year}{2017}
+      \field{pages}{476\bibrangedash 484}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1080/14703297.2016.1156011
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1080/14703297.2016.1156011
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/14703297.2016.1156011
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/14703297.2016.1156011
+      \endverb
+    \endentry
+    \entry{remix-vs-next-according-to-remix}{online}{}
+      \name{author}{1}{}{%
+        {{hash=455a696797453fdede797f56f4e77402}{%
+           family={Florence},
+           familyi={F\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{455a696797453fdede797f56f4e77402}
+      \strng{fullhash}{455a696797453fdede797f56f4e77402}
+      \strng{bibnamehash}{455a696797453fdede797f56f4e77402}
+      \strng{authorbibnamehash}{455a696797453fdede797f56f4e77402}
+      \strng{authornamehash}{455a696797453fdede797f56f4e77402}
+      \strng{authorfullhash}{455a696797453fdede797f56f4e77402}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Remix Blog}
+      \verb{urlraw}
+      \verb https://remix.run/blog/remix-vs-next
+      \endverb
+      \verb{url}
+      \verb https://remix.run/blog/remix-vs-next
+      \endverb
+    \endentry
+    \entry{jsoncrush}{online}{}
+      \name{author}{1}{}{%
+        {{hash=4168673e450bda6dd304008e42fcde87}{%
+           family={Force},
+           familyi={F\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{4168673e450bda6dd304008e42fcde87}
+      \strng{fullhash}{4168673e450bda6dd304008e42fcde87}
+      \strng{bibnamehash}{4168673e450bda6dd304008e42fcde87}
+      \strng{authorbibnamehash}{4168673e450bda6dd304008e42fcde87}
+      \strng{authornamehash}{4168673e450bda6dd304008e42fcde87}
+      \strng{authorfullhash}{4168673e450bda6dd304008e42fcde87}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/27/2024}
+      \field{title}{JSONCrush - Compress JSON into URL friendly strings}
+      \verb{urlraw}
+      \verb https://github.com/KilledByAPixel/JSONCrush
+      \endverb
+      \verb{url}
+      \verb https://github.com/KilledByAPixel/JSONCrush
+      \endverb
+    \endentry
+    \entry{mongodb-custom-repositories}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c246a6d688b8ebf29dada6353466c174}{%
+           family={Geabunea},
+           familyi={G\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{c246a6d688b8ebf29dada6353466c174}
+      \strng{fullhash}{c246a6d688b8ebf29dada6353466c174}
+      \strng{bibnamehash}{c246a6d688b8ebf29dada6353466c174}
+      \strng{authorbibnamehash}{c246a6d688b8ebf29dada6353466c174}
+      \strng{authornamehash}{c246a6d688b8ebf29dada6353466c174}
+      \strng{authorfullhash}{c246a6d688b8ebf29dada6353466c174}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/14/2024}
+      \field{title}{How to Create a Custom MongoDB Spring Data Repository}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://medium.com/@dangeabunea/how-to-create-a-custom-mongodb-spring-data-repository-e51c343064e1
+      \endverb
+      \verb{url}
+      \verb https://medium.com/@dangeabunea/how-to-create-a-custom-mongodb-spring-data-repository-e51c343064e1
+      \endverb
+    \endentry
+    \entry{designoop}{online}{}
+      \name{author}{1}{}{%
+        {{hash=ab07ab21ce2b768f56b288303800bc05}{%
+           family={Ghinea},
+           familyi={G\bibinitperiod},
+           given={Dragoș-Dumitru},
+           giveni={D\bibinithyphendelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{ab07ab21ce2b768f56b288303800bc05}
+      \strng{fullhash}{ab07ab21ce2b768f56b288303800bc05}
+      \strng{bibnamehash}{ab07ab21ce2b768f56b288303800bc05}
+      \strng{authorbibnamehash}{ab07ab21ce2b768f56b288303800bc05}
+      \strng{authornamehash}{ab07ab21ce2b768f56b288303800bc05}
+      \strng{authorfullhash}{ab07ab21ce2b768f56b288303800bc05}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/29/2024}
+      \field{title}{DesignOOP - Design Patterns Visualizer Web Platform}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://github.com/DragosGhinea/DesignOOP
+      \endverb
+      \verb{url}
+      \verb https://github.com/DragosGhinea/DesignOOP
+      \endverb
+    \endentry
+    \entry{language-server-protocol}{online}{}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 5/25/2024}
+      \field{title}{Language Server Protocol}
+      \verb{urlraw}
+      \verb https://microsoft.github.io/language-server-protocol/
+      \endverb
+      \verb{url}
+      \verb https://microsoft.github.io/language-server-protocol/
+      \endverb
+    \endentry
+    \entry{lezer-playground}{online}{}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 5/25/2024}
+      \field{title}{Lezer Playground}
+      \verb{urlraw}
+      \verb https://lezer-playground.vercel.app/
+      \endverb
+      \verb{url}
+      \verb https://lezer-playground.vercel.app/
+      \endverb
+    \endentry
+    \entry{mongodb}{online}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{MongoDB}
+      \verb{urlraw}
+      \verb https://www.mongodb.com/
+      \endverb
+      \verb{url}
+      \verb https://www.mongodb.com/
+      \endverb
+    \endentry
+    \entry{mapstruct}{online}{}
+      \name{author}{1}{}{%
+        {{hash=a95439102956db1453b13750559b6700}{%
+           family={Morling},
+           familyi={M\bibinitperiod},
+           given={Gunnar},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{a95439102956db1453b13750559b6700}
+      \strng{fullhash}{a95439102956db1453b13750559b6700}
+      \strng{bibnamehash}{a95439102956db1453b13750559b6700}
+      \strng{authorbibnamehash}{a95439102956db1453b13750559b6700}
+      \strng{authornamehash}{a95439102956db1453b13750559b6700}
+      \strng{authorfullhash}{a95439102956db1453b13750559b6700}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{MapStruct}
+      \verb{urlraw}
+      \verb https://mapstruct.org/
+      \endverb
+      \verb{url}
+      \verb https://mapstruct.org/
+      \endverb
+    \endentry
+    \entry{h2}{online}{}
+      \name{author}{1}{}{%
+        {{hash=6040d212722adae7d724a97793df38d1}{%
+           family={Mueller},
+           familyi={M\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{6040d212722adae7d724a97793df38d1}
+      \strng{fullhash}{6040d212722adae7d724a97793df38d1}
+      \strng{bibnamehash}{6040d212722adae7d724a97793df38d1}
+      \strng{authorbibnamehash}{6040d212722adae7d724a97793df38d1}
+      \strng{authornamehash}{6040d212722adae7d724a97793df38d1}
+      \strng{authorfullhash}{6040d212722adae7d724a97793df38d1}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{H2 Database Engine}
+      \verb{urlraw}
+      \verb https://www.h2database.com/html/main.html
+      \endverb
+      \verb{url}
+      \verb https://www.h2database.com/html/main.html
+      \endverb
+    \endentry
+    \entry{nextjs-app-router}{online}{}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Next.js Docs - App Router}
+      \verb{urlraw}
+      \verb https://nextjs.org/docs/app
+      \endverb
+      \verb{url}
+      \verb https://nextjs.org/docs/app
+      \endverb
+    \endentry
+    \entry{nextjs-env-variables}{online}{}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/18/2024}
+      \field{title}{Next.js Docs - Environment Variables}
+      \verb{urlraw}
+      \verb https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
+      \endverb
+      \verb{url}
+      \verb https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
+      \endverb
+    \endentry
+    \entry{nextjs-installation}{online}{}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Next.js Docs - Installation}
+      \verb{urlraw}
+      \verb https://nextjs.org/docs/getting-started/installation
+      \endverb
+      \verb{url}
+      \verb https://nextjs.org/docs/getting-started/installation
+      \endverb
+    \endentry
+    \entry{nextjs-app-router-folders}{online}{}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/18/2024}
+      \field{title}{Next.js Docs - Project Structure}
+      \verb{urlraw}
+      \verb https://nextjs.org/docs/getting-started/project-structure
+      \endverb
+      \verb{url}
+      \verb https://nextjs.org/docs/getting-started/project-structure
+      \endverb
+    \endentry
+    \entry{nextauth}{online}{}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/28/2024}
+      \field{title}{NextAuth.js Docs}
+      \verb{urlraw}
+      \verb https://next-auth.js.org/
+      \endverb
+      \verb{url}
+      \verb https://next-auth.js.org/
+      \endverb
+    \endentry
+    \entry{nx-docs}{online}{}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Nx Docs}
+      \verb{urlraw}
+      \verb https://nx.dev/getting-started/intro
+      \endverb
+      \verb{url}
+      \verb https://nx.dev/getting-started/intro
+      \endverb
+    \endentry
+    \entry{spring-security-resource-server}{online}{}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/16/2024}
+      \field{title}{OAuth 2.0 Resource Server JWT}
+      \verb{urlraw}
+      \verb https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html
+      \endverb
+      \verb{url}
+      \verb https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html
+      \endverb
+    \endentry
+    \entry{baeldung-spring-exceptions}{online}{}
+      \name{author}{1}{}{%
+        {{hash=231383ed6ed52183bc1dce58db3f5e1f}{%
+           family={Paraschiv},
+           familyi={P\bibinitperiod},
+           given={Eugen},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{fullhash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{bibnamehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{authorbibnamehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{authornamehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{authorfullhash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \field{extraname}{1}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/15/2024}
+      \field{title}{Error Handling for REST with Spring}
+      \verb{urlraw}
+      \verb https://www.baeldung.com/exception-handling-for-rest-with-spring
+      \endverb
+      \verb{url}
+      \verb https://www.baeldung.com/exception-handling-for-rest-with-spring
+      \endverb
+    \endentry
+    \entry{baeldung-mockito}{online}{}
+      \name{author}{1}{}{%
+        {{hash=231383ed6ed52183bc1dce58db3f5e1f}{%
+           family={Paraschiv},
+           familyi={P\bibinitperiod},
+           given={Eugen},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{fullhash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{bibnamehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{authorbibnamehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{authornamehash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \strng{authorfullhash}{231383ed6ed52183bc1dce58db3f5e1f}
+      \field{extraname}{2}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/17/2024}
+      \field{title}{Getting Started with Mockito @Mock, @Spy, @Captor and @InjectMocks}
+      \verb{urlraw}
+      \verb https://www.baeldung.com/mockito-annotations
+      \endverb
+      \verb{url}
+      \verb https://www.baeldung.com/mockito-annotations
+      \endverb
+    \endentry
+    \entry{postgresql}{online}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{PostgreSQL}
+      \verb{urlraw}
+      \verb https://www.postgresql.org/
+      \endverb
+      \verb{url}
+      \verb https://www.postgresql.org/
+      \endverb
+    \endentry
+    \entry{postman}{online}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{Postman}
+      \verb{urlraw}
+      \verb https://www.postman.com/
+      \endverb
+      \verb{url}
+      \verb https://www.postman.com/
+      \endverb
+    \endentry
+    \entry{prettier}{online}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Prettier Docs}
+      \verb{urlraw}
+      \verb https://prettier.io/docs/en/
+      \endverb
+      \verb{url}
+      \verb https://prettier.io/docs/en/
+      \endverb
+    \endentry
+    \entry{prismjs}{online}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/27/2024}
+      \field{title}{PrismJS}
+      \verb{urlraw}
+      \verb https://prismjs.com/
+      \endverb
+      \verb{url}
+      \verb https://prismjs.com/
+      \endverb
+    \endentry
+    \entry{react-codemirror}{online}{}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 5/24/2024}
+      \field{title}{React CodeMirror}
+      \verb{urlraw}
+      \verb https://uiwjs.github.io/react-codemirror/
+      \endverb
+      \verb{url}
+      \verb https://uiwjs.github.io/react-codemirror/
+      \endverb
+    \endentry
+    \entry{reactflow}{online}{}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/26/2024}
+      \field{title}{React Flow}
+      \verb{urlraw}
+      \verb https://reactflow.dev/
+      \endverb
+      \verb{url}
+      \verb https://reactflow.dev/
+      \endverb
+    \endentry
+    \entry{remix-docs}{online}{}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Remix Docs}
+      \verb{urlraw}
+      \verb https://remix.run/docs/en/main/discussion/introduction
+      \endverb
+      \verb{url}
+      \verb https://remix.run/docs/en/main/discussion/introduction
+      \endverb
+    \endentry
+    \entry{project-lombok}{online}{}
+      \name{author}{1}{}{%
+        {{hash=35dda3d1a25712a1661cd152b8767532}{%
+           family={Roel\bibnamedelima Spilker},
+           familyi={R\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={Reinier\bibnamedelima Zwitserloot},
+           giveni={R\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{35dda3d1a25712a1661cd152b8767532}
+      \strng{fullhash}{35dda3d1a25712a1661cd152b8767532}
+      \strng{bibnamehash}{35dda3d1a25712a1661cd152b8767532}
+      \strng{authorbibnamehash}{35dda3d1a25712a1661cd152b8767532}
+      \strng{authornamehash}{35dda3d1a25712a1661cd152b8767532}
+      \strng{authorfullhash}{35dda3d1a25712a1661cd152b8767532}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{Project Lombok}
+      \verb{urlraw}
+      \verb https://projectlombok.org/
+      \endverb
+      \verb{url}
+      \verb https://projectlombok.org/
+      \endverb
+    \endentry
+    \entry{shadcn-components}{online}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/19/2024}
+      \field{title}{Shadcn Docs}
+      \verb{urlraw}
+      \verb https://ui.shadcn.com/docs
+      \endverb
+      \verb{url}
+      \verb https://ui.shadcn.com/docs
+      \endverb
+    \endentry
+    \entry{springboot}{online}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/25/2024}
+      \field{title}{Spring Boot}
+      \verb{urlraw}
+      \verb https://spring.io/projects/spring-boot
+      \endverb
+      \verb{url}
+      \verb https://spring.io/projects/spring-boot
+      \endverb
+    \endentry
+    \entry{spring-data}{online}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Spring Data}
+      \verb{urlraw}
+      \verb https://spring.io/projects/spring-data
+      \endverb
+      \verb{url}
+      \verb https://spring.io/projects/spring-data
+      \endverb
+    \endentry
+    \entry{swr}{online}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/29/2024}
+      \field{title}{SWR Docs}
+      \verb{urlraw}
+      \verb https://swr.vercel.app/
+      \endverb
+      \verb{url}
+      \verb https://swr.vercel.app/
+      \endverb
+    \endentry
+    \entry{lezer}{online}{}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 5/25/2024}
+      \field{title}{The Lezer Parser System}
+      \verb{urlraw}
+      \verb https://lezer.codemirror.net/
+      \endverb
+      \verb{url}
+      \verb https://lezer.codemirror.net/
+      \endverb
+    \endentry
+    \entry{tiptap}{online}{}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/27/2024}
+      \field{title}{TipTap Docs}
+      \verb{urlraw}
+      \verb https://tiptap.dev/docs/editor/introduction
+      \endverb
+      \verb{url}
+      \verb https://tiptap.dev/docs/editor/introduction
+      \endverb
+    \endentry
+    \entry{usehooks-ts}{online}{}
+      \field{sortinit}{u}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/20/2024}
+      \field{title}{usehooks-ts Docs}
+      \verb{urlraw}
+      \verb https://usehooks-ts.com/introduction
+      \endverb
+      \verb{url}
+      \verb https://usehooks-ts.com/introduction
+      \endverb
+    \endentry
+    \entry{vite-guide}{online}{}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{Vite Guide}
+      \verb{urlraw}
+      \verb https://vitejs.dev/guide/why
+      \endverb
+      \verb{url}
+      \verb https://vitejs.dev/guide/why
+      \endverb
+    \endentry
+    \entry{springboot-loader-properties}{online}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{hash=8afebe22ccc1176fef1c7f164c9749cb}{%
+           family={Webb},
+           familyi={W\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod}}}%
+        {{hash=29b3b304522e4f786254186ea5bd217b}{%
+           family={Syer},
+           familyi={S\bibinitperiod},
+           given={Dave},
+           giveni={D\bibinitperiod}}}%
+        {{hash=bbeb768f3495d30ce2909b34db85c315}{%
+           family={Long},
+           familyi={L\bibinitperiod},
+           given={Josh},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b9679c0fc2df437888f2fa91910e74f5}{%
+           family={Nicoll},
+           familyi={N\bibinitperiod},
+           given={Stéphane},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f827a2ef6167187fc1b26e8fe8c86d06}{%
+           family={Winch},
+           familyi={W\bibinitperiod},
+           given={Rob},
+           giveni={R\bibinitperiod}}}%
+        {{hash=d4a41a1f7eac98862fa2a917bdea0a4a}{%
+           family={Wilkinson},
+           familyi={W\bibinitperiod},
+           given={Andy},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e927b283d97238b025c638fed7033253}{%
+           family={Overdijk},
+           familyi={O\bibinitperiod},
+           given={Marcel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=84fb2a37a9c7f513bd3447390e9f88bf}{%
+           family={Dupuis},
+           familyi={D\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=8cd5330a14fb2ded7060f40e67b1916d}{%
+           family={Deleuze},
+           familyi={D\bibinitperiod},
+           given={Sébastien},
+           giveni={S\bibinitperiod}}}%
+        {{hash=e9ae7095d402f3b83e2f9a6b9cbd4492}{%
+           family={Simons},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{dc4f8013bf8ab56e10dbae5d54899b69}
+      \strng{fullhash}{c1d82e271a9f44d205c38e3f7210f797}
+      \strng{bibnamehash}{c1d82e271a9f44d205c38e3f7210f797}
+      \strng{authorbibnamehash}{c1d82e271a9f44d205c38e3f7210f797}
+      \strng{authornamehash}{dc4f8013bf8ab56e10dbae5d54899b69}
+      \strng{authorfullhash}{c1d82e271a9f44d205c38e3f7210f797}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/10/2024}
+      \field{title}{Spring Boot Reference Documentation}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html
+      \endverb
+      \verb{url}
+      \verb https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html
+      \endverb
+    \endentry
+    \entry{hikaricp}{online}{}
+      \name{author}{1}{}{%
+        {{hash=f6e21d8e09470b33af7c183e2c927ac6}{%
+           family={Wooldridge},
+           familyi={W\bibinitperiod},
+           given={Brett},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{f6e21d8e09470b33af7c183e2c927ac6}
+      \strng{fullhash}{f6e21d8e09470b33af7c183e2c927ac6}
+      \strng{bibnamehash}{f6e21d8e09470b33af7c183e2c927ac6}
+      \strng{authorbibnamehash}{f6e21d8e09470b33af7c183e2c927ac6}
+      \strng{authornamehash}{f6e21d8e09470b33af7c183e2c927ac6}
+      \strng{authorfullhash}{f6e21d8e09470b33af7c183e2c927ac6}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/11/2024}
+      \field{title}{HikariCP: A solid, high-performance, JDBC connection pool at last.}
+      \field{year}{2013}
+      \verb{urlraw}
+      \verb https://github.com/brettwooldridge/HikariCP
+      \endverb
+      \verb{url}
+      \verb https://github.com/brettwooldridge/HikariCP
+      \endverb
+    \endentry
+    \entry{spring-data-repositories}{online}{}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labeltitlesource}{title}
+      \field{note}{Visited on 05/13/2024}
+      \field{title}{Working with Spring Data Repositories}
+      \verb{urlraw}
+      \verb https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
+      \endverb
+      \verb{url}
+      \verb https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
